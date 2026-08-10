@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Raghav Bansal — Human-Centred AI Engineer</title>
-<meta name="description" content="Raghav Bansal — Human-Centred AI engineer in Dublin. RAG systems, legal AI for asylum seekers, fairness research, healthcare ML, civic tech.">
+<title>Raghav Bansal - Human-Centred AI Engineer</title>
+<meta name="description" content="Raghav Bansal - Human-Centred AI engineer in Dublin. RAG systems, legal AI for asylum seekers, fairness research, healthcare ML, civic tech.">
 <meta name="theme-color" id="metaTheme" content="#f7f4ec">
 <script>(function(){var t="light";try{t=localStorage.getItem("rb-theme")||((matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");}catch(e){}document.documentElement.setAttribute("data-theme",t);})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,8 +34,8 @@
   --shadow:0 26px 64px -30px rgba(25,27,34,.32);
   --grain-opacity:.045;
   --radius:4px;
-  --max:1200px;
-  --gutter:clamp(28px,7vw,130px);
+  --max:100%;
+  --gutter:clamp(26px,4.5vw,86px);
 }
 [data-theme="dark"]{
   color-scheme:dark;
@@ -171,7 +171,7 @@ header{
 h1{
   font-family:'Fraunces',serif;font-weight:540;
   font-size:clamp(2.9rem,10.6vw,9rem);
-  line-height:.96;letter-spacing:-.025em;
+  line-height:1.04;letter-spacing:-.025em;
   animation:rise .9s .2s cubic-bezier(.2,.7,.2,1) both;
 }
 h1 .ital{font-style:italic;font-weight:400;color:var(--accent)}
@@ -320,6 +320,9 @@ h2{font-family:'Fraunces',serif;font-weight:540;font-size:clamp(2rem,4.8vw,3.6re
   transition:all .2s;
 }
 .tag:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.proj-link{display:inline-flex;align-items:center;gap:8px;margin-top:20px;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid transparent;padding-bottom:3px;transition:border-color .25s,gap .25s}
+.proj-link:hover{border-bottom-color:var(--accent);gap:12px}
+.proj p+p{margin-top:13px}
 
 /* skills */
 .skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,1.8vw,22px)}
@@ -390,10 +393,161 @@ footer{
 }
 footer a{color:var(--ink-soft);text-decoration:none}
 footer a:hover{color:var(--accent)}
+
+/* ============================================================
+   MOTION LAYER — scroll-driven 3D, reveals, tilt
+============================================================ */
+:root{
+  --img-orb:url('https://d8j0ntlcm91z4.cloudfront.net/user_3HUgVrkS3pw9LoJdqzUc9PMBD17/hf_20260805_115720_da035e1c-4633-4f9b-9f79-30b04fe23828.png');
+  --img-layer:url('https://d8j0ntlcm91z4.cloudfront.net/user_3HUgVrkS3pw9LoJdqzUc9PMBD17/hf_20260805_115719_ece1582a-93c4-4394-a412-13b5c8384e4b.png');
+}
+[data-theme="dark"]{
+  --img-orb:url('https://d8j0ntlcm91z4.cloudfront.net/user_3HUgVrkS3pw9LoJdqzUc9PMBD17/hf_20260805_115719_924bd288-2af1-431d-b7d0-63a25af75f39.png');
+}
+
+/* scroll progress hairline */
+.progress{
+  position:fixed;top:0;left:0;height:2px;width:100%;z-index:80;
+  transform:scaleX(0);transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--accent),var(--gold));
+  will-change:transform;
+}
+
+/* ---------- HERO 3D ORB ---------- */
+.orb-wrap{
+  position:absolute;top:50%;right:calc(var(--gutter) * -0.15);
+  width:min(46vw,560px);aspect-ratio:1;
+  transform:translate3d(0,-50%,0);
+  pointer-events:none;z-index:0;
+  perspective:1200px;
+}
+@media(max-width:900px){
+  .orb-wrap{width:78vw;right:-14vw;top:38%;opacity:.5}
+}
+.orb{
+  width:100%;height:100%;
+  background-image:var(--img-orb);
+  background-size:cover;background-position:center;
+  border-radius:50%;
+  filter:blur(.2px) saturate(1.05);
+  mix-blend-mode:multiply;
+  opacity:0;
+  animation:orbIn 1.6s .35s cubic-bezier(.16,1,.3,1) forwards;
+  will-change:transform,opacity;
+  transform-style:preserve-3d;
+}
+[data-theme="dark"] .orb{mix-blend-mode:screen;filter:saturate(1.15) contrast(1.05)}
+@keyframes orbIn{from{opacity:0;transform:scale(.82) rotate(-8deg)}to{opacity:.92;transform:none}}
+/* soft vignette so the orb melts into the page */
+.orb-wrap::after{
+  content:"";position:absolute;inset:-2%;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,transparent 52%,var(--paper) 78%);
+  pointer-events:none;
+}
+
+/* ---------- LINE REVEAL (Apple-style unmask) ---------- */
+.lines{overflow:visible}
+.line{
+  display:block;overflow:hidden;
+  padding-bottom:.18em;margin-bottom:-.18em;
+}
+.line > span{
+  display:block;
+  transform:translateY(115%);
+  transition:transform 1.05s cubic-bezier(.16,1,.3,1);
+  will-change:transform;
+}
+.in .line > span,.line.in > span{transform:none}
+.line:nth-child(2) > span{transition-delay:.09s}
+.line:nth-child(3) > span{transition-delay:.18s}
+
+/* ---------- STAGGERED CHILD REVEAL ---------- */
+.stagger > *{
+  opacity:0;transform:translateY(26px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);
+}
+.stagger.in > *{opacity:1;transform:none}
+.stagger.in > *:nth-child(1){transition-delay:.03s}
+.stagger.in > *:nth-child(2){transition-delay:.09s}
+.stagger.in > *:nth-child(3){transition-delay:.15s}
+.stagger.in > *:nth-child(4){transition-delay:.21s}
+.stagger.in > *:nth-child(5){transition-delay:.27s}
+.stagger.in > *:nth-child(6){transition-delay:.33s}
+.stagger.in > *:nth-child(7){transition-delay:.39s}
+.stagger.in > *:nth-child(8){transition-delay:.45s}
+
+/* ---------- 3D TILT CARDS ---------- */
+.tilt{
+  transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .35s;
+  will-change:transform;
+}
+.tilt.live{transition:transform .12s linear,box-shadow .35s,border-color .35s}
+.tilt-in{transform:translateZ(28px)}
+
+/* ---------- SHOWCASE BAND (sticky scroll moment) ---------- */
+.showcase{
+  position:relative;height:190vh;margin:clamp(30px,7vh,70px) 0;
+  border:none;padding:0;
+}
+.showcase-pin{
+  position:sticky;top:0;height:100svh;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.showcase-media{
+  position:absolute;inset:0;
+  background-image:var(--img-layer);
+  background-size:cover;background-position:center;
+  opacity:.32;
+  transform:scale(1.18);
+  will-change:transform,opacity;
+}
+[data-theme="dark"] .showcase-media{opacity:.42}
+.showcase-pin::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,var(--paper) 0%,transparent 22%,transparent 78%,var(--paper) 100%);
+  pointer-events:none;
+}
+.showcase-copy{
+  position:relative;z-index:2;text-align:center;
+  max-width:min(880px,86vw);padding:0 20px;
+}
+.showcase-copy .kick{
+  font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:22px;
+}
+.showcase-copy h2{
+  font-size:clamp(1.9rem,5.2vw,4.1rem);line-height:1.08;letter-spacing:-.025em;
+}
+.showcase-copy h2 .ital{font-style:italic;color:var(--gold)}
+.showcase-copy p{
+  margin-top:24px;color:var(--ink-soft);
+  font-size:clamp(1rem,1.35vw,1.16rem);line-height:1.75;
+  max-width:60ch;margin-left:auto;margin-right:auto;
+}
+
+/* ---------- MAGNETIC BUTTONS ---------- */
+.btn{will-change:transform}
+
+/* ---------- REDUCED MOTION ---------- */
+@media (prefers-reduced-motion:reduce){
+  .orb{animation:none;opacity:.85}
+  .line > span{transform:none!important}
+  .stagger > *{opacity:1!important;transform:none!important}
+  .showcase{height:auto}
+  .showcase-pin{position:relative;height:auto;padding:80px 0}
+  .showcase-media{transform:none}
+  .tilt{transform:none!important}
+}
+
+.proj.flagship{border-color:var(--gold);border-width:1.5px}
+.proj.flagship .proj-num{background:linear-gradient(180deg,var(--accent-soft),transparent);color:var(--gold)}
 </style>
 </head>
 <body>
 <div class="frame" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
 
 <nav aria-label="Main navigation">
   <a class="brand" href="#top">Raghav<span class="dot">.</span>Bansal <small>DUB / EU</small></a>
@@ -426,10 +580,11 @@ footer a:hover{color:var(--accent)}
 
 <header id="top">
   <div class="hero-grid-lines" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-  <div class="status-pill"><span class="blink"></span><span data-i18n="hero_status">Open to graduate AI/ML roles — Dublin, Ireland</span></div>
-  <h1>Human-Centred<br><span class="ital" data-i18n="hero_word">AI Engineer</span></h1>
+  <div class="orb-wrap" aria-hidden="true"><div class="orb" id="orb"></div></div>
+  <div class="status-pill"><span class="blink"></span><span data-i18n="hero_status">Open to graduate AI/ML roles - Dublin, Ireland</span></div>
+  <h1 class="lines in"><span class="line"><span>Human-Centred</span></span><span class="line"><span class="ital" data-i18n="hero_word">AI Engineer</span></span></h1>
   <div class="hero-sub">
-    <p class="hero-tagline" data-i18n="hero_tagline">I design and evaluate AI systems people can <strong>actually trust</strong> — from a multilingual legal-guidance chatbot for asylum seekers to healthcare ML, fairness research and civic tech, built across three countries.</p>
+    <p class="hero-tagline" data-i18n="hero_tagline">I build AI that <strong>acts, not just answers</strong> - an autonomous agent that opens its own pull requests, and a retrieval system keeping two Irish legal regimes from contaminating each other. Built across three countries.</p>
     <div class="stamps" aria-label="Countries lived and worked in">
       <div class="stamp" style="--r:-3deg"><b>IRL</b>Dublin<br>2020 →</div>
       <div class="stamp" style="--r:2deg"><b>FIN</b>Oulu<br>2022–23</div>
@@ -462,11 +617,11 @@ footer a:hover{color:var(--accent)}
     <div class="reveal">
       <p class="about-lede" data-i18n="about_lede">A curious mind building <em>bridges</em> between people and technology.</p>
       <div class="about-body">
-        <p data-i18n="about_p1">I'm Raghav — an AI researcher and engineer based in Dublin, Ireland. My journey runs from Computer Science at TU Dublin to an Erasmus year in Finland, and now an MSc thesis designing an AI guidance chatbot for asylum seekers, alongside an AI-systems internship with HU Utrecht.</p>
-        <div class="pull-quote" data-i18n="about_quote">I'm fascinated by how technology shapes human behaviour — and where we take AI next. I build systems people can actually trust and use, whether that's helping asylum seekers navigate Ireland's legal process or supporting patients with chronic kidney disease.</div>
-        <p data-i18n="about_p2">That thread runs through everything below: retrieval-augmented legal guidance, an award-winning serverless healthcare platform, fairness research that exposes what accuracy hides, and civic apps shipped end-to-end.</p>
+        <p data-i18n="about_p1">I'm Raghav - an AI engineer based in Dublin, finishing an MSc in Human-Centred AI at TU Dublin after a BSc in Computer Science and an Erasmus year in Oulu, Finland. I build systems that take actions in the world and answer for them.</p>
+        <div class="pull-quote" data-i18n="about_quote">I'm fascinated by how technology shapes human behaviour - and where we take AI next. I build systems people can actually trust and use, whether that's helping asylum seekers navigate Ireland's legal process or supporting patients with chronic kidney disease.</div>
+        <p data-i18n="about_p2">That runs through everything below: an autonomous coding agent behind a strict authorisation boundary, retrieval-augmented legal guidance for asylum seekers, an award-winning serverless healthcare platform, and civic apps shipped end-to-end. Three years of front-line security work alongside full-time study taught me the rest - composure under pressure, and how to be clear with people who aren't technical.</p>
       </div>
-      <div class="soft-skills">
+      <div class="soft-skills reveal stagger">
         <span class="soft" data-i18n="ss_1">Teamwork</span>
         <span class="soft" data-i18n="ss_2">Communication</span>
         <span class="soft" data-i18n="ss_3">Problem Solving</span>
@@ -486,11 +641,11 @@ footer a:hover{color:var(--accent)}
       <div class="fact"><dt data-i18n="f_open">Open to</dt><dd data-i18n="f_open_v">AI/ML · Data · Software roles</dd></div>
     </dl>
   </div>
-  <div class="stats-row reveal">
-    <div class="stat"><span class="ic">🌍</span><div class="n">15<sup>+</sup></div><div class="l" data-i18n="s_1">countries explored independently</div></div>
-    <div class="stat"><span class="ic">🗣️</span><div class="n">4</div><div class="l" data-i18n="s_2">languages spoken</div></div>
-    <div class="stat"><span class="ic">🏆</span><div class="n">1st</div><div class="l" data-i18n="s_3">AWS Healthcare AI Challenge 2025</div></div>
-    <div class="stat"><span class="ic">🎓</span><div class="n">2<sup>×</sup></div><div class="l" data-i18n="s_4">international university programmes</div></div>
+  <div class="stats-row reveal stagger">
+    <div class="stat tilt"><span class="ic">🌍</span><div class="n">15<sup>+</sup></div><div class="l" data-i18n="s_1">countries explored independently</div></div>
+    <div class="stat tilt"><span class="ic">🗣️</span><div class="n">4</div><div class="l" data-i18n="s_2">languages spoken</div></div>
+    <div class="stat tilt"><span class="ic">🏆</span><div class="n">1st</div><div class="l" data-i18n="s_3">AWS Healthcare AI Challenge 2025</div></div>
+    <div class="stat tilt"><span class="ic">🎓</span><div class="n">2<sup>×</sup></div><div class="l" data-i18n="s_4">international university programmes</div></div>
   </div>
 </section>
 
@@ -503,35 +658,51 @@ footer a:hover{color:var(--accent)}
   </div>
   <div class="xp">
     <article class="xp-item reveal">
-      <div class="xp-when">JAN 2026 — AUG 2026<span class="loc">UTRECHT, NL · REMOTE</span></div>
+      <div class="xp-when">JAN 2026 - AUG 2026<span class="loc">UTRECHT, NL · REMOTE</span></div>
       <div>
-        <h3 class="xp-role" data-i18n="xp1_role">AI Engineer — MSc Thesis Internship · AI Guidance for Asylum Seekers</h3>
+        <h3 class="xp-role" data-i18n="xp1_role">AI Engineer - MSc Thesis Internship · AI Guidance for Asylum Seekers</h3>
         <div class="xp-org">HU University of Applied Sciences Utrecht · TU Dublin</div>
         <ul class="xp-points">
-          <li data-i18n="xp1_1">Designed and evaluated a <b>RAG-based multilingual chatbot</b> guiding International Protection applicants through Ireland's asylum process — grounded in <b>11 verified legal documents</b> including the International Protection Act 2015 and 2026.</li>
-          <li data-i18n="xp1_2">Implemented the retrieval-augmented pipeline with <b>source citation, hallucination resistance and automatic escalation</b> to legal professionals — guardrails hardened through adversarial testing.</li>
-          <li data-i18n="xp1_3">Developed an <b>eight-dimension human-centred evaluation framework</b> — accuracy, clarity, safety, referral behaviour, hallucination resistance, transparency, trust calibration, accessibility — validated with IP solicitors and NGO practitioners.</li>
-          <li data-i18n="xp1_4">Owned the full lifecycle from architecture to <b>AWS/Azure deployment with Docker</b> — deriving generalisable design principles for AI serving vulnerable populations in high-stakes legal contexts.</li>
+          <li data-i18n="xp1_1">Built and deployed a <b>RAG-based multilingual guidance system</b> for Ireland's International Protection process - <b>1,439 structure-aware chunks</b> from 11 verified legal sources in a Chroma vector store, serving four languages.</li>
+          <li data-i18n="xp1_2">Handled a <b>live legislative transition</b> by tagging every chunk with its governing regime and filtering retrieval before ranking - so applicants under the 2015 Act's transitional provisions never receive 2026 Act guidance.</li>
+          <li data-i18n="xp1_3">Developed an <b>eight-dimension human-centred evaluation framework</b> - accuracy, clarity, safety, referral behaviour, hallucination resistance, transparency, trust calibration, accessibility - validated with IP solicitors and NGO practitioners.</li>
+          <li data-i18n="xp1_4">Implemented <b>source citation, hallucination resistance and automatic escalation</b> to legal professionals; owned architecture through <b>AWS/Azure deployment with Docker</b>, deriving design principles for AI serving vulnerable populations.</li>
         </ul>
         <div class="metrics">
-          <div class="metric"><div class="v">11</div><div class="k" data-i18n="p0_m1">verified legal docs</div></div>
+          <div class="metric"><div class="v">1,439</div><div class="k" data-i18n="p0_m1">structure-aware chunks</div></div>
           <div class="metric"><div class="v">8</div><div class="k" data-i18n="p0_m2">evaluation dimensions</div></div>
-          <div class="metric"><div class="v">4+</div><div class="k" data-i18n="p0_m3">interface languages</div></div>
+          <div class="metric"><div class="v">4</div><div class="k" data-i18n="p0_m3">languages served</div></div>
         </div>
-        <div class="tags"><span class="tag">RAG</span><span class="tag">LangChain · LlamaIndex</span><span class="tag">Access to Justice</span><span class="tag">Arabic · Dari · French · Tigrinya</span><span class="tag">Design Science Research</span></div>
+        <div class="tags"><span class="tag">RAG</span><span class="tag">LangChain · LlamaIndex</span><span class="tag">Chroma</span><span class="tag">Access to Justice</span><span class="tag">Arabic · Dari · French · Tigrinya</span><span class="tag">Design Science Research</span></div>
       </div>
     </article>
     <article class="xp-item reveal">
-      <div class="xp-when">JUN 2023 — DEC 2023<span class="loc">FINLAND · REMOTE</span></div>
+      <div class="xp-when">MAY 2023 - PRESENT<span class="loc">DUBLIN, IRELAND</span></div>
       <div>
-        <h3 class="xp-role" data-i18n="xp2_role">Data Engineering Intern</h3>
-        <div class="xp-org">Arctic Labs Oy</div>
+        <h3 class="xp-role" data-i18n="xp2_role">Static Security Officer</h3>
+        <div class="xp-org">RFC Security Group · Deployed at Lidl, Dublin</div>
         <ul class="xp-points">
-          <li data-i18n="xp2_1">Sustained <b>99.5% uptime</b> on pipelines processing <b>50K+ daily records</b> across AWS S3 and PostgreSQL; automated Python/Spark data-quality validation cut downstream errors by <b>30%</b>.</li>
-          <li data-i18n="xp2_2">Designed fault-tolerant distributed <b>ETL architecture</b> with modular OOP components for teams across 3 time zones; surfaced live metrics to <b>10+ stakeholders</b> via Power BI.</li>
+          <li data-i18n="xp2_1">Sole on-site security presence across <b>high-footfall Lidl retail stores</b>, owning incident response end to end - CCTV monitoring, floor patrol, queue and crowd management, lawful detention, written statements and <b>Garda liaison</b>.</li>
+          <li data-i18n="xp2_2">Handled <b>300+ incidents</b> and contributed to roughly <b>€10,000</b> in recovered stock, working to strict legal and procedural boundaries where every judgement call is documented and defensible.</li>
+          <li data-i18n="xp2_3">De-escalation as the default response - reading a situation quickly, staying composed under pressure, and communicating clearly with distressed, aggravated or non-English-speaking members of the public.</li>
+          <li data-i18n="xp2_4">Sustained across <b>three years alongside full-time study</b>, including night and weekend shifts - the discipline that made a 900-test agent platform and a thesis build possible in parallel.</li>
         </ul>
+        <div class="tags"><span class="tag" data-i18n="xp2_t1">Incident Response</span><span class="tag" data-i18n="xp2_t2">De-escalation</span><span class="tag" data-i18n="xp2_t3">Public Communication</span><span class="tag" data-i18n="xp2_t4">Working Under Pressure</span></div>
       </div>
     </article>
+  </div>
+</section>
+
+
+<!-- SHOWCASE -->
+<section class="showcase" aria-label="Design philosophy">
+  <div class="showcase-pin">
+    <div class="showcase-media" id="scMedia" aria-hidden="true"></div>
+    <div class="showcase-copy" id="scCopy">
+      <div class="kick" data-i18n="sc_kick">The through-line</div>
+      <h2 class="lines"><span class="line"><span data-i18n="sc_h1">Systems that</span></span><span class="line"><span class="ital" data-i18n="sc_h2">act, not just answer.</span></span></h2>
+      <p data-i18n="sc_p">An agent that opens its own pull requests. A retrieval system that keeps two legal regimes from contaminating each other. The interesting problems aren't in the model - they're in the guardrails around it.</p>
+    </div>
   </div>
 </section>
 
@@ -542,20 +713,44 @@ footer a:hover{color:var(--accent)}
     <h2 data-i18n="t_proj">Selected Projects</h2>
     <span class="sec-kicker" data-i18n="k_proj">Built to be examined</span>
   </div>
-  <p class="proj-intro reveal" data-i18n="proj_intro">Seven projects spanning healthcare, fairness research and civic tech — each one designed, shipped and evaluated, never just demoed.</p>
+  <p class="proj-intro reveal" data-i18n="proj_intro">Eight projects spanning agentic AI, healthcare, fairness research and civic tech - each one designed, shipped and evaluated, never just demoed.</p>
   <div class="proj-list">
 
-    <article class="proj reveal">
-      <div class="proj-num">P-01 / 2025</div>
+    <article class="proj reveal tilt flagship">
+      <div class="proj-num">P-01 / 2026</div>
       <div class="proj-body">
         <div class="proj-top">
           <div>
-            <h3>NutriPhos — Serverless ML for Kidney Health</h3>
+            <h3>AgentForge - Multi-Tenant AI Coding Agent</h3>
+            <div class="proj-meta">Python · FastAPI · Next.js · PostgreSQL · Redis · Docker</div>
+          </div>
+          <span class="proj-award" data-i18n="pA_badge">Flagship build</span>
+        </div>
+        <p data-i18n="pA_d">An autonomous agent that analyses any GitHub repository, plans a change, edits code through a tool-use loop, runs the project's own test command and opens a pull request. The interesting design decision is that it <b>stops before touching GitHub</b>: when tests pass the task halts at <em>ready for review</em>, and a human approves the plan, the diffs and the test output before anything is published - human-in-the-loop by architecture, not by policy.</p>
+        <p data-i18n="pA_d2">Reliability for long-running LLM jobs is the hard part. Redis leases prevent duplicate execution, a heartbeat reaper detects crashed workers, and progress streams live over Server-Sent Events. Every provider call is recorded with tokens, cost and latency, so a Usage dashboard shows exactly what each run spent. All AI access sits behind one provider interface - Anthropic and Gemini implemented, others registered - so switching model or provider is an environment variable, never a code change.</p>
+        <p data-i18n="pA_d3">Repository intelligence detects languages, frameworks, entry points, API routes and SQL schemas, then produces a 0–100 health score with deterministic sub-scores and grounded improvement suggestions - every suggestion must cite real files, and anything undeterminable is reported as such rather than guessed. Safety is enforced, not assumed: secrets and credential files are never read, tokens are injected via git headers and scrubbed from all logs, archive extraction is zip-slip guarded, and the one destructive database command requires typing a confirmation phrase.</p>
+        <div class="metrics">
+          <div class="metric"><div class="v">900+</div><div class="k" data-i18n="pA_m1">tests, 1:1 test-to-source</div></div>
+          <div class="metric"><div class="v">15</div><div class="k" data-i18n="pA_m2">verified migrations</div></div>
+          <div class="metric"><div class="v">5</div><div class="k" data-i18n="pA_m4">LLM providers abstracted</div></div>
+          <div class="metric"><div class="v">SSE</div><div class="k" data-i18n="pA_m3">live progress streaming</div></div>
+        </div>
+        <div class="tags"><span class="tag">Agent Orchestration</span><span class="tag">Tool Calling</span><span class="tag">Human-in-the-Loop</span><span class="tag">FastAPI · SQLAlchemy 2</span><span class="tag">Next.js 15</span><span class="tag">Redis · ARQ</span><span class="tag">PostgreSQL 16</span><span class="tag">Docker</span><span class="tag">pytest</span></div>
+        <a class="proj-link" href="https://github.com/imraghavbnsal007/agentforge-sandbox" target="_blank" rel="noopener"><span data-i18n="pA_repo">View the repository</span> <span class="arr">↗</span></a>
+      </div>
+    </article>
+
+    <article class="proj reveal tilt">
+      <div class="proj-num">P-02 / 2025</div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <div>
+            <h3>NutriPhos - Serverless ML for Kidney Health</h3>
             <div class="proj-meta">Python · AWS Lambda / S3 / ECS · REST API · Event-driven OOP</div>
           </div>
           <span class="proj-award">🏆 Best Overall · AWS 2025</span>
         </div>
-        <p data-i18n="p1_d">Phosphate-finder platform for chronic kidney disease patients. Architected a serverless, event-driven ML system with decoupled OOP components built for reliability and independent scaling — winning Best Overall Project at the AWS Healthcare AI Challenge 2025 against 30+ teams.</p>
+        <p data-i18n="p1_d">Phosphate-finder platform letting chronic kidney disease patients identify hidden phosphate additives via OCR and barcode scanning. Architected a serverless, event-driven ML system with decoupled OOP components built for reliability and independent scaling - winning Best Overall Project at the AWS Healthcare AI Challenge 2025 against 30+ teams.</p>
         <div class="metrics">
           <div class="metric"><div class="v">1st</div><div class="k">of 30+ teams</div></div>
           <div class="metric"><div class="v">100%</div><div class="k">serverless</div></div>
@@ -564,8 +759,8 @@ footer a:hover{color:var(--accent)}
       </div>
     </article>
 
-    <article class="proj reveal">
-      <div class="proj-num">P-02 / 2026</div>
+    <article class="proj reveal tilt">
+      <div class="proj-num">P-03 / 2026</div>
       <div class="proj-body">
         <div class="proj-top">
           <div>
@@ -573,7 +768,7 @@ footer a:hover{color:var(--accent)}
             <div class="proj-meta">PyTorch · BERT · DistilBERT · BiLSTM · SHAP · LIME · HateXplain</div>
           </div>
         </div>
-        <p data-i18n="p2_d">Multi-class NLP pipeline detecting abusive, offensive and neutral content at scale. Trained and compared six models — Logistic Regression, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT — on 20K+ posts, then applied SHAP/LIME to audit token-level decision rationales and investigated demographic bias across race, religion, gender and sexual orientation under the EU AI Act framing.</p>
+        <p data-i18n="p2_d">Multi-class NLP pipeline detecting abusive, offensive and neutral content at scale. Trained and compared six models - Logistic Regression, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT - on 20K+ posts, then applied SHAP/LIME to audit token-level decision rationales and investigated demographic bias across race, religion, gender and sexual orientation under the EU AI Act framing.</p>
         <div class="metrics">
           <div class="metric"><div class="v">89%</div><div class="k">F1 score</div></div>
           <div class="metric"><div class="v">6</div><div class="k">models compared</div></div>
@@ -583,8 +778,8 @@ footer a:hover{color:var(--accent)}
       </div>
     </article>
 
-    <article class="proj reveal">
-      <div class="proj-num">P-03 / 2026</div>
+    <article class="proj reveal tilt">
+      <div class="proj-num">P-04 / 2026</div>
       <div class="proj-body">
         <div class="proj-top">
           <div>
@@ -592,7 +787,7 @@ footer a:hover{color:var(--accent)}
             <div class="proj-meta">TensorFlow · Keras · scikit-learn · Responsible AI · Model Evaluation</div>
           </div>
         </div>
-        <p data-i18n="p3_d">Systematic empirical study of how classification performance relates to fairness across demographic groups — 8 architectures varied over optimisers, batch sizes, regularisation and depth. The optimal model hit 85.7% accuracy yet exposed a 56-point recall gap between majority and minority classes: proof that aggregate accuracy actively masks discriminatory behaviour, and that fairness evaluation must be a first-class development metric under the EU AI Act.</p>
+        <p data-i18n="p3_d">Systematic empirical study of how classification performance relates to fairness across demographic groups - 8 architectures varied over optimisers, batch sizes, regularisation and depth. The optimal model hit 85.7% accuracy yet exposed a 56-point recall gap between majority and minority classes: proof that aggregate accuracy actively masks discriminatory behaviour, and that fairness evaluation must be a first-class development metric under the EU AI Act.</p>
         <div class="metrics">
           <div class="metric"><div class="v">8</div><div class="k">architectures</div></div>
           <div class="metric"><div class="v">85.7%</div><div class="k">test accuracy</div></div>
@@ -602,16 +797,16 @@ footer a:hover{color:var(--accent)}
       </div>
     </article>
 
-    <article class="proj reveal">
-      <div class="proj-num">P-04 / 2026</div>
+    <article class="proj reveal tilt">
+      <div class="proj-num">P-05 / 2026</div>
       <div class="proj-body">
         <div class="proj-top">
           <div>
-            <h3>Bank Churn Prediction — with Bias Audit</h3>
+            <h3>Bank Churn Prediction - with Bias Audit</h3>
             <div class="proj-meta">Neural Networks · Stratified CV · Ablation Studies · 6,000 customers</div>
           </div>
         </div>
-        <p data-i18n="p4_d">End-to-end churn pipeline on a heavily imbalanced (80/20) real-world banking dataset — nine stages from EDA and architecture search to ablation and cross-validation. Chose a compact 16-neuron network for its 0.94% generalisation gap over larger overfitting variants, then evaluated per-group performance by gender and country, surfacing that female and Spanish customers were systematically underserved despite strong headline accuracy.</p>
+        <p data-i18n="p4_d">End-to-end churn pipeline on a heavily imbalanced (80/20) real-world banking dataset - nine stages from EDA and architecture search to ablation and cross-validation. Chose a compact 16-neuron network for its 0.94% generalisation gap over larger overfitting variants, then evaluated per-group performance by gender and country, surfacing that female and Spanish customers were systematically underserved despite strong headline accuracy.</p>
         <div class="metrics">
           <div class="metric"><div class="v">85.7%</div><div class="k">test accuracy</div></div>
           <div class="metric"><div class="v">0.858</div><div class="k">CV score</div></div>
@@ -621,49 +816,56 @@ footer a:hover{color:var(--accent)}
       </div>
     </article>
 
-    <article class="proj reveal">
-      <div class="proj-num">P-05 / 2026</div>
+    <article class="proj reveal tilt">
+      <div class="proj-num">P-06 / 2026</div>
       <div class="proj-body">
         <div class="proj-top">
           <div>
-            <h3>CareRise — AI Career Pathways for Care Workers</h3>
+            <h3>CareRise - AI Career Pathways for Care Workers</h3>
             <div class="proj-meta">Human-Centred Design · Skill-Gap Analysis · Multilingual · GDPR</div>
           </div>
         </div>
-        <p data-i18n="p5_d">AI-powered career pathway builder for one of society's most undervalued workforces. CareRise analyses worker skills, generates personalised step-by-step roadmaps, matches free or low-cost accredited training by cost, location and language, and issues a portable, worker-owned digital skills passport — built with bias mitigation, human-in-the-loop decisions and inclusive design (voice support, multilingual access). Team project at TU Dublin.</p>
+        <p data-i18n="p5_d">AI-powered career pathway builder for one of society's most undervalued workforces. CareRise analyses worker skills, generates personalised step-by-step roadmaps, matches free or low-cost accredited training by cost, location and language, and issues a portable, worker-owned digital skills passport - built with bias mitigation, human-in-the-loop decisions and inclusive design (voice support, multilingual access). Team project at TU Dublin.</p>
         <div class="tags"><span class="tag">Social Impact</span><span class="tag">Responsible AI</span><span class="tag">Human-in-the-loop</span><span class="tag">Inclusive Design</span></div>
       </div>
     </article>
 
-    <article class="proj reveal">
-      <div class="proj-num">P-06 / 2024</div>
+    <article class="proj reveal tilt">
+      <div class="proj-num">P-07 / 2024</div>
       <div class="proj-body">
         <div class="proj-top">
           <div>
-            <h3>SnapBin — Civic Waste Reporting, Ireland-first</h3>
-            <div class="proj-meta">Kotlin · Java · Android · AWS EC2 / S3 · MVC · REST</div>
+            <h3>SnapBin - Civic Waste Reporting, Ireland-first</h3>
+            <div class="proj-meta">Kotlin · Java · Android · Firebase · Google Vision API · AWS EC2 / S3 · REST · MVC</div>
           </div>
+          <span class="proj-award" data-i18n="p6_badge">Final Year Project</span>
         </div>
-        <p data-i18n="p6_d">Ireland's first civic waste-reporting Android app, shipped end-to-end: AI image recognition for reports, interface-driven OOP design in Kotlin/Java, and a scalable REST backend on AWS — raising adoption 50% in three months.</p>
+        <p data-i18n="p6_d">My BSc Computer Science final year project, and Ireland's first civic waste-reporting Android app. Illegal dumping is reported through council phone lines and web forms that ask people to describe a location in words - so reports arrive vague, unverifiable and slow to triage. SnapBin replaces that with a single action: point the camera at the problem and submit.</p>
+        <p data-i18n="p6_d2">A photo is classified on submission through the Google Vision API to identify the waste type and reject non-waste images before they ever reach a council queue, while GPS coordinates and a timestamp are attached automatically - every report arrives geolocated, categorised and time-stamped instead of hand-described. Duplicate submissions at the same location are clustered rather than filed twice, so a single fly-tipping site doesn't generate fifty separate tickets.</p>
+        <p data-i18n="p6_d3">The Android client was built in Kotlin and Java on an interface-driven MVC architecture, with Firebase handling authentication and real-time status sync so a citizen can watch their report move from submitted to acknowledged to resolved. Media and report data are served by a REST backend on AWS EC2 and S3, structured so image storage scales independently of the reporting API. The result was adoption up 50% in three months, and a working argument that civic reporting fails on friction, not on public willingness.</p>
         <div class="metrics">
           <div class="metric"><div class="v">+50%</div><div class="k">adoption / 3 mo</div></div>
           <div class="metric"><div class="v">#1</div><div class="k">in Ireland (civic)</div></div>
+          <div class="metric"><div class="v">1-tap</div><div class="k" data-i18n="p6_m3">report submission</div></div>
         </div>
-        <div class="tags"><span class="tag">Android</span><span class="tag">Computer Vision</span><span class="tag">Civic Tech</span></div>
+        <div class="tags"><span class="tag">Android</span><span class="tag">Computer Vision</span><span class="tag">Firebase</span><span class="tag">Geolocation</span><span class="tag">Civic Tech</span><span class="tag">MVC</span></div>
       </div>
     </article>
 
-    <article class="proj reveal">
-      <div class="proj-num">P-07 / 2023</div>
+    <article class="proj reveal tilt">
+      <div class="proj-num">P-08 / 2023</div>
       <div class="proj-body">
         <div class="proj-top">
           <div>
-            <h3>Taskit — Jobs Without the Language Barrier</h3>
-            <div class="proj-meta">Mobile · Multilingual UX · Built in Finland</div>
+            <h3>Taskit - Jobs Without the Language Barrier</h3>
+            <div class="proj-meta">Mobile · Multilingual UX · Localisation-first architecture · Built in Oulu, Finland</div>
           </div>
+          <span class="proj-award" data-i18n="p7_badge">Finland-first</span>
         </div>
-        <p data-i18n="p7_d">Multilingual local job-finder app helping non-Finnish speakers access work in Finland — born from living the problem first-hand as an exchange student in Oulu. Localisation-first product thinking that still shapes how I build (this site speaks seven languages).</p>
-        <div class="tags"><span class="tag">i18n</span><span class="tag">Accessibility</span><span class="tag">Migrant Support</span></div>
+        <p data-i18n="p7_d">Finland's first multilingual local job-finder built specifically for people who don't speak Finnish. I designed it while living the problem as an Erasmus student in Oulu: the work exists - cleaning, warehouse, kitchen, delivery, seasonal shifts - but the listings, the application forms and the employer messages are all in Finnish, so the barrier isn't skill or availability, it's language.</p>
+        <p data-i18n="p7_d2">Taskit treats language as infrastructure rather than a settings toggle. Listings are stored language-agnostically and rendered per user, so a Finnish employer posts once in Finnish and an applicant reads it in their own language without either side changing how they work. Roles are filtered by the Finnish level a job actually requires - a warehouse shift needing none shouldn't be buried under office roles needing fluency - and listings carry location, pay and shift structure up front, since those are the fields that decide whether a job is even viable for someone without a car or a residence permit history.</p>
+        <p data-i18n="p7_d3">The build taught me that localisation is an architectural decision made on day one, not a translation pass bolted on at the end - which is why the RAG system in my thesis serves four languages from a single grounded knowledge base, and why this site speaks seven.</p>
+        <div class="tags"><span class="tag">i18n Architecture</span><span class="tag">Accessibility</span><span class="tag">Migrant Support</span><span class="tag">Product Design</span><span class="tag">Mobile</span></div>
       </div>
     </article>
 
@@ -680,7 +882,7 @@ footer a:hover{color:var(--accent)}
   <div class="skill-grid">
     <div class="skill-cell reveal">
       <h3><span class="idx">A.</span> <span data-i18n="sk_a">Languages</span></h3>
-      <div class="tags"><span class="tag">Python</span><span class="tag">Java</span><span class="tag">C#</span><span class="tag">Kotlin</span><span class="tag">C</span><span class="tag">SQL</span><span class="tag">JavaScript</span><span class="tag">R</span></div>
+      <div class="tags"><span class="tag">Python</span><span class="tag">TypeScript</span><span class="tag">Java</span><span class="tag">C#</span><span class="tag">Kotlin</span><span class="tag">C</span><span class="tag">SQL</span><span class="tag">JavaScript</span><span class="tag">R</span></div>
     </div>
     <div class="skill-cell reveal">
       <h3><span class="idx">B.</span> <span data-i18n="sk_b">ML &amp; Deep Learning</span></h3>
@@ -688,7 +890,7 @@ footer a:hover{color:var(--accent)}
     </div>
     <div class="skill-cell reveal">
       <h3><span class="idx">C.</span> <span data-i18n="sk_c">RAG &amp; LLM Systems</span></h3>
-      <div class="tags"><span class="tag">LlamaIndex</span><span class="tag">LangChain</span><span class="tag">Vector Similarity Retrieval</span><span class="tag">Document Chunking Strategy</span><span class="tag">Source Citation</span><span class="tag">Hallucination Resistance</span><span class="tag">LLM Evaluation</span></div>
+      <div class="tags"><span class="tag">LlamaIndex</span><span class="tag">Agent Orchestration</span><span class="tag">Tool Calling</span><span class="tag">Chroma</span><span class="tag">sentence-transformers</span><span class="tag">LangChain</span><span class="tag">Vector Similarity Retrieval</span><span class="tag">Document Chunking Strategy</span><span class="tag">Source Citation</span><span class="tag">Hallucination Resistance</span><span class="tag">LLM Evaluation</span></div>
     </div>
     <div class="skill-cell reveal">
       <h3><span class="idx">D.</span> <span data-i18n="sk_d">Human-Centred AI &amp; Research</span></h3>
@@ -696,18 +898,18 @@ footer a:hover{color:var(--accent)}
     </div>
     <div class="skill-cell reveal">
       <h3><span class="idx">E.</span> <span data-i18n="sk_e">Cloud &amp; Engineering</span></h3>
-      <div class="tags"><span class="tag">AWS (Lambda, S3, ECS, EC2)</span><span class="tag">Azure</span><span class="tag">Docker</span><span class="tag">Linux</span><span class="tag">Apache Spark</span><span class="tag">PostgreSQL</span><span class="tag">REST APIs</span><span class="tag">Git · CI/CD</span><span class="tag">OOP · SOLID · MVC</span><span class="tag">Power BI</span></div>
+      <div class="tags"><span class="tag">AWS (Lambda, S3, ECS, EC2)</span><span class="tag">Azure</span><span class="tag">Docker</span><span class="tag">FastAPI</span><span class="tag">Next.js / React</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Server-Sent Events</span><span class="tag">OAuth</span><span class="tag">pytest</span><span class="tag">GitHub Actions</span><span class="tag">Linux</span><span class="tag">Apache Spark</span><span class="tag">PostgreSQL</span><span class="tag">REST APIs</span><span class="tag">Git · CI/CD</span><span class="tag">OOP · SOLID · MVC</span><span class="tag">Power BI</span></div>
     </div>
     <div class="skill-cell reveal">
       <h3><span class="idx">F.</span> <span data-i18n="sk_f">Legal AI &amp; Responsible AI</span></h3>
-      <div class="tags"><span class="tag">Ireland's IP Process · IPA 2015 / 2026</span><span class="tag">Access to Justice</span><span class="tag">Multilingual NLP — AR · Prs · FR · TI</span><span class="tag">EU AI Act · ALTAI</span><span class="tag">GDPR</span><span class="tag">Adversarial Testing</span><span class="tag">Bias Auditing</span></div>
+      <div class="tags"><span class="tag">Ireland's IP Process · IPA 2015 / 2026</span><span class="tag">Access to Justice</span><span class="tag">Multilingual NLP - AR · Prs · FR · TI</span><span class="tag">EU AI Act · ALTAI</span><span class="tag">GDPR</span><span class="tag">Adversarial Testing</span><span class="tag">Bias Auditing</span></div>
     </div>
   </div>
   <div class="cert-strip reveal">
     <span class="cert">AWS Cloud Practitioner</span>
-    <span class="cert">ML NLP — AWS</span>
-    <span class="cert">Deep Learning — NVIDIA</span>
-    <span class="cert">Python — Kaggle</span>
+    <span class="cert">ML NLP - AWS</span>
+    <span class="cert">Deep Learning - NVIDIA</span>
+    <span class="cert">Python - Kaggle</span>
     <span class="cert">LIFT Teamwork Facilitator</span>
   </div>
 </section>
@@ -720,21 +922,21 @@ footer a:hover{color:var(--accent)}
     <span class="sec-kicker" data-i18n="k_edu">Three institutions, two countries</span>
   </div>
   <div class="edu-grid">
-    <article class="edu reveal">
-      <div class="yr">2025 — 2026</div>
+    <article class="edu reveal tilt">
+      <div class="yr">2025 - 2026</div>
       <h3>MSc Human-Centred Artificial Intelligence</h3>
       <div class="inst">Technological University Dublin · IE</div>
       <div class="grade" data-i18n="edu1_g">Expected First-Class Honours (1:1)</div>
     </article>
-    <article class="edu reveal">
-      <div class="yr">2020 — 2024</div>
+    <article class="edu reveal tilt">
+      <div class="yr">2020 - 2024</div>
       <h3>BSc Computer Science, International</h3>
       <div class="inst">Technological University Dublin · IE</div>
       <div class="grade" data-i18n="edu2_g">Second-Class Honours, Grade 1 (2:1)</div>
     </article>
-    <article class="edu reveal">
-      <div class="yr">2022 — 2023</div>
-      <h3>BSc Engineering — Erasmus Exchange</h3>
+    <article class="edu reveal tilt">
+      <div class="yr">2022 - 2023</div>
+      <h3>BSc Engineering - Erasmus Exchange</h3>
       <div class="inst">Oulu University of Applied Sciences · FI</div>
       <div class="grade" data-i18n="edu3_g">Grade 5 / 5</div>
     </article>
@@ -790,7 +992,7 @@ footer a:hover{color:var(--accent)}
 </main>
 
 <footer>
-  <span>© <span id="yr"></span> Raghav Bansal — <span data-i18n="ft_made">Designed &amp; built with care in Dublin</span></span>
+  <span>© <span id="yr"></span> Raghav Bansal - <span data-i18n="ft_made">Designed &amp; built with care in Dublin</span></span>
   <a href="#top" data-i18n="ft_top">↑ Back to top</a>
 </footer>
 
@@ -800,249 +1002,405 @@ const I18N = {
 en:{},
 de:{
  nav_about:"Über mich",nav_xp:"Erfahrung",nav_proj:"Projekte",nav_skills:"Skills",nav_edu:"Bildung",nav_beyond:"Privat",nav_contact:"Kontakt",
- hero_status:"Offen für AI/ML-Einstiegsrollen — Dublin, Irland",hero_word:"KI-Ingenieur",
- hero_tagline:"Ich entwerfe und evaluiere KI-Systeme, denen Menschen <strong>wirklich vertrauen</strong> können — von einem mehrsprachigen Rechtsberatungs-Chatbot für Asylsuchende bis zu Healthcare-ML, Fairness-Forschung und Civic Tech, gebaut in drei Ländern.",
+ hero_status:"Offen für AI/ML-Einstiegsrollen - Dublin, Irland",hero_word:"KI-Ingenieur",
+ hero_tagline:"Ich baue KI, die <strong>handelt, nicht nur antwortet</strong> - ein autonomer Agent, der eigene Pull Requests eröffnet, und ein Retrieval-System, das zwei irische Rechtsregime sauber trennt. Entstanden in drei Ländern.",
  btn_work:"Meine Arbeit",btn_cv:"Lebenslauf laden",btn_contact:"Kontakt",
  t_about:"Über mich",k_about:"Wer ich bin",
  about_lede:"Ein neugieriger Kopf, der <em>Brücken</em> zwischen Menschen und Technologie baut.",
- about_p1:"Ich bin Raghav — KI-Forscher und Ingenieur in Dublin, Irland. Mein Weg führt von der Informatik an der TU Dublin über ein Erasmus-Jahr in Finnland zu einer Masterarbeit über einen KI-Chatbot für Asylsuchende, parallel zu einem AI-Systems-Praktikum an der HU Utrecht.",
- about_quote:"Mich fasziniert, wie Technologie menschliches Verhalten prägt — und wohin wir KI als Nächstes führen. Ich baue Systeme, denen Menschen wirklich vertrauen und die sie nutzen können: ob sie Asylsuchenden durch Irlands Rechtsprozess helfen oder Patienten mit chronischer Nierenerkrankung unterstützen.",
- about_p2:"Dieser rote Faden zieht sich durch alles hier: retrieval-gestützte Rechtsberatung, eine preisgekrönte serverlose Healthcare-Plattform, Fairness-Forschung, die zeigt, was Genauigkeit verbirgt, und Civic Apps, end-to-end geliefert.",
+ about_p1:"Ich bin Raghav - KI-Ingenieur in Dublin, kurz vor Abschluss eines MSc in Human-Centred AI an der TU Dublin, nach einem BSc in Informatik und einem Erasmus-Jahr in Oulu, Finnland. Ich baue Systeme, die in der Welt handeln und dafür Rechenschaft ablegen.",
+ about_quote:"Mich fasziniert, wie Technologie menschliches Verhalten prägt - und wohin wir KI als Nächstes führen. Ich baue Systeme, denen Menschen wirklich vertrauen und die sie nutzen können: ob sie Asylsuchenden durch Irlands Rechtsprozess helfen oder Patienten mit chronischer Nierenerkrankung unterstützen.",
+ about_p2:"Das zieht sich durch alles hier: ein autonomer Coding-Agent hinter einer strikten Autorisierungsgrenze, retrieval-gestützte Rechtsberatung für Asylsuchende, eine preisgekrönte serverlose Healthcare-Plattform und Civic Apps von A bis Z. Drei Jahre Sicherheitsdienst neben dem Vollzeitstudium lehrten den Rest - Ruhe unter Druck und Klarheit gegenüber nicht-technischen Menschen.",
  ss_1:"Teamarbeit",ss_2:"Kommunikation",ss_3:"Problemlösung",ss_4:"Führung",ss_5:"Interkulturell",ss_6:"Anpassungsfähig",ss_7:"Kritisches Denken",ss_8:"Zeitmanagement",
  f_base:"Standort",f_now:"Aktuell",f_now_v:"Masterarbeit · KI für Asylsuchende",f_edu:"Bildung",f_focus:"Fokus",f_focus_v:"HCAI · RAG · Responsible ML",f_award:"Auszeichnung",f_open:"Offen für",f_open_v:"AI/ML · Daten · Software",
  s_1:"Länder eigenständig bereist",s_2:"gesprochene Sprachen",s_3:"AWS Healthcare AI Challenge 2025",s_4:"internationale Studienprogramme",
  t_xp:"Erfahrung",k_xp:"Wo ich geliefert habe",
- xp1_role:"AI Engineer — Masterarbeits-Praktikum · KI-Beratung für Asylsuchende",
- xp1_1:"Entwurf und Evaluation eines <b>RAG-basierten mehrsprachigen Chatbots</b>, der Antragsteller auf internationalen Schutz durch Irlands Asylverfahren führt — fundiert auf <b>11 verifizierten Rechtsdokumenten</b>, darunter der International Protection Act 2015 und 2026.",
- xp1_2:"Umsetzung der Retrieval-Augmented-Pipeline mit <b>Quellenzitaten, Halluzinationsresistenz und automatischer Eskalation</b> an Rechtsexperten — Guardrails durch adversariale Tests gehärtet.",
- xp1_3:"Entwicklung eines <b>achtdimensionalen menschzentrierten Evaluationsframeworks</b> — Genauigkeit, Klarheit, Sicherheit, Verweisverhalten, Halluzinationsresistenz, Transparenz, Vertrauenskalibrierung, Barrierefreiheit — validiert mit IP-Anwälten und NGO-Praktikern.",
- xp1_4:"Verantwortung für den gesamten Lebenszyklus bis zum <b>AWS/Azure-Deployment mit Docker</b> — mit verallgemeinerbaren Designprinzipien für KI für vulnerable Gruppen in hochriskanten Rechtskontexten.",
- xp2_role:"Praktikant Data Engineering",
- xp2_1:"<b>99,5 % Uptime</b> auf Pipelines mit <b>50K+ Datensätzen täglich</b> (AWS S3, PostgreSQL); automatisierte Python/Spark-Validierung senkte Folgefehler um <b>30 %</b>.",
- xp2_2:"Fehlertolerante verteilte <b>ETL-Architektur</b> mit modularen OOP-Komponenten für Teams in 3 Zeitzonen; Live-Metriken für <b>10+ Stakeholder</b> via Power BI.",
+ xp1_role:"AI Engineer - Masterarbeits-Praktikum · KI-Beratung für Asylsuchende",
+ xp1_1:"Entwickelt und deployed: ein <b>RAG-basiertes mehrsprachiges Leitsystem</b> für Irlands Asylverfahren - <b>1.439 strukturbewusste Chunks</b> aus 11 verifizierten Rechtsquellen in einem Chroma-Vektorspeicher, in vier Sprachen.",
+ xp1_2:"Bewältigte einen <b>laufenden Gesetzeswechsel</b>, indem jeder Chunk mit seinem geltenden Regime getaggt und Retrieval vor dem Ranking gefiltert wird - damit Antragsteller unter den Übergangsbestimmungen des Gesetzes von 2015 nie Hinweise zum Gesetz von 2026 erhalten.",
+ xp1_3:"Entwicklung eines <b>achtdimensionalen menschzentrierten Evaluationsframeworks</b> - Genauigkeit, Klarheit, Sicherheit, Verweisverhalten, Halluzinationsresistenz, Transparenz, Vertrauenskalibrierung, Barrierefreiheit - validiert mit IP-Anwälten und NGO-Praktikern.",
+ xp1_4:"Umsetzung von <b>Quellenzitaten, Halluzinationsresistenz und automatischer Eskalation</b> an Juristen; verantwortlich von der Architektur bis zum <b>AWS/Azure-Deployment mit Docker</b>, mit Designprinzipien für KI im Dienst vulnerabler Gruppen.",
+ xp2_role:"Sicherheitsmitarbeiter (Objektschutz)",
+ xp2_1:"Alleinige Sicherheitspräsenz vor Ort in <b>stark frequentierten Lidl-Filialen</b>, mit voller Verantwortung für die Vorfallbearbeitung - Videoüberwachung, Streifengang, Warteschlangen- und Crowd-Management, rechtmäßiges Festhalten, schriftliche Aussagen und <b>Zusammenarbeit mit der Garda</b>.",
+ xp2_2:"<b>300+ Vorfälle</b> bearbeitet und rund <b>10.000 €</b> an wiederbeschaffter Ware mitverantwortet - innerhalb strikter rechtlicher und prozeduraler Grenzen, in denen jede Entscheidung dokumentiert und begründbar sein muss.",
  t_proj:"Ausgewählte Projekte",k_proj:"Gebaut, um geprüft zu werden",
- proj_intro:"Sieben Projekte aus Gesundheit, Fairness-Forschung und Civic Tech — jedes entworfen, geliefert und evaluiert, nie nur demonstriert.",
+ proj_intro:"Acht Projekte aus agentischer KI, Gesundheit, Fairness-Forschung und Civic Tech - jedes entworfen, geliefert und evaluiert, nie nur demonstriert.",
  p0_badge:"⭐ Masterarbeit",
- p0_d:"Entwurf und Evaluation eines RAG-basierten Chatbots, der Antragstellern auf internationalen Schutz in Irland mehrsprachige Verfahrensberatung gibt — fundiert auf 11 verifizierten Rechtsdokumenten, darunter der International Protection Act 2015 und 2026. Die Pipeline zitiert ihre Quellen, widersteht Halluzinationen und eskaliert automatisch an Rechtsexperten. Ein achtdimensionales menschzentriertes Evaluationsframework (Genauigkeit, Klarheit, Sicherheit, Verweisverhalten, Halluzinationsresistenz, Transparenz, Vertrauenskalibrierung, Barrierefreiheit) wurde mit IP-Anwälten und NGO-Praktikern validiert — mit verallgemeinerbaren Designprinzipien für KI, die vulnerable Gruppen in hochriskanten Rechtskontexten unterstützt.",
- p0_m1:"verifizierte Rechtsdokumente",p0_m2:"Evaluationsdimensionen",p0_m3:"Interface-Sprachen",
- p1_d:"Phosphat-Finder für Patienten mit chronischer Nierenerkrankung. Serverlose, ereignisgesteuerte ML-Plattform mit entkoppelten OOP-Komponenten — Best Overall Project bei der AWS Healthcare AI Challenge 2025 gegen 30+ Teams.",
+ p0_d:"Entwurf und Evaluation eines RAG-basierten Chatbots, der Antragstellern auf internationalen Schutz in Irland mehrsprachige Verfahrensberatung gibt - fundiert auf 11 verifizierten Rechtsdokumenten, darunter der International Protection Act 2015 und 2026. Die Pipeline zitiert ihre Quellen, widersteht Halluzinationen und eskaliert automatisch an Rechtsexperten. Ein achtdimensionales menschzentriertes Evaluationsframework (Genauigkeit, Klarheit, Sicherheit, Verweisverhalten, Halluzinationsresistenz, Transparenz, Vertrauenskalibrierung, Barrierefreiheit) wurde mit IP-Anwälten und NGO-Praktikern validiert - mit verallgemeinerbaren Designprinzipien für KI, die vulnerable Gruppen in hochriskanten Rechtskontexten unterstützt.",
+ p0_m1:"strukturbewusste Chunks",p0_m2:"Evaluationsdimensionen",p0_m3:"bediente Sprachen",
+ p1_d:"Phosphat-Finder für Patienten mit chronischer Nierenerkrankung. Serverlose, ereignisgesteuerte ML-Plattform mit entkoppelten OOP-Komponenten - Best Overall Project bei der AWS Healthcare AI Challenge 2025 gegen 30+ Teams.",
  p2_d:"Mehrklassige NLP-Pipeline zur Erkennung von Hassrede. Sechs Modelle (LogReg, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT) auf 20K+ Posts verglichen; SHAP/LIME zur Erklärung auf Token-Ebene und Bias-Analyse über Ethnie, Religion, Geschlecht und sexuelle Orientierung im Kontext des EU AI Act.",
- p3_d:"Systematische Studie zum Verhältnis von Klassifikationsleistung und Fairness — 8 Architekturen über Optimierer, Batchgrößen, Regularisierung und Tiefe variiert. Das beste Modell erreichte 85,7 % Genauigkeit, offenbarte aber eine 56-Punkte-Recall-Lücke: Aggregierte Genauigkeit verschleiert Diskriminierung.",
- p4_d:"End-to-End-Churn-Pipeline auf stark unausgewogenen Bankdaten (80/20, 6.000 Kunden) — neun Stufen von EDA bis Kreuzvalidierung. Subgruppen-Auswertung nach Geschlecht und Land zeigte: weibliche und spanische Kunden wurden trotz starker Gesamtgenauigkeit systematisch schlechter bedient.",
- p5_d:"KI-gestützter Karrierepfad-Builder für Pflegekräfte: Skill-Gap-Analyse, personalisierte Roadmaps, Matching günstiger akkreditierter Weiterbildungen und ein portabler digitaler Skills-Pass — mit Bias-Mitigation, Human-in-the-Loop und inklusivem Design. Teamprojekt an der TU Dublin.",
- p6_d:"Irlands erste zivile Müllmelde-App, komplett selbst geliefert: KI-Bilderkennung, OOP-Design in Kotlin/Java und skalierbares REST-Backend auf AWS — Adoption in drei Monaten um 50 % gesteigert.",
- p7_d:"Mehrsprachige Job-App für Nicht-Finnischsprachige in Finnland — entstanden aus eigener Erfahrung als Austauschstudent in Oulu. Localisation-First-Denken, das bis heute prägt, wie ich baue (diese Seite spricht sieben Sprachen).",
+ p3_d:"Systematische Studie zum Verhältnis von Klassifikationsleistung und Fairness - 8 Architekturen über Optimierer, Batchgrößen, Regularisierung und Tiefe variiert. Das beste Modell erreichte 85,7 % Genauigkeit, offenbarte aber eine 56-Punkte-Recall-Lücke: Aggregierte Genauigkeit verschleiert Diskriminierung.",
+ p4_d:"End-to-End-Churn-Pipeline auf stark unausgewogenen Bankdaten (80/20, 6.000 Kunden) - neun Stufen von EDA bis Kreuzvalidierung. Subgruppen-Auswertung nach Geschlecht und Land zeigte: weibliche und spanische Kunden wurden trotz starker Gesamtgenauigkeit systematisch schlechter bedient.",
+ p5_d:"KI-gestützter Karrierepfad-Builder für Pflegekräfte: Skill-Gap-Analyse, personalisierte Roadmaps, Matching günstiger akkreditierter Weiterbildungen und ein portabler digitaler Skills-Pass - mit Bias-Mitigation, Human-in-the-Loop und inklusivem Design. Teamprojekt an der TU Dublin.",
+ p6_d:"Mein Abschlussprojekt im BSc Informatik und Irlands erste zivile Müllmelde-App. Illegale Müllentsorgung wird über Telefonhotlines und Webformulare gemeldet, die verlangen, einen Ort in Worten zu beschreiben - Meldungen kommen vage, unüberprüfbar und langsam an. SnapBin ersetzt das durch eine einzige Handlung: Kamera drauf halten, absenden.",
+ p7_d:"Finnlands erster mehrsprachiger lokaler Job-Finder, gebaut für Menschen, die kein Finnisch sprechen. Ich entwarf ihn, während ich das Problem als Erasmus-Student in Oulu selbst erlebte: Die Arbeit existiert - Reinigung, Lager, Küche, Lieferdienst, Saisonschichten - aber Anzeigen, Bewerbungsformulare und Arbeitgebernachrichten sind alle auf Finnisch. Die Hürde ist nicht Qualifikation, sondern Sprache.",
  t_skills:"Werkzeugkasten",k_skills:"Belege statt Buzzwords",
  sk_a:"Sprachen",sk_b:"ML & Deep Learning",sk_c:"RAG- & LLM-Systeme",sk_d:"Human-Centred AI & Forschung",sk_e:"Cloud & Engineering",sk_f:"Legal AI & Responsible AI",
  t_edu:"Bildung",k_edu:"Drei Institutionen, zwei Länder",edu1_g:"Erwartet: First-Class Honours (1:1)",edu2_g:"Second-Class Honours, Grade 1 (2:1)",edu3_g:"Note 5 / 5",
  t_beyond:"Jenseits des Terminals",k_beyond:"Mensch, zentriert",b_langs:"Sprachen, die ich spreche",b_hobbies:"Wenn ich offline bin",lv_fluent:"Fließend",lv_native:"Muttersprache",
  h_1:"Wandern auf irischen Trails",h_2:"Sich in neuen Städten verlieren",h_3:"Eislaufen",h_4:"Live-Gesang",h_5:"Fitness",
- t_contact:"Kontakt",c_line1:"Bauen wir etwas, dem",c_line2:"Menschen vertrauen.",ft_made:"Mit Sorgfalt in Dublin entworfen & gebaut",ft_top:"↑ Nach oben"
+ t_contact:"Kontakt",c_line1:"Bauen wir etwas, dem",c_line2:"Menschen vertrauen.",ft_made:"Mit Sorgfalt in Dublin entworfen & gebaut",ft_top:"↑ Nach oben",
+ pA_badge:"Flaggschiff-Projekt",
+ pA_d:"Ein autonomer Agent, der ein beliebiges GitHub-Repository analysiert, eine Änderung plant, Code über eine Tool-Use-Schleife bearbeitet, die Testbefehle des Projekts ausführt und einen Pull Request öffnet. Die entscheidende Designentscheidung: Er <b>hält an, bevor er GitHub berührt</b> - bestehen die Tests, stoppt die Aufgabe bei <em>ready for review</em>, und ein Mensch prüft Plan, Diffs und Testausgabe, bevor etwas veröffentlicht wird. Human-in-the-Loop per Architektur, nicht per Richtlinie.",
+ pA_m1:"Tests, Verhältnis 1:1 zum Quellcode",
+ pA_m2:"verifizierte Migrationen",
+ pA_m3:"Live-Fortschritt streamen",
+ sc_kick:"Der rote Faden",
+ sc_h1:"Systeme, die",
+ sc_h2:"handeln, nicht nur antworten.",
+ sc_p:"Ein Agent, der seine eigenen Pull Requests eröffnet. Ein Retrieval-System, das zwei Rechtsregime voneinander trennt. Die interessanten Probleme liegen nicht im Modell - sondern in den Leitplanken darum herum.",
+ pA_d2:"Zuverlässigkeit bei langlaufenden LLM-Jobs ist der schwierige Teil. Redis-Leases verhindern Doppelausführung, ein Heartbeat-Reaper erkennt abgestürzte Worker, und der Fortschritt streamt live über Server-Sent Events. Jeder Provider-Aufruf wird mit Tokens, Kosten und Latenz erfasst. Der gesamte KI-Zugriff läuft über eine Provider-Schnittstelle - Anthropic und Gemini implementiert - sodass ein Modell- oder Anbieterwechsel eine Umgebungsvariable ist, nie eine Codeänderung.",
+ pA_d3:"Die Repository-Intelligenz erkennt Sprachen, Frameworks, Einstiegspunkte, API-Routen und SQL-Schemata und erzeugt daraus einen Health Score von 0–100 mit deterministischen Teilbewertungen und fundierten Verbesserungsvorschlägen - jeder Vorschlag muss echte Dateien zitieren, Unbestimmbares wird als solches gemeldet statt geraten. Sicherheit wird erzwungen: Secrets werden nie gelesen, Tokens aus allen Logs entfernt, Archiventpackung ist Zip-Slip-geschützt.",
+ pA_m4:"LLM-Anbieter abstrahiert",
+ pA_repo:"Repository ansehen",
+ p6_badge:"Abschlussprojekt",
+ p6_d2:"Ein Foto wird beim Absenden über die Google Vision API klassifiziert, um die Abfallart zu bestimmen und Nicht-Abfall-Bilder auszusortieren, bevor sie eine Behördenwarteschlange erreichen. GPS-Koordinaten und Zeitstempel werden automatisch angehängt - jede Meldung kommt geolokalisiert, kategorisiert und zeitgestempelt an. Doppelmeldungen am selben Ort werden geclustert statt zweifach erfasst.",
+ p6_d3:"Der Android-Client entstand in Kotlin und Java auf einer schnittstellengetriebenen MVC-Architektur; Firebase übernimmt Authentifizierung und Echtzeit-Statussync, sodass Bürger ihre Meldung von eingereicht über bestätigt bis erledigt verfolgen können. Medien und Meldedaten liefert ein REST-Backend auf AWS EC2 und S3, sodass Bildspeicherung unabhängig von der API skaliert. Ergebnis: 50 % mehr Nutzung in drei Monaten.",
+ p6_m3:"Meldung mit einem Tipp",
+ p7_badge:"Finnland-Premiere",
+ p7_d2:"Taskit behandelt Sprache als Infrastruktur, nicht als Einstellungsschalter. Anzeigen werden sprachunabhängig gespeichert und pro Nutzer gerendert - ein finnischer Arbeitgeber postet einmal auf Finnisch, ein Bewerber liest sie in seiner Sprache. Stellen werden nach dem tatsächlich nötigen Finnischniveau gefiltert, und Ort, Lohn und Schichtstruktur stehen vorne, denn das sind die Felder, die entscheiden, ob ein Job überhaupt machbar ist.",
+ p7_d3:"Der Bau lehrte mich, dass Lokalisierung eine Architekturentscheidung von Tag eins ist, kein nachträglicher Übersetzungsdurchlauf - weshalb das RAG-System meiner Masterarbeit vier Sprachen aus einer fundierten Wissensbasis bedient und diese Seite sieben spricht.",
+ xp2_3:"Deeskalation als Standardreaktion - Situationen schnell einschätzen, unter Druck ruhig bleiben und klar mit aufgebrachten, belasteten oder nicht englischsprachigen Menschen kommunizieren.",
+ xp2_4:"Über <b>drei Jahre parallel zum Vollzeitstudium</b> aufrechterhalten, inklusive Nacht- und Wochenendschichten - dieselbe Disziplin, die eine Agentenplattform mit 900 Tests und die Masterarbeit gleichzeitig möglich machte.",
+ xp2_t1:"Vorfallbearbeitung",
+ xp2_t2:"Deeskalation",
+ xp2_t3:"Öffentliche Kommunikation",
+ xp2_t4:"Arbeiten unter Druck"
 },
 es:{
  nav_about:"Sobre mí",nav_xp:"Experiencia",nav_proj:"Proyectos",nav_skills:"Habilidades",nav_edu:"Formación",nav_beyond:"Más allá",nav_contact:"Contacto",
- hero_status:"Abierto a roles de IA/ML — Dublín, Irlanda",hero_word:"Ingeniero de IA",
- hero_tagline:"Diseño y evalúo sistemas de IA en los que la gente puede <strong>confiar de verdad</strong> — desde un chatbot multilingüe de orientación legal para solicitantes de asilo hasta ML sanitario, investigación en equidad y tecnología cívica, construidos en tres países.",
+ hero_status:"Abierto a roles de IA/ML - Dublín, Irlanda",hero_word:"Ingeniero de IA",
+ hero_tagline:"Construyo IA que <strong>actúa, no solo responde</strong> - un agente autónomo que abre sus propios pull requests y un sistema de recuperación que mantiene separados dos regímenes legales irlandeses. Construido en tres países.",
  btn_work:"Ver mi trabajo",btn_cv:"Descargar CV",btn_contact:"Contactar",
  t_about:"Sobre mí",k_about:"Quién soy",
  about_lede:"Una mente curiosa construyendo <em>puentes</em> entre las personas y la tecnología.",
- about_p1:"Soy Raghav — investigador e ingeniero de IA en Dublín, Irlanda. Mi camino va de Informática en TU Dublin a un año Erasmus en Finlandia, y ahora una tesis de máster diseñando un chatbot de orientación con IA para solicitantes de asilo, junto a unas prácticas en sistemas de IA con HU Utrecht.",
- about_quote:"Me fascina cómo la tecnología moldea el comportamiento humano — y hacia dónde llevamos la IA. Construyo sistemas en los que la gente puede confiar y que puede usar: ya sea ayudando a solicitantes de asilo a navegar el proceso legal irlandés o apoyando a pacientes con enfermedad renal crónica.",
- about_p2:"Ese hilo recorre todo lo que sigue: orientación legal con RAG, una plataforma sanitaria serverless premiada, investigación en equidad que expone lo que la precisión oculta, y apps cívicas entregadas de principio a fin.",
+ about_p1:"Soy Raghav - ingeniero de IA en Dublín, terminando un MSc en IA Centrada en el Humano en TU Dublin tras un BSc en Informática y un año Erasmus en Oulu, Finlandia. Construyo sistemas que actúan en el mundo y responden por ello.",
+ about_quote:"Me fascina cómo la tecnología moldea el comportamiento humano - y hacia dónde llevamos la IA. Construyo sistemas en los que la gente puede confiar y que puede usar: ya sea ayudando a solicitantes de asilo a navegar el proceso legal irlandés o apoyando a pacientes con enfermedad renal crónica.",
+ about_p2:"Eso atraviesa todo lo que sigue: un agente de programación autónomo tras una frontera de autorización estricta, orientación legal aumentada por recuperación para solicitantes de asilo, una plataforma sanitaria serverless premiada y apps cívicas entregadas de principio a fin. Tres años de trabajo de seguridad en primera línea junto a los estudios a tiempo completo enseñaron el resto - templanza bajo presión y claridad con personas no técnicas.",
  ss_1:"Trabajo en equipo",ss_2:"Comunicación",ss_3:"Resolución de problemas",ss_4:"Liderazgo",ss_5:"Intercultural",ss_6:"Adaptabilidad",ss_7:"Pensamiento crítico",ss_8:"Gestión del tiempo",
  f_base:"Ubicación",f_now:"Actualmente",f_now_v:"Tesis MSc · IA para solicitantes de asilo",f_edu:"Formación",f_focus:"Enfoque",f_focus_v:"HCAI · RAG · ML responsable",f_award:"Premio",f_open:"Abierto a",f_open_v:"IA/ML · Datos · Software",
  s_1:"países explorados por mi cuenta",s_2:"idiomas hablados",s_3:"AWS Healthcare AI Challenge 2025",s_4:"programas universitarios internacionales",
  t_xp:"Experiencia",k_xp:"Donde he entregado",
- xp1_role:"Ingeniero de IA — Prácticas de tesis de máster · Orientación con IA para solicitantes de asilo",
- xp1_1:"Diseñé y evalué un <b>chatbot multilingüe basado en RAG</b> que guía a solicitantes de Protección Internacional por el proceso de asilo irlandés — fundamentado en <b>11 documentos legales verificados</b>, incluida la International Protection Act 2015 y 2026.",
- xp1_2:"Implementé el pipeline de generación aumentada por recuperación con <b>citación de fuentes, resistencia a alucinaciones y escalado automático</b> a profesionales legales — salvaguardas endurecidas mediante pruebas adversariales.",
- xp1_3:"Desarrollé un <b>marco de evaluación humano-céntrico de ocho dimensiones</b> — precisión, claridad, seguridad, derivación, resistencia a alucinaciones, transparencia, calibración de confianza, accesibilidad — validado con abogados de PI y profesionales de ONG.",
- xp1_4:"Responsable del ciclo completo hasta el <b>despliegue AWS/Azure con Docker</b> — derivando principios de diseño generalizables para IA al servicio de poblaciones vulnerables en contextos legales de alto riesgo.",
- xp2_role:"Becario de Ingeniería de Datos",
- xp2_1:"Mantuve <b>99,5 % de uptime</b> en pipelines con <b>50K+ registros diarios</b> (AWS S3, PostgreSQL); la validación automática Python/Spark redujo errores en <b>30 %</b>.",
- xp2_2:"Diseñé una <b>arquitectura ETL distribuida</b> tolerante a fallos para equipos en 3 zonas horarias; métricas en vivo para <b>10+ stakeholders</b> vía Power BI.",
+ xp1_role:"Ingeniero de IA - Prácticas de tesis de máster · Orientación con IA para solicitantes de asilo",
+ xp1_1:"Construí y desplegué un <b>sistema de orientación multilingüe basado en RAG</b> para el proceso de Protección Internacional de Irlanda - <b>1.439 fragmentos con conciencia de estructura</b> de 11 fuentes legales verificadas en un almacén vectorial Chroma, sirviendo cuatro idiomas.",
+ xp1_2:"Gestioné una <b>transición legislativa en vivo</b> etiquetando cada fragmento con su régimen vigente y filtrando la recuperación antes del ranking - para que los solicitantes bajo las disposiciones transitorias de la Ley de 2015 nunca reciban orientación de la Ley de 2026.",
+ xp1_3:"Desarrollé un <b>marco de evaluación humano-céntrico de ocho dimensiones</b> - precisión, claridad, seguridad, derivación, resistencia a alucinaciones, transparencia, calibración de confianza, accesibilidad - validado con abogados de PI y profesionales de ONG.",
+ xp1_4:"Implementé <b>citación de fuentes, resistencia a alucinaciones y escalado automático</b> a profesionales legales; responsable desde la arquitectura hasta el <b>despliegue AWS/Azure con Docker</b>, derivando principios de diseño para IA al servicio de poblaciones vulnerables.",
+ xp2_role:"Agente de seguridad estático",
+ xp2_1:"Única presencia de seguridad en tiendas <b>Lidl de alto tránsito</b>, con responsabilidad completa sobre la respuesta a incidentes - videovigilancia, patrullaje, gestión de colas y multitudes, detención conforme a la ley, declaraciones escritas y <b>enlace con la Garda</b>.",
+ xp2_2:"Gestioné <b>300+ incidentes</b> y contribuí a unos <b>10.000 €</b> en mercancía recuperada, operando dentro de límites legales y procedimentales estrictos donde cada decisión debe quedar documentada y justificada.",
  t_proj:"Proyectos seleccionados",k_proj:"Construidos para ser examinados",
- proj_intro:"Siete proyectos que abarcan salud, investigación en equidad y tecnología cívica — cada uno diseñado, entregado y evaluado, nunca solo una demo.",
+ proj_intro:"Ocho proyectos que abarcan IA agéntica, salud, investigación en equidad y tecnología cívica - cada uno diseñado, entregado y evaluado, nunca solo una demo.",
  p0_badge:"⭐ Tesis de máster",
- p0_d:"Diseño y evaluación de un chatbot basado en RAG que ofrece orientación procedimental multilingüe a solicitantes de Protección Internacional en Irlanda — fundamentado en 11 documentos legales verificados, incluida la International Protection Act 2015 y 2026. El pipeline cita sus fuentes, resiste alucinaciones y escala automáticamente a profesionales legales. Un marco de evaluación humano-céntrico de ocho dimensiones (precisión, claridad, seguridad, derivación, resistencia a alucinaciones, transparencia, calibración de confianza, accesibilidad) fue validado con abogados de PI y profesionales de ONG — generando principios de diseño generalizables para IA al servicio de poblaciones vulnerables en contextos legales de alto riesgo.",
- p0_m1:"documentos legales verificados",p0_m2:"dimensiones de evaluación",p0_m3:"idiomas de interfaz",
- p1_d:"Plataforma para encontrar fosfatos dirigida a pacientes con enfermedad renal crónica. Sistema ML serverless y orientado a eventos con componentes OOP desacoplados — Best Overall Project en el AWS Healthcare AI Challenge 2025 frente a 30+ equipos.",
+ p0_d:"Diseño y evaluación de un chatbot basado en RAG que ofrece orientación procedimental multilingüe a solicitantes de Protección Internacional en Irlanda - fundamentado en 11 documentos legales verificados, incluida la International Protection Act 2015 y 2026. El pipeline cita sus fuentes, resiste alucinaciones y escala automáticamente a profesionales legales. Un marco de evaluación humano-céntrico de ocho dimensiones (precisión, claridad, seguridad, derivación, resistencia a alucinaciones, transparencia, calibración de confianza, accesibilidad) fue validado con abogados de PI y profesionales de ONG - generando principios de diseño generalizables para IA al servicio de poblaciones vulnerables en contextos legales de alto riesgo.",
+ p0_m1:"fragmentos estructurados",p0_m2:"dimensiones de evaluación",p0_m3:"idiomas servidos",
+ p1_d:"Plataforma para encontrar fosfatos dirigida a pacientes con enfermedad renal crónica. Sistema ML serverless y orientado a eventos con componentes OOP desacoplados - Best Overall Project en el AWS Healthcare AI Challenge 2025 frente a 30+ equipos.",
  p2_d:"Pipeline NLP multiclase para detectar discurso de odio. Seis modelos comparados (LogReg, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT) sobre 20K+ publicaciones; SHAP/LIME para auditar decisiones a nivel de token y análisis de sesgo por raza, religión, género y orientación sexual bajo el marco del EU AI Act.",
- p3_d:"Estudio empírico sistemático de la relación entre rendimiento y equidad — 8 arquitecturas variadas. El mejor modelo alcanzó 85,7 % de precisión pero expuso una brecha de recall de 56 puntos: la precisión agregada enmascara la discriminación.",
- p4_d:"Pipeline completo de churn sobre datos bancarios muy desbalanceados (80/20, 6.000 clientes) — nueve etapas desde EDA hasta validación cruzada. La evaluación por subgrupos según género y país reveló que las clientas y los clientes españoles estaban sistemáticamente desatendidos pese a la buena precisión global.",
- p5_d:"Constructor de trayectorias profesionales con IA para el personal de cuidados: análisis de brechas de habilidades, rutas personalizadas, formación acreditada de bajo coste y un pasaporte digital de habilidades portátil — con mitigación de sesgos, human-in-the-loop y diseño inclusivo. Proyecto de equipo en TU Dublin.",
- p6_d:"La primera app cívica de Irlanda para reportar residuos, entregada de principio a fin: reconocimiento de imágenes con IA, diseño OOP en Kotlin/Java y backend REST escalable en AWS — adopción +50 % en tres meses.",
- p7_d:"App multilingüe de búsqueda de empleo para no hablantes de finés en Finlandia — nacida de vivir el problema como estudiante de intercambio en Oulu. Pensamiento localisation-first que aún define cómo construyo (este sitio habla siete idiomas).",
+ p3_d:"Estudio empírico sistemático de la relación entre rendimiento y equidad - 8 arquitecturas variadas. El mejor modelo alcanzó 85,7 % de precisión pero expuso una brecha de recall de 56 puntos: la precisión agregada enmascara la discriminación.",
+ p4_d:"Pipeline completo de churn sobre datos bancarios muy desbalanceados (80/20, 6.000 clientes) - nueve etapas desde EDA hasta validación cruzada. La evaluación por subgrupos según género y país reveló que las clientas y los clientes españoles estaban sistemáticamente desatendidos pese a la buena precisión global.",
+ p5_d:"Constructor de trayectorias profesionales con IA para el personal de cuidados: análisis de brechas de habilidades, rutas personalizadas, formación acreditada de bajo coste y un pasaporte digital de habilidades portátil - con mitigación de sesgos, human-in-the-loop y diseño inclusivo. Proyecto de equipo en TU Dublin.",
+ p6_d:"Mi proyecto de fin de carrera del BSc en Informática, y la primera app cívica de Irlanda para reportar residuos. Los vertidos ilegales se reportan por teléfono y formularios web que piden describir una ubicación con palabras - así los reportes llegan vagos, no verificables y lentos de gestionar. SnapBin lo sustituye por una sola acción: apunta la cámara y envía.",
+ p7_d:"El primer buscador de empleo local multilingüe de Finlandia, hecho para quienes no hablan finés. Lo diseñé viviendo el problema como estudiante Erasmus en Oulu: el trabajo existe - limpieza, almacén, cocina, reparto, turnos de temporada - pero los anuncios, los formularios y los mensajes del empleador están en finés. La barrera no es la capacidad, es el idioma.",
  t_skills:"Herramientas",k_skills:"Evidencia, no palabras de moda",
  sk_a:"Lenguajes",sk_b:"ML y Deep Learning",sk_c:"Sistemas RAG y LLM",sk_d:"IA centrada en el humano e investigación",sk_e:"Cloud e ingeniería",sk_f:"IA legal e IA responsable",
  t_edu:"Formación",k_edu:"Tres instituciones, dos países",edu1_g:"Esperado: Matrícula de Honor (1:1)",edu2_g:"Honores de segunda clase, Grado 1 (2:1)",edu3_g:"Nota 5 / 5",
  t_beyond:"Más allá de la terminal",k_beyond:"Humano, centrado",b_langs:"Idiomas que hablo",b_hobbies:"Cuando estoy offline",lv_fluent:"Fluido",lv_native:"Nativo",
  h_1:"Senderismo por Irlanda",h_2:"Perderme en ciudades nuevas",h_3:"Patinaje sobre hielo",h_4:"Canto en vivo",h_5:"Fitness",
- t_contact:"Contacto",c_line1:"Construyamos algo en lo que",c_line2:"la gente confíe.",ft_made:"Diseñado y construido con cariño en Dublín",ft_top:"↑ Volver arriba"
+ t_contact:"Contacto",c_line1:"Construyamos algo en lo que",c_line2:"la gente confíe.",ft_made:"Diseñado y construido con cariño en Dublín",ft_top:"↑ Volver arriba",
+ pA_badge:"Proyecto insignia",
+ pA_d:"Un agente autónomo que analiza cualquier repositorio de GitHub, planifica un cambio, edita código mediante un bucle de uso de herramientas, ejecuta los tests del propio proyecto y abre un pull request. La decisión de diseño clave es que <b>se detiene antes de tocar GitHub</b>: cuando los tests pasan, la tarea se detiene en <em>ready for review</em> y una persona aprueba el plan, los diffs y los resultados antes de publicar nada. Human-in-the-loop por arquitectura, no por política.",
+ pA_m1:"pruebas, ratio 1:1 con el código",
+ pA_m2:"migraciones verificadas",
+ pA_m3:"progreso en vivo",
+ sc_kick:"El hilo conductor",
+ sc_h1:"Sistemas que",
+ sc_h2:"actúan, no solo responden.",
+ sc_p:"Un agente que abre sus propios pull requests. Un sistema de recuperación que impide que dos regímenes legales se contaminen entre sí. Los problemas interesantes no están en el modelo - están en las barreras que lo rodean.",
+ pA_d2:"La fiabilidad en trabajos LLM de larga duración es lo difícil. Los leases de Redis evitan ejecuciones duplicadas, un heartbeat reaper detecta workers caídos y el progreso se transmite en vivo por Server-Sent Events. Cada llamada al proveedor se registra con tokens, coste y latencia. Todo el acceso a IA pasa por una interfaz de proveedor - Anthropic y Gemini implementados - así que cambiar de modelo o proveedor es una variable de entorno, nunca un cambio de código.",
+ pA_d3:"La inteligencia de repositorio detecta lenguajes, frameworks, puntos de entrada, rutas de API y esquemas SQL, y produce una puntuación de salud de 0–100 con subpuntuaciones deterministas y sugerencias fundamentadas - cada sugerencia debe citar archivos reales, y lo indeterminable se reporta como tal en vez de adivinarse. La seguridad se aplica: los secretos nunca se leen, los tokens se eliminan de los logs, la extracción de archivos está protegida contra zip-slip.",
+ pA_m4:"proveedores LLM abstraídos",
+ pA_repo:"Ver el repositorio",
+ p6_badge:"Proyecto de fin de carrera",
+ p6_d2:"La foto se clasifica al enviarse mediante la Google Vision API para identificar el tipo de residuo y descartar imágenes que no lo son antes de llegar a la cola municipal, mientras que las coordenadas GPS y la marca temporal se adjuntan automáticamente - cada reporte llega geolocalizado, categorizado y fechado. Los envíos duplicados en la misma ubicación se agrupan en vez de duplicarse.",
+ p6_d3:"El cliente Android se construyó en Kotlin y Java sobre una arquitectura MVC dirigida por interfaces, con Firebase gestionando autenticación y sincronización de estado en tiempo real para que el ciudadano siga su reporte de enviado a reconocido a resuelto. Los medios y datos se sirven desde un backend REST en AWS EC2 y S3, para que el almacenamiento de imágenes escale independientemente de la API. Resultado: adopción +50% en tres meses.",
+ p6_m3:"envío con un toque",
+ p7_badge:"Primero en Finlandia",
+ p7_d2:"Taskit trata el idioma como infraestructura, no como un ajuste. Los anuncios se almacenan de forma independiente del idioma y se renderizan por usuario: un empleador finlandés publica una vez en finés y el candidato lo lee en su lengua. Los puestos se filtran por el nivel de finés que el trabajo realmente exige, y la ubicación, el salario y los turnos aparecen al frente, porque son los campos que deciden si un empleo es viable.",
+ p7_d3:"Construirlo me enseñó que la localización es una decisión arquitectónica del primer día, no una capa de traducción añadida al final - por eso el sistema RAG de mi tesis sirve cuatro idiomas desde una única base de conocimiento fundamentada, y por eso este sitio habla siete.",
+ xp2_3:"La desescalada como respuesta por defecto - leer una situación con rapidez, mantener la calma bajo presión y comunicar con claridad a personas alteradas, angustiadas o que no hablan inglés.",
+ xp2_4:"Mantenido durante <b>tres años junto a estudios a tiempo completo</b>, incluyendo turnos de noche y fin de semana - la misma disciplina que hizo posible una plataforma de agentes con 900 tests y la tesis en paralelo.",
+ xp2_t1:"Respuesta a incidentes",
+ xp2_t2:"Desescalada",
+ xp2_t3:"Comunicación con el público",
+ xp2_t4:"Trabajo bajo presión"
 },
 nl:{
  nav_about:"Over mij",nav_xp:"Ervaring",nav_proj:"Projecten",nav_skills:"Skills",nav_edu:"Opleiding",nav_beyond:"Daarbuiten",nav_contact:"Contact",
- hero_status:"Open voor AI/ML-startersrollen — Dublin, Ierland",hero_word:"AI-engineer",
- hero_tagline:"Ik ontwerp en evalueer AI-systemen die mensen <strong>echt kunnen vertrouwen</strong> — van een meertalige juridische-begeleidingschatbot voor asielzoekers tot zorg-ML, fairness-onderzoek en civic tech, gebouwd in drie landen.",
+ hero_status:"Open voor AI/ML-startersrollen - Dublin, Ierland",hero_word:"AI-engineer",
+ hero_tagline:"Ik bouw AI die <strong>handelt, niet alleen antwoordt</strong> - een autonome agent die zijn eigen pull requests opent, en een retrieval-systeem dat twee Ierse juridische regimes gescheiden houdt. Gebouwd in drie landen.",
  btn_work:"Bekijk mijn werk",btn_cv:"Download CV",btn_contact:"Neem contact op",
  t_about:"Over mij",k_about:"Wie ik ben",
  about_lede:"Een nieuwsgierige geest die <em>bruggen</em> bouwt tussen mensen en technologie.",
- about_p1:"Ik ben Raghav — AI-onderzoeker en engineer in Dublin, Ierland. Mijn route loopt van Informatica aan TU Dublin via een Erasmusjaar in Finland naar een masterscriptie waarin ik een AI-begeleidingschatbot voor asielzoekers ontwerp, naast een AI-systems-stage bij Hogeschool Utrecht.",
- about_quote:"Ik ben gefascineerd door hoe technologie menselijk gedrag vormt — en waar we AI naartoe brengen. Ik bouw systemen die mensen echt kunnen vertrouwen en gebruiken: of dat nu asielzoekers helpt door het Ierse juridische proces of patiënten met chronische nierziekte ondersteunt.",
- about_p2:"Die rode draad loopt door alles hieronder: retrieval-augmented juridische begeleiding, een bekroond serverless zorgplatform, fairness-onderzoek dat blootlegt wat nauwkeurigheid verbergt, en civic apps end-to-end opgeleverd.",
+ about_p1:"Ik ben Raghav - AI-engineer in Dublin, bezig met een MSc Human-Centred AI aan TU Dublin, na een BSc Informatica en een Erasmusjaar in Oulu, Finland. Ik bouw systemen die handelen in de wereld en daar verantwoording voor afleggen.",
+ about_quote:"Ik ben gefascineerd door hoe technologie menselijk gedrag vormt - en waar we AI naartoe brengen. Ik bouw systemen die mensen echt kunnen vertrouwen en gebruiken: of dat nu asielzoekers helpt door het Ierse juridische proces of patiënten met chronische nierziekte ondersteunt.",
+ about_p2:"Dat loopt door alles hieronder: een autonome coding-agent achter een strikte autorisatiegrens, retrieval-ondersteunde juridische begeleiding voor asielzoekers, een bekroond serverless zorgplatform en burger-apps van begin tot eind opgeleverd. Drie jaar frontlinie-beveiligingswerk naast voltijds studeren leerde de rest - kalmte onder druk, en helder zijn tegen niet-technische mensen.",
  ss_1:"Teamwerk",ss_2:"Communicatie",ss_3:"Probleemoplossing",ss_4:"Leiderschap",ss_5:"Intercultureel",ss_6:"Aanpassingsvermogen",ss_7:"Kritisch denken",ss_8:"Timemanagement",
  f_base:"Gevestigd in",f_now:"Momenteel",f_now_v:"MSc-scriptie · AI voor asielzoekers",f_edu:"Opleiding",f_focus:"Focus",f_focus_v:"HCAI · RAG · Verantwoorde ML",f_award:"Prijs",f_open:"Open voor",f_open_v:"AI/ML · Data · Software",
  s_1:"landen zelfstandig verkend",s_2:"gesproken talen",s_3:"AWS Healthcare AI Challenge 2025",s_4:"internationale universiteitsprogramma's",
  t_xp:"Ervaring",k_xp:"Waar ik geleverd heb",
- xp1_role:"AI Engineer — Afstudeerstage · AI-begeleiding voor asielzoekers",
- xp1_1:"Ontwierp en evalueerde een <b>RAG-gebaseerde meertalige chatbot</b> die aanvragers van Internationale Bescherming door de Ierse asielprocedure leidt — gefundeerd op <b>11 geverifieerde juridische documenten</b>, waaronder de International Protection Act 2015 en 2026.",
- xp1_2:"Implementeerde de retrieval-augmented pipeline met <b>bronvermelding, hallucinatieweerstand en automatische escalatie</b> naar juristen — guardrails gehard via adversariële tests.",
- xp1_3:"Ontwikkelde een <b>achtdimensionaal mensgericht evaluatiekader</b> — nauwkeurigheid, duidelijkheid, veiligheid, verwijsgedrag, hallucinatieweerstand, transparantie, vertrouwenskalibratie, toegankelijkheid — gevalideerd met IP-advocaten en NGO-praktijkmensen.",
- xp1_4:"Verantwoordelijk voor de volledige levenscyclus tot en met <b>AWS/Azure-deployment met Docker</b> — met generaliseerbare ontwerpprincipes voor AI voor kwetsbare groepen in juridische hoogrisico-contexten.",
- xp2_role:"Stagiair Data Engineering",
- xp2_1:"<b>99,5% uptime</b> op pipelines met <b>50K+ records per dag</b> (AWS S3, PostgreSQL); geautomatiseerde Python/Spark-validatie verlaagde fouten met <b>30%</b>.",
- xp2_2:"Fouttolerante gedistribueerde <b>ETL-architectuur</b> met modulaire OOP-componenten voor teams in 3 tijdzones; live metrics voor <b>10+ stakeholders</b> via Power BI.",
+ xp1_role:"AI Engineer - Afstudeerstage · AI-begeleiding voor asielzoekers",
+ xp1_1:"Bouwde en implementeerde een <b>RAG-gebaseerd meertalig begeleidingssysteem</b> voor de Ierse asielprocedure - <b>1.439 structuurbewuste chunks</b> uit 11 geverifieerde juridische bronnen in een Chroma vector store, in vier talen.",
+ xp1_2:"Ving een <b>lopende wetswijziging</b> op door elke chunk te taggen met het geldende regime en retrieval vóór ranking te filteren - zodat aanvragers onder het overgangsrecht van de wet van 2015 nooit begeleiding krijgen op basis van de wet van 2026.",
+ xp1_3:"Ontwikkelde een <b>achtdimensionaal mensgericht evaluatiekader</b> - nauwkeurigheid, duidelijkheid, veiligheid, verwijsgedrag, hallucinatieweerstand, transparantie, vertrouwenskalibratie, toegankelijkheid - gevalideerd met IP-advocaten en NGO-praktijkmensen.",
+ xp1_4:"Implementeerde <b>bronvermelding, hallucinatieweerstand en automatische escalatie</b> naar juristen; verantwoordelijk van architectuur tot <b>AWS/Azure-deployment met Docker</b>, met ontwerpprincipes voor AI in dienst van kwetsbare groepen.",
+ xp2_role:"Beveiligingsmedewerker (objectbeveiliging)",
+ xp2_1:"Enige beveiligingsaanwezigheid in <b>drukbezochte Lidl-filialen</b>, met volledige verantwoordelijkheid voor incidentafhandeling - cameratoezicht, surveillance, rij- en crowdmanagement, rechtmatige aanhouding, schriftelijke verklaringen en <b>contact met de Garda</b>.",
+ xp2_2:"<b>300+ incidenten</b> afgehandeld en bijgedragen aan ongeveer <b>€10.000</b> aan teruggevonden voorraad, binnen strikte juridische en procedurele kaders waarin elke beslissing gedocumenteerd en verdedigbaar moet zijn.",
  t_proj:"Geselecteerde projecten",k_proj:"Gebouwd om onderzocht te worden",
- proj_intro:"Zeven projecten in zorg, fairness-onderzoek en civic tech — elk ontworpen, opgeleverd en geëvalueerd, nooit alleen gedemonstreerd.",
+ proj_intro:"Acht projecten in agentische AI, zorg, fairness-onderzoek en civic tech - elk ontworpen, opgeleverd en geëvalueerd, nooit alleen gedemonstreerd.",
  p0_badge:"⭐ MSc-scriptie",
- p0_d:"Ontwerp en evaluatie van een RAG-gebaseerde chatbot die meertalige procedurele begeleiding biedt aan aanvragers van Internationale Bescherming in Ierland — gefundeerd op 11 geverifieerde juridische documenten, waaronder de International Protection Act 2015 en 2026. De pipeline citeert zijn bronnen, is bestand tegen hallucinaties en escaleert automatisch naar juridische professionals. Een achtdimensionaal mensgericht evaluatiekader (nauwkeurigheid, helderheid, veiligheid, doorverwijsgedrag, hallucinatieresistentie, transparantie, vertrouwenskalibratie, toegankelijkheid) is gevalideerd met IP-advocaten en NGO-praktijkmensen — met generaliseerbare ontwerpprincipes voor AI die kwetsbare groepen bedient in juridische hoogrisicocontexten.",
- p0_m1:"geverifieerde juridische documenten",p0_m2:"evaluatiedimensies",p0_m3:"interfacetalen",
- p1_d:"Fosfaat-zoekplatform voor patiënten met chronische nierziekte. Serverless, event-driven ML-systeem met ontkoppelde OOP-componenten — Best Overall Project bij de AWS Healthcare AI Challenge 2025 tegen 30+ teams.",
+ p0_d:"Ontwerp en evaluatie van een RAG-gebaseerde chatbot die meertalige procedurele begeleiding biedt aan aanvragers van Internationale Bescherming in Ierland - gefundeerd op 11 geverifieerde juridische documenten, waaronder de International Protection Act 2015 en 2026. De pipeline citeert zijn bronnen, is bestand tegen hallucinaties en escaleert automatisch naar juridische professionals. Een achtdimensionaal mensgericht evaluatiekader (nauwkeurigheid, helderheid, veiligheid, doorverwijsgedrag, hallucinatieresistentie, transparantie, vertrouwenskalibratie, toegankelijkheid) is gevalideerd met IP-advocaten en NGO-praktijkmensen - met generaliseerbare ontwerpprincipes voor AI die kwetsbare groepen bedient in juridische hoogrisicocontexten.",
+ p0_m1:"structuurbewuste chunks",p0_m2:"evaluatiedimensies",p0_m3:"bediende talen",
+ p1_d:"Fosfaat-zoekplatform voor patiënten met chronische nierziekte. Serverless, event-driven ML-systeem met ontkoppelde OOP-componenten - Best Overall Project bij de AWS Healthcare AI Challenge 2025 tegen 30+ teams.",
  p2_d:"Multiclass NLP-pipeline voor haatspraakdetectie. Zes modellen vergeleken (LogReg, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT) op 20K+ posts; SHAP/LIME voor uitlegbaarheid op tokenniveau en biasanalyse over ras, religie, gender en seksuele oriëntatie binnen het EU AI Act-kader.",
- p3_d:"Systematisch empirisch onderzoek naar de relatie tussen classificatieprestaties en fairness — 8 architecturen gevarieerd. Het beste model haalde 85,7% accuratesse maar legde een recall-kloof van 56 punten bloot: geaggregeerde accuratesse maskeert discriminatie.",
- p4_d:"End-to-end churn-pipeline op sterk ongebalanceerde bankdata (80/20, 6.000 klanten) — negen fasen van EDA tot kruisvalidatie. Subgroepevaluatie naar gender en land toonde dat vrouwelijke en Spaanse klanten systematisch slechter bediend werden ondanks sterke totaalaccuratesse.",
- p5_d:"AI-loopbaanbouwer voor zorgmedewerkers: skill-gap-analyse, gepersonaliseerde routes, matching van betaalbare geaccrediteerde training en een draagbaar digitaal skills-paspoort — met biasmitigatie, human-in-the-loop en inclusief ontwerp. Teamproject aan TU Dublin.",
- p6_d:"Ierlands eerste burger-app voor afvalmeldingen, end-to-end opgeleverd: AI-beeldherkenning, OOP-ontwerp in Kotlin/Java en schaalbare REST-backend op AWS — adoptie +50% in drie maanden.",
- p7_d:"Meertalige vacature-app voor niet-Finstaligen in Finland — geboren uit eigen ervaring als uitwisselingsstudent in Oulu. Localisation-first denken dat nog steeds bepaalt hoe ik bouw (deze site spreekt zeven talen).",
+ p3_d:"Systematisch empirisch onderzoek naar de relatie tussen classificatieprestaties en fairness - 8 architecturen gevarieerd. Het beste model haalde 85,7% accuratesse maar legde een recall-kloof van 56 punten bloot: geaggregeerde accuratesse maskeert discriminatie.",
+ p4_d:"End-to-end churn-pipeline op sterk ongebalanceerde bankdata (80/20, 6.000 klanten) - negen fasen van EDA tot kruisvalidatie. Subgroepevaluatie naar gender en land toonde dat vrouwelijke en Spaanse klanten systematisch slechter bediend werden ondanks sterke totaalaccuratesse.",
+ p5_d:"AI-loopbaanbouwer voor zorgmedewerkers: skill-gap-analyse, gepersonaliseerde routes, matching van betaalbare geaccrediteerde training en een draagbaar digitaal skills-paspoort - met biasmitigatie, human-in-the-loop en inclusief ontwerp. Teamproject aan TU Dublin.",
+ p6_d:"Mijn afstudeerproject van de BSc Informatica, en Ierlands eerste burger-app voor afvalmeldingen. Illegale dumping wordt gemeld via telefoonlijnen en webformulieren die vragen een locatie in woorden te beschrijven - meldingen komen vaag, oncontroleerbaar en traag binnen. SnapBin vervangt dat door één handeling: richt de camera en verstuur.",
+ p7_d:"Finlands eerste meertalige lokale vacaturezoeker, gebouwd voor mensen die geen Fins spreken. Ik ontwierp hem terwijl ik het probleem zelf beleefde als Erasmusstudent in Oulu: het werk bestaat - schoonmaak, magazijn, keuken, bezorging, seizoensdiensten - maar de vacatures, formulieren en werkgeversberichten zijn in het Fins. De drempel is niet vaardigheid, maar taal.",
  t_skills:"Gereedschapskist",k_skills:"Bewijs, geen buzzwords",
  sk_a:"Programmeertalen",sk_b:"ML & Deep Learning",sk_c:"RAG- & LLM-systemen",sk_d:"Mensgerichte AI & onderzoek",sk_e:"Cloud & engineering",sk_f:"Legal AI & verantwoorde AI",
  t_edu:"Opleiding",k_edu:"Drie instellingen, twee landen",edu1_g:"Verwacht: First-Class Honours (1:1)",edu2_g:"Second-Class Honours, Grade 1 (2:1)",edu3_g:"Cijfer 5 / 5",
  t_beyond:"Voorbij de terminal",k_beyond:"Mens, centraal",b_langs:"Talen die ik spreek",b_hobbies:"Als ik offline ben",lv_fluent:"Vloeiend",lv_native:"Moedertaal",
  h_1:"Wandelen op Ierse trails",h_2:"Verdwalen in nieuwe steden",h_3:"Schaatsen",h_4:"Live zang",h_5:"Fitness",
- t_contact:"Contact",c_line1:"Laten we iets bouwen dat",c_line2:"mensen vertrouwen.",ft_made:"Met zorg ontworpen & gebouwd in Dublin",ft_top:"↑ Naar boven"
+ t_contact:"Contact",c_line1:"Laten we iets bouwen dat",c_line2:"mensen vertrouwen.",ft_made:"Met zorg ontworpen & gebouwd in Dublin",ft_top:"↑ Naar boven",
+ pA_badge:"Vlaggenschipproject",
+ pA_d:"Een autonome agent die elke GitHub-repository analyseert, een wijziging plant, code bewerkt via een tool-use-lus, de eigen tests van het project draait en een pull request opent. De bepalende ontwerpkeuze: hij <b>stopt vóórdat hij GitHub raakt</b> - slagen de tests, dan stopt de taak bij <em>ready for review</em> en keurt een mens plan, diffs en testuitvoer goed voordat er iets wordt gepubliceerd. Human-in-the-loop per architectuur, niet per beleid.",
+ pA_m1:"tests, 1:1 verhouding tot code",
+ pA_m2:"geverifieerde migraties",
+ pA_m3:"live voortgang streamen",
+ sc_kick:"De rode draad",
+ sc_h1:"Systemen die",
+ sc_h2:"handelen, niet alleen antwoorden.",
+ sc_p:"Een agent die zijn eigen pull requests opent. Een retrieval-systeem dat twee juridische regimes gescheiden houdt. De interessante problemen zitten niet in het model - maar in de vangrails eromheen.",
+ pA_d2:"Betrouwbaarheid bij langlopende LLM-taken is het moeilijke deel. Redis-leases voorkomen dubbele uitvoering, een heartbeat reaper detecteert gecrashte workers en voortgang streamt live via Server-Sent Events. Elke provider-aanroep wordt vastgelegd met tokens, kosten en latency. Alle AI-toegang loopt via één providerinterface - Anthropic en Gemini geïmplementeerd - dus wisselen van model of provider is een omgevingsvariabele, nooit een codewijziging.",
+ pA_d3:"Repository-intelligentie detecteert talen, frameworks, entry points, API-routes en SQL-schema's, en produceert een health score van 0–100 met deterministische subscores en onderbouwde verbetersuggesties - elke suggestie moet echte bestanden citeren, en wat niet vast te stellen is wordt als zodanig gemeld in plaats van geraden. Veiligheid wordt afgedwongen: secrets worden nooit gelezen, tokens uit alle logs geschrapt, archiefextractie is zip-slip-beveiligd.",
+ pA_m4:"LLM-providers geabstraheerd",
+ pA_repo:"Bekijk de repository",
+ p6_badge:"Afstudeerproject",
+ p6_d2:"Een foto wordt bij het versturen geclassificeerd via de Google Vision API om het afvaltype te bepalen en niet-afvalbeelden te weren voordat ze een gemeentelijke wachtrij bereiken, terwijl GPS-coördinaten en tijdstempel automatisch worden meegestuurd - elke melding komt gelokaliseerd, gecategoriseerd en getijdstempeld binnen. Dubbele meldingen op dezelfde plek worden geclusterd in plaats van dubbel geregistreerd.",
+ p6_d3:"De Android-client is gebouwd in Kotlin en Java op een interface-gedreven MVC-architectuur, met Firebase voor authenticatie en realtime statussynchronisatie zodat een burger zijn melding van ingediend naar erkend naar opgelost kan volgen. Media en meldingsdata komen van een REST-backend op AWS EC2 en S3, zodat beeldopslag onafhankelijk van de API schaalt. Resultaat: adoptie +50% in drie maanden.",
+ p6_m3:"melding met één tik",
+ p7_badge:"Eerste in Finland",
+ p7_d2:"Taskit behandelt taal als infrastructuur, niet als een instelling. Vacatures worden taalonafhankelijk opgeslagen en per gebruiker gerenderd: een Finse werkgever plaatst één keer in het Fins en een kandidaat leest het in zijn eigen taal. Functies worden gefilterd op het Finse niveau dat een baan echt vereist, en locatie, loon en dienststructuur staan vooraan, want dat zijn de velden die bepalen of een baan haalbaar is.",
+ p7_d3:"Het bouwen leerde me dat lokalisatie een architectuurbeslissing van dag één is, geen vertaalslag achteraf - daarom bedient het RAG-systeem van mijn scriptie vier talen vanuit één gefundeerde kennisbasis, en spreekt deze site er zeven.",
+ xp2_3:"De-escalatie als standaardreactie - een situatie snel inschatten, kalm blijven onder druk en helder communiceren met opgewonden, ontredderde of niet-Engelssprekende mensen.",
+ xp2_4:"Volgehouden gedurende <b>drie jaar naast een voltijdstudie</b>, inclusief nacht- en weekenddiensten - dezelfde discipline die een agentplatform met 900 tests en de scriptie tegelijk mogelijk maakte.",
+ xp2_t1:"Incidentafhandeling",
+ xp2_t2:"De-escalatie",
+ xp2_t3:"Publiekscommunicatie",
+ xp2_t4:"Werken onder druk"
 },
 fr:{
  nav_about:"À propos",nav_xp:"Expérience",nav_proj:"Projets",nav_skills:"Compétences",nav_edu:"Formation",nav_beyond:"Au-delà",nav_contact:"Contact",
- hero_status:"Ouvert aux postes IA/ML — Dublin, Irlande",hero_word:"Ingénieur IA",
- hero_tagline:"Je conçois et évalue des systèmes d'IA auxquels les gens peuvent <strong>vraiment faire confiance</strong> — d'un chatbot multilingue d'orientation juridique pour demandeurs d'asile au ML de santé, à la recherche sur l'équité et à la tech civique, construits dans trois pays.",
+ hero_status:"Ouvert aux postes IA/ML - Dublin, Irlande",hero_word:"Ingénieur IA",
+ hero_tagline:"Je construis une IA qui <strong>agit, pas seulement répond</strong> - un agent autonome qui ouvre ses propres pull requests, et un système de récupération qui sépare deux régimes juridiques irlandais. Construit dans trois pays.",
  btn_work:"Voir mon travail",btn_cv:"Télécharger le CV",btn_contact:"Me contacter",
  t_about:"À propos",k_about:"Qui je suis",
  about_lede:"Un esprit curieux qui bâtit des <em>ponts</em> entre les personnes et la technologie.",
- about_p1:"Je suis Raghav — chercheur et ingénieur en IA basé à Dublin, en Irlande. Mon parcours va de l'informatique à TU Dublin à une année Erasmus en Finlande, et aujourd'hui une thèse de master où je conçois un chatbot d'orientation IA pour demandeurs d'asile, en parallèle d'un stage en systèmes d'IA avec la HU Utrecht.",
- about_quote:"Je suis fasciné par la façon dont la technologie façonne le comportement humain — et par la direction que nous donnons à l'IA. Je construis des systèmes auxquels les gens peuvent réellement faire confiance : qu'il s'agisse d'aider des demandeurs d'asile à naviguer le processus juridique irlandais ou de soutenir des patients atteints d'insuffisance rénale chronique.",
- about_p2:"Ce fil conducteur traverse tout ce qui suit : orientation juridique par RAG, plateforme de santé serverless primée, recherche sur l'équité qui révèle ce que la précision cache, et apps civiques livrées de bout en bout.",
+ about_p1:"Je suis Raghav - ingénieur IA à Dublin, en fin de MSc en IA centrée sur l'humain à TU Dublin, après une licence en informatique et une année Erasmus à Oulu, en Finlande. Je construis des systèmes qui agissent dans le monde et en répondent.",
+ about_quote:"Je suis fasciné par la façon dont la technologie façonne le comportement humain - et par la direction que nous donnons à l'IA. Je construis des systèmes auxquels les gens peuvent réellement faire confiance : qu'il s'agisse d'aider des demandeurs d'asile à naviguer le processus juridique irlandais ou de soutenir des patients atteints d'insuffisance rénale chronique.",
+ about_p2:"Cela traverse tout ce qui suit : un agent de codage autonome derrière une frontière d'autorisation stricte, une orientation juridique augmentée par récupération pour les demandeurs d'asile, une plateforme de santé serverless primée et des applications civiques livrées de bout en bout. Trois ans de sécurité en première ligne menés en parallèle d'études à temps plein ont enseigné le reste - le sang-froid et la clarté avec des personnes non techniques.",
  ss_1:"Travail d'équipe",ss_2:"Communication",ss_3:"Résolution de problèmes",ss_4:"Leadership",ss_5:"Interculturel",ss_6:"Adaptabilité",ss_7:"Esprit critique",ss_8:"Gestion du temps",
  f_base:"Basé à",f_now:"Actuellement",f_now_v:"Thèse MSc · IA pour demandeurs d'asile",f_edu:"Formation",f_focus:"Spécialité",f_focus_v:"HCAI · RAG · ML responsable",f_award:"Prix",f_open:"Ouvert aux",f_open_v:"Postes IA/ML · Data · Software",
  s_1:"pays explorés en autonomie",s_2:"langues parlées",s_3:"AWS Healthcare AI Challenge 2025",s_4:"programmes universitaires internationaux",
  t_xp:"Expérience",k_xp:"Là où j'ai livré",
- xp1_role:"Ingénieur IA — Stage de thèse de master · Guidage IA pour demandeurs d'asile",
- xp1_1:"Conception et évaluation d'un <b>chatbot multilingue basé sur le RAG</b> guidant les demandeurs de Protection Internationale dans la procédure d'asile irlandaise — fondé sur <b>11 documents juridiques vérifiés</b>, dont l'International Protection Act 2015 et 2026.",
- xp1_2:"Implémentation du pipeline de génération augmentée par récupération avec <b>citation des sources, résistance aux hallucinations et escalade automatique</b> vers des juristes — garde-fous durcis par tests adversariaux.",
- xp1_3:"Développement d'un <b>cadre d'évaluation centré humain à huit dimensions</b> — précision, clarté, sécurité, orientation, résistance aux hallucinations, transparence, calibration de la confiance, accessibilité — validé avec des avocats en PI et des praticiens d'ONG.",
- xp1_4:"Responsabilité du cycle de vie complet jusqu'au <b>déploiement AWS/Azure avec Docker</b> — avec des principes de conception généralisables pour l'IA au service de populations vulnérables dans des contextes juridiques à enjeux élevés.",
- xp2_role:"Stagiaire en ingénierie des données",
- xp2_1:"<b>99,5 % d'uptime</b> sur des pipelines traitant <b>50K+ enregistrements/jour</b> (AWS S3, PostgreSQL) ; la validation automatisée Python/Spark a réduit les erreurs de <b>30 %</b>.",
- xp2_2:"<b>Architecture ETL distribuée</b> tolérante aux pannes pour des équipes sur 3 fuseaux ; métriques en direct pour <b>10+ parties prenantes</b> via Power BI.",
+ xp1_role:"Ingénieur IA - Stage de thèse de master · Guidage IA pour demandeurs d'asile",
+ xp1_1:"Conçu et déployé un <b>système de guidage multilingue basé sur le RAG</b> pour la procédure d'asile irlandaise - <b>1 439 fragments structurés</b> issus de 11 sources juridiques vérifiées dans une base vectorielle Chroma, en quatre langues.",
+ xp1_2:"Géré une <b>transition législative en cours</b> en étiquetant chaque fragment avec son régime applicable et en filtrant la récupération avant le classement - pour que les demandeurs relevant des dispositions transitoires de la loi de 2015 ne reçoivent jamais d'orientations de la loi de 2026.",
+ xp1_3:"Développement d'un <b>cadre d'évaluation centré humain à huit dimensions</b> - précision, clarté, sécurité, orientation, résistance aux hallucinations, transparence, calibration de la confiance, accessibilité - validé avec des avocats en PI et des praticiens d'ONG.",
+ xp1_4:"Implémenté <b>citation des sources, résistance aux hallucinations et escalade automatique</b> vers des juristes ; responsable de l'architecture jusqu'au <b>déploiement AWS/Azure avec Docker</b>, avec des principes de conception pour l'IA au service de populations vulnérables.",
+ xp2_role:"Agent de sécurité (poste fixe)",
+ xp2_1:"Seule présence de sécurité sur site dans des magasins <b>Lidl à forte affluence</b>, avec la responsabilité complète de la gestion des incidents - vidéosurveillance, rondes, gestion des files et des flux, détention légale, déclarations écrites et <b>liaison avec la Garda</b>.",
+ xp2_2:"<b>300+ incidents</b> traités et environ <b>10 000 €</b> de marchandise récupérée, dans un cadre juridique et procédural strict où chaque décision doit être documentée et défendable.",
  t_proj:"Projets sélectionnés",k_proj:"Construits pour être examinés",
- proj_intro:"Sept projets couvrant la santé, la recherche sur l'équité et la tech civique — chacun conçu, livré et évalué, jamais une simple démo.",
+ proj_intro:"Huit projets couvrant l'IA agentique, la santé, la recherche sur l'équité et la tech civique - chacun conçu, livré et évalué, jamais une simple démo.",
  p0_badge:"⭐ Thèse de master",
- p0_d:"Conception et évaluation d'un chatbot fondé sur le RAG offrant une orientation procédurale multilingue aux demandeurs de Protection Internationale en Irlande — ancré dans 11 documents juridiques vérifiés, dont l'International Protection Act 2015 et 2026. Le pipeline cite ses sources, résiste aux hallucinations et escalade automatiquement vers des professionnels du droit. Un cadre d'évaluation centré humain à huit dimensions (précision, clarté, sécurité, orientation, résistance aux hallucinations, transparence, calibration de la confiance, accessibilité) a été validé avec des avocats spécialisés et des praticiens d'ONG — dégageant des principes de conception généralisables pour l'IA au service de populations vulnérables dans des contextes juridiques à enjeux élevés.",
- p0_m1:"documents juridiques vérifiés",p0_m2:"dimensions d'évaluation",p0_m3:"langues d'interface",
- p1_d:"Plateforme de recherche de phosphates pour les patients atteints d'insuffisance rénale chronique. Système ML serverless et événementiel avec composants OOP découplés — Best Overall Project au AWS Healthcare AI Challenge 2025 face à 30+ équipes.",
+ p0_d:"Conception et évaluation d'un chatbot fondé sur le RAG offrant une orientation procédurale multilingue aux demandeurs de Protection Internationale en Irlande - ancré dans 11 documents juridiques vérifiés, dont l'International Protection Act 2015 et 2026. Le pipeline cite ses sources, résiste aux hallucinations et escalade automatiquement vers des professionnels du droit. Un cadre d'évaluation centré humain à huit dimensions (précision, clarté, sécurité, orientation, résistance aux hallucinations, transparence, calibration de la confiance, accessibilité) a été validé avec des avocats spécialisés et des praticiens d'ONG - dégageant des principes de conception généralisables pour l'IA au service de populations vulnérables dans des contextes juridiques à enjeux élevés.",
+ p0_m1:"fragments structurés",p0_m2:"dimensions d'évaluation",p0_m3:"langues servies",
+ p1_d:"Plateforme de recherche de phosphates pour les patients atteints d'insuffisance rénale chronique. Système ML serverless et événementiel avec composants OOP découplés - Best Overall Project au AWS Healthcare AI Challenge 2025 face à 30+ équipes.",
  p2_d:"Pipeline NLP multiclasse de détection de discours haineux. Six modèles comparés (LogReg, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT) sur 20K+ publications ; SHAP/LIME pour auditer les décisions au niveau des tokens et analyse des biais selon la race, la religion, le genre et l'orientation sexuelle dans le cadre de l'EU AI Act.",
- p3_d:"Étude empirique systématique du lien entre performance et équité — 8 architectures variées. Le meilleur modèle atteint 85,7 % de précision mais révèle un écart de rappel de 56 points : la précision agrégée masque la discrimination.",
- p4_d:"Pipeline de churn complet sur des données bancaires très déséquilibrées (80/20, 6 000 clients) — neuf étapes de l'EDA à la validation croisée. L'évaluation par sous-groupes (genre, pays) a montré que les clientes et les clients espagnols étaient systématiquement moins bien servis malgré une forte précision globale.",
- p5_d:"Constructeur de parcours de carrière IA pour le personnel soignant : analyse des écarts de compétences, feuilles de route personnalisées, formations accréditées abordables et passeport numérique de compétences portable — avec atténuation des biais, human-in-the-loop et design inclusif. Projet d'équipe à TU Dublin.",
- p6_d:"Première app civique d'Irlande pour signaler les déchets, livrée de bout en bout : reconnaissance d'images IA, design OOP en Kotlin/Java et backend REST évolutif sur AWS — adoption +50 % en trois mois.",
- p7_d:"App multilingue de recherche d'emploi pour les non-finnophones en Finlande — née de mon vécu d'étudiant d'échange à Oulu. Une pensée localisation-first qui façonne encore ma manière de construire (ce site parle sept langues).",
+ p3_d:"Étude empirique systématique du lien entre performance et équité - 8 architectures variées. Le meilleur modèle atteint 85,7 % de précision mais révèle un écart de rappel de 56 points : la précision agrégée masque la discrimination.",
+ p4_d:"Pipeline de churn complet sur des données bancaires très déséquilibrées (80/20, 6 000 clients) - neuf étapes de l'EDA à la validation croisée. L'évaluation par sous-groupes (genre, pays) a montré que les clientes et les clients espagnols étaient systématiquement moins bien servis malgré une forte précision globale.",
+ p5_d:"Constructeur de parcours de carrière IA pour le personnel soignant : analyse des écarts de compétences, feuilles de route personnalisées, formations accréditées abordables et passeport numérique de compétences portable - avec atténuation des biais, human-in-the-loop et design inclusif. Projet d'équipe à TU Dublin.",
+ p6_d:"Mon projet de fin d'études en licence d'informatique, et la première app civique d'Irlande pour signaler les déchets. Les dépôts sauvages se signalent par téléphone et formulaires web qui demandent de décrire un lieu avec des mots - les signalements arrivent vagues, invérifiables et lents à traiter. SnapBin remplace cela par une seule action : viser avec l'appareil photo et envoyer.",
+ p7_d:"Le premier chercheur d'emploi local multilingue de Finlande, conçu pour ceux qui ne parlent pas finnois. Je l'ai imaginé en vivant le problème comme étudiant Erasmus à Oulu : le travail existe - ménage, entrepôt, cuisine, livraison, postes saisonniers - mais les annonces, formulaires et messages d'employeurs sont en finnois. L'obstacle n'est pas la compétence, c'est la langue.",
  t_skills:"Boîte à outils",k_skills:"Des preuves, pas des slogans",
  sk_a:"Langages",sk_b:"ML & Deep Learning",sk_c:"Systèmes RAG & LLM",sk_d:"IA centrée humain & recherche",sk_e:"Cloud & ingénierie",sk_f:"IA juridique & IA responsable",
  t_edu:"Formation",k_edu:"Trois institutions, deux pays",edu1_g:"Attendu : mention très bien (1:1)",edu2_g:"Mention bien (2:1)",edu3_g:"Note 5 / 5",
  t_beyond:"Au-delà du terminal",k_beyond:"Humain, centré",b_langs:"Langues parlées",b_hobbies:"Quand je suis hors ligne",lv_fluent:"Courant",lv_native:"Langue maternelle",
  h_1:"Randonnée sur les sentiers irlandais",h_2:"Me perdre dans de nouvelles villes",h_3:"Patinage sur glace",h_4:"Chant en live",h_5:"Fitness",
- t_contact:"Contact",c_line1:"Construisons quelque chose digne de",c_line2:"confiance.",ft_made:"Conçu & construit avec soin à Dublin",ft_top:"↑ Haut de page"
+ t_contact:"Contact",c_line1:"Construisons quelque chose digne de",c_line2:"confiance.",ft_made:"Conçu & construit avec soin à Dublin",ft_top:"↑ Haut de page",
+ pA_badge:"Projet phare",
+ pA_d:"Un agent autonome qui analyse n'importe quel dépôt GitHub, planifie une modification, édite le code via une boucle d'utilisation d'outils, exécute les tests du projet et ouvre une pull request. La décision de conception clé : il <b>s'arrête avant de toucher GitHub</b> - quand les tests passent, la tâche s'arrête à <em>ready for review</em>, et un humain valide le plan, les diffs et les résultats avant toute publication. Human-in-the-loop par architecture, pas par politique.",
+ pA_m1:"tests, ratio 1:1 avec le code",
+ pA_m2:"migrations vérifiées",
+ pA_m3:"progression en direct",
+ sc_kick:"Le fil conducteur",
+ sc_h1:"Des systèmes qui",
+ sc_h2:"agissent, pas seulement répondent.",
+ sc_p:"Un agent qui ouvre ses propres pull requests. Un système de récupération qui empêche deux régimes juridiques de se contaminer. Les problèmes intéressants ne sont pas dans le modèle - ils sont dans les garde-fous autour.",
+ pA_d2:"La fiabilité des tâches LLM longues est le vrai défi. Les leases Redis empêchent les exécutions dupliquées, un heartbeat reaper détecte les workers plantés, et la progression est diffusée en direct via Server-Sent Events. Chaque appel au fournisseur est enregistré avec jetons, coût et latence. Tout l'accès IA passe par une interface unique - Anthropic et Gemini implémentés - donc changer de modèle ou de fournisseur est une variable d'environnement, jamais une modification de code.",
+ pA_d3:"L'intelligence de dépôt détecte langages, frameworks, points d'entrée, routes d'API et schémas SQL, puis produit un score de santé de 0 à 100 avec des sous-scores déterministes et des suggestions étayées - chaque suggestion doit citer des fichiers réels, et l'indéterminable est signalé comme tel plutôt que deviné. La sécurité est appliquée : les secrets ne sont jamais lus, les jetons effacés de tous les journaux, l'extraction d'archives protégée contre le zip-slip.",
+ pA_m4:"fournisseurs LLM abstraits",
+ pA_repo:"Voir le dépôt",
+ p6_badge:"Projet de fin d'études",
+ p6_d2:"La photo est classée à l'envoi via l'API Google Vision pour identifier le type de déchet et écarter les images non pertinentes avant qu'elles n'atteignent une file municipale, tandis que coordonnées GPS et horodatage sont joints automatiquement - chaque signalement arrive géolocalisé, catégorisé et daté. Les doublons au même endroit sont regroupés plutôt que comptés deux fois.",
+ p6_d3:"Le client Android a été bâti en Kotlin et Java sur une architecture MVC pilotée par interfaces, Firebase gérant l'authentification et la synchronisation d'état en temps réel pour que le citoyen suive son signalement de soumis à reconnu puis résolu. Médias et données sont servis par un backend REST sur AWS EC2 et S3, l'stockage d'images évoluant indépendamment de l'API. Résultat : adoption +50 % en trois mois.",
+ p6_m3:"signalement en un geste",
+ p7_badge:"Une première en Finlande",
+ p7_d2:"Taskit traite la langue comme une infrastructure, pas comme un réglage. Les annonces sont stockées indépendamment de la langue et rendues par utilisateur : un employeur finlandais publie une fois en finnois, un candidat la lit dans sa langue. Les postes sont filtrés selon le niveau de finnois réellement exigé, et lieu, salaire et organisation des horaires apparaissent en premier, car ce sont les champs qui décident si un emploi est viable.",
+ p7_d3:"Ce projet m'a appris que la localisation est une décision d'architecture prise dès le premier jour, pas une couche de traduction ajoutée à la fin - c'est pourquoi le système RAG de ma thèse sert quatre langues depuis une base de connaissances unique, et pourquoi ce site en parle sept.",
+ xp2_3:"La désescalade comme réponse par défaut - évaluer vite une situation, rester calme sous pression et communiquer clairement avec des personnes agitées, en détresse ou ne parlant pas anglais.",
+ xp2_4:"Maintenu pendant <b>trois ans en parallèle d'études à temps plein</b>, y compris des gardes de nuit et de week-end - la discipline même qui a rendu possibles une plateforme d'agents à 900 tests et le mémoire en simultané.",
+ xp2_t1:"Gestion des incidents",
+ xp2_t2:"Désescalade",
+ xp2_t3:"Communication publique",
+ xp2_t4:"Travail sous pression"
 },
 fi:{
  nav_about:"Tietoa",nav_xp:"Kokemus",nav_proj:"Projektit",nav_skills:"Taidot",nav_edu:"Koulutus",nav_beyond:"Vapaalla",nav_contact:"Yhteys",
- hero_status:"Avoin AI/ML-rooleille — Dublin, Irlanti",hero_word:"AI-insinööri",
- hero_tagline:"Suunnittelen ja arvioin tekoälyjärjestelmiä, joihin ihmiset voivat <strong>aidosti luottaa</strong> — monikielisestä oikeudellisen ohjauksen chatbotista turvapaikanhakijoille terveydenhuollon ML:ään, reiluustutkimukseen ja kansalaisteknologiaan, rakennettu kolmessa maassa.",
+ hero_status:"Avoin AI/ML-rooleille - Dublin, Irlanti",hero_word:"AI-insinööri",
+ hero_tagline:"Rakennan tekoälyä, joka <strong>toimii, ei vain vastaa</strong> - autonomisen agentin, joka avaa omat pull requestinsa, ja hakujärjestelmän, joka pitää kaksi irlantilaista oikeusregiimiä erillään. Rakennettu kolmessa maassa.",
  btn_work:"Katso työni",btn_cv:"Lataa CV",btn_contact:"Ota yhteyttä",
  t_about:"Tietoa",k_about:"Kuka olen",
  about_lede:"Utelias mieli rakentamassa <em>siltoja</em> ihmisten ja teknologian välille.",
- about_p1:"Olen Raghav — tekoälytutkija ja -insinööri Dublinissa, Irlannissa. Matkani kulkee TU Dublinin tietojenkäsittelytieteestä Erasmus-vuoteen Suomessa, ja nyt maisterintutkielmaan, jossa suunnittelen AI-ohjauschatbotia turvapaikanhakijoille, AI-järjestelmäharjoittelun ohella HU Utrechtissa.",
- about_quote:"Minua kiehtoo, miten teknologia muovaa ihmisen käyttäytymistä — ja minne viemme tekoälyn seuraavaksi. Rakennan järjestelmiä, joihin ihmiset voivat aidosti luottaa: olipa kyse turvapaikanhakijoiden auttamisesta Irlannin oikeusprosessissa tai kroonista munuaistautia sairastavien tukemisesta.",
- about_p2:"Sama punainen lanka kulkee kaiken alla olevan läpi: RAG-pohjainen oikeudellinen ohjaus, palkittu serverless-terveysalusta, reiluustutkimus, joka paljastaa mitä tarkkuus kätkee, ja kansalaissovellukset alusta loppuun.",
+ about_p1:"Olen Raghav - tekoälyinsinööri Dublinissa, viimeistelen Human-Centred AI -maisterintutkintoa TU Dublinissa tietojenkäsittelytieteen kandidaatin ja Oulun vaihtovuoden jälkeen. Rakennan järjestelmiä, jotka toimivat maailmassa ja vastaavat teoistaan.",
+ about_quote:"Minua kiehtoo, miten teknologia muovaa ihmisen käyttäytymistä - ja minne viemme tekoälyn seuraavaksi. Rakennan järjestelmiä, joihin ihmiset voivat aidosti luottaa: olipa kyse turvapaikanhakijoiden auttamisesta Irlannin oikeusprosessissa tai kroonista munuaistautia sairastavien tukemisesta.",
+ about_p2:"Se kulkee läpi kaiken alla olevan: autonominen koodausagentti tiukan valtuutusrajan takana, hakupohjainen oikeudellinen opastus turvapaikanhakijoille, palkittu serverless-terveysalusta ja kansalaissovellukset alusta loppuun. Kolme vuotta etulinjan turvallisuustyötä kokopäiväopiskelun rinnalla opetti loput - malttia paineessa ja selkeyttä ei-teknisten ihmisten kanssa.",
  ss_1:"Tiimityö",ss_2:"Viestintä",ss_3:"Ongelmanratkaisu",ss_4:"Johtajuus",ss_5:"Kulttuurienvälisyys",ss_6:"Sopeutumiskyky",ss_7:"Kriittinen ajattelu",ss_8:"Ajanhallinta",
  f_base:"Kotipaikka",f_now:"Nykyisin",f_now_v:"Maisterintutkielma · AI turvapaikanhakijoille",f_edu:"Koulutus",f_focus:"Fokus",f_focus_v:"HCAI · RAG · Vastuullinen ML",f_award:"Palkinto",f_open:"Avoin",f_open_v:"AI/ML · Data · Ohjelmistorooleille",
  s_1:"maata tutkittu omatoimisesti",s_2:"puhuttua kieltä",s_3:"AWS Healthcare AI Challenge 2025",s_4:"kansainvälistä yliopisto-ohjelmaa",
  t_xp:"Kokemus",k_xp:"Missä olen toimittanut",
- xp1_role:"AI-insinööri — Lopputyöharjoittelu · AI-opastus turvapaikanhakijoille",
- xp1_1:"Suunnittelin ja arvioin <b>RAG-pohjaisen monikielisen chatbotin</b>, joka opastaa kansainvälisen suojelun hakijoita Irlannin turvapaikkaprosessissa — perustuen <b>11 varmennettuun oikeudelliseen asiakirjaan</b>, mukaan lukien International Protection Act 2015 ja 2026.",
- xp1_2:"Toteutin retrieval-augmented-putken, jossa <b>lähdeviittaukset, hallusinaationkesto ja automaattinen eskalointi</b> lakiammattilaisille — suojamekanismit kovetettu adversariaalisin testein.",
- xp1_3:"Kehitin <b>kahdeksanulotteisen ihmiskeskeisen arviointikehyksen</b> — tarkkuus, selkeys, turvallisuus, ohjauskäyttäytyminen, hallusinaationkesto, läpinäkyvyys, luottamuksen kalibrointi, saavutettavuus — validoitu IP-juristien ja järjestötoimijoiden kanssa.",
- xp1_4:"Vastasin koko elinkaaresta <b>AWS/Azure-käyttöönottoon Dockerilla</b> asti — johtaen yleistettäviä suunnitteluperiaatteita haavoittuvia ryhmiä palvelevalle tekoälylle korkean riskin oikeudellisissa konteksteissa.",
- xp2_role:"Data Engineering -harjoittelija",
- xp2_1:"Ylläpidin <b>99,5 % käyttöastetta</b> putkissa, jotka käsittelivät <b>50K+ tietuetta päivässä</b> (AWS S3, PostgreSQL); automaattinen Python/Spark-validointi vähensi virheitä <b>30 %</b>.",
- xp2_2:"Suunnittelin vikasietoisen hajautetun <b>ETL-arkkitehtuurin</b> kolmen aikavyöhykkeen tiimeille; live-mittarit <b>10+ sidosryhmälle</b> Power BI:llä.",
+ xp1_role:"AI-insinööri - Lopputyöharjoittelu · AI-opastus turvapaikanhakijoille",
+ xp1_1:"Rakensin ja otin käyttöön <b>RAG-pohjaisen monikielisen opastusjärjestelmän</b> Irlannin turvapaikkaprosessiin - <b>1 439 rakennetietoista chunkia</b> 11 varmennetusta oikeuslähteestä Chroma-vektorivarastossa, neljällä kielellä.",
+ xp1_2:"Käsittelin <b>käynnissä olevan lainsäädäntömuutoksen</b> merkitsemällä jokaiseen chunkiin sitä koskevan regiimin ja suodattamalla haun ennen rankkausta - jotta vuoden 2015 lain siirtymäsäännösten piirissä olevat eivät koskaan saa vuoden 2026 lain ohjeistusta.",
+ xp1_3:"Kehitin <b>kahdeksanulotteisen ihmiskeskeisen arviointikehyksen</b> - tarkkuus, selkeys, turvallisuus, ohjauskäyttäytyminen, hallusinaationkesto, läpinäkyvyys, luottamuksen kalibrointi, saavutettavuus - validoitu IP-juristien ja järjestötoimijoiden kanssa.",
+ xp1_4:"Toteutin <b>lähdeviittaukset, hallusinaationkeston ja automaattisen eskaloinnin</b> lakiammattilaisille; vastasin arkkitehtuurista <b>AWS/Azure-käyttöönottoon Dockerilla</b> asti, johtaen suunnitteluperiaatteita haavoittuvia ryhmiä palvelevalle tekoälylle.",
+ xp2_role:"Vartija (kiinteä toimipiste)",
+ xp2_1:"Ainoa turvallisuushenkilö <b>vilkkaissa Lidl-myymälöissä</b>, täysi vastuu häiriötilanteiden hoidosta - kameravalvonta, kierrokset, jonojen ja väkijoukkojen hallinta, laillinen kiinniotto, kirjalliset lausunnot ja <b>yhteydenpito Gardaan</b>.",
+ xp2_2:"Hoidin <b>300+ häiriötilannetta</b> ja myötävaikutin noin <b>10 000 €</b> takaisin saatuun tavaraan - tiukkojen oikeudellisten ja menettelyllisten rajojen sisällä, joissa jokainen ratkaisu on dokumentoitava ja perusteltava.",
  t_proj:"Valitut projektit",k_proj:"Rakennettu tarkasteltavaksi",
- proj_intro:"Seitsemän projektia terveydenhuollosta, reiluustutkimuksesta ja kansalaisteknologiasta — jokainen suunniteltu, toimitettu ja arvioitu, ei koskaan pelkkä demo.",
+ proj_intro:"Kahdeksan projektia agenttisesta tekoälystä, terveydenhuollosta, reiluustutkimuksesta ja kansalaisteknologiasta - jokainen suunniteltu, toimitettu ja arvioitu, ei koskaan pelkkä demo.",
  p0_badge:"⭐ Maisterintutkielma",
- p0_d:"Suunnittelin ja arvioin RAG-pohjaisen chatbotin, joka antaa monikielistä menettelyohjausta kansainvälisen suojelun hakijoille Irlannissa — perustuen 11 varmennettuun oikeudelliseen asiakirjaan, mukaan lukien International Protection Act 2015 ja 2026. Putki viittaa lähteisiinsä, vastustaa hallusinaatioita ja eskaloi automaattisesti oikeusalan ammattilaisille. Kahdeksanulotteinen ihmiskeskeinen arviointikehys (tarkkuus, selkeys, turvallisuus, ohjauskäyttäytyminen, hallusinaationkestävyys, läpinäkyvyys, luottamuksen kalibrointi, saavutettavuus) validoitiin IP-juristien ja järjestöjen asiantuntijoiden kanssa — tuottaen yleistettäviä suunnitteluperiaatteita tekoälylle, joka palvelee haavoittuvia ryhmiä korkean riskin oikeudellisissa konteksteissa.",
- p0_m1:"varmennettua oikeudellista asiakirjaa",p0_m2:"arviointiulottuvuutta",p0_m3:"käyttöliittymäkieltä",
- p1_d:"Fosfaattihakualusta kroonista munuaistautia sairastaville. Serverless, tapahtumapohjainen ML-järjestelmä erillisillä OOP-komponenteilla — Best Overall Project AWS Healthcare AI Challenge 2025:ssä, 30+ tiimiä vastaan.",
+ p0_d:"Suunnittelin ja arvioin RAG-pohjaisen chatbotin, joka antaa monikielistä menettelyohjausta kansainvälisen suojelun hakijoille Irlannissa - perustuen 11 varmennettuun oikeudelliseen asiakirjaan, mukaan lukien International Protection Act 2015 ja 2026. Putki viittaa lähteisiinsä, vastustaa hallusinaatioita ja eskaloi automaattisesti oikeusalan ammattilaisille. Kahdeksanulotteinen ihmiskeskeinen arviointikehys (tarkkuus, selkeys, turvallisuus, ohjauskäyttäytyminen, hallusinaationkestävyys, läpinäkyvyys, luottamuksen kalibrointi, saavutettavuus) validoitiin IP-juristien ja järjestöjen asiantuntijoiden kanssa - tuottaen yleistettäviä suunnitteluperiaatteita tekoälylle, joka palvelee haavoittuvia ryhmiä korkean riskin oikeudellisissa konteksteissa.",
+ p0_m1:"rakennetietoista chunkia",p0_m2:"arviointiulottuvuutta",p0_m3:"palveltua kieltä",
+ p1_d:"Fosfaattihakualusta kroonista munuaistautia sairastaville. Serverless, tapahtumapohjainen ML-järjestelmä erillisillä OOP-komponenteilla - Best Overall Project AWS Healthcare AI Challenge 2025:ssä, 30+ tiimiä vastaan.",
  p2_d:"Moniluokkainen NLP-putki vihapuheen tunnistukseen. Kuusi mallia vertailtu (LogReg, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT) 20K+ julkaisulla; SHAP/LIME token-tason selitettävyyteen ja bias-analyysi rodun, uskonnon, sukupuolen ja seksuaalisen suuntautumisen mukaan EU:n AI Act -kehyksessä.",
- p3_d:"Systemaattinen empiirinen tutkimus luokittelutarkkuuden ja reiluuden suhteesta — 8 arkkitehtuuria. Paras malli saavutti 85,7 % tarkkuuden mutta paljasti 56 pisteen recall-kuilun: kokonaistarkkuus peittää syrjinnän.",
- p4_d:"Päästä päähän -asiakaspoistumaputki vahvasti epätasapainoisella pankkidatalla (80/20, 6 000 asiakasta) — yhdeksän vaihetta EDA:sta ristiinvalidointiin. Alaryhmäarviointi sukupuolen ja maan mukaan osoitti, että naisasiakkaat ja espanjalaiset asiakkaat jäivät systemaattisesti heikommalle palvelulle.",
- p5_d:"Tekoälypohjainen urapolkurakentaja hoiva-alan työntekijöille: osaamiskuiluanalyysi, henkilökohtaiset etenemispolut, edullisten akkreditoitujen koulutusten yhteensovitus ja siirrettävä digitaalinen osaamispassi — bias-lievennyksellä, human-in-the-loop-päätöksillä ja inklusiivisella suunnittelulla. Tiimiprojekti TU Dublinissa.",
- p6_d:"Irlannin ensimmäinen kansalaisten jäteilmoitussovellus, toimitettu alusta loppuun: AI-kuvantunnistus, OOP-suunnittelu Kotlin/Javalla ja skaalautuva REST-backend AWS:ssä — käyttöönotto +50 % kolmessa kuukaudessa.",
- p7_d:"Monikielinen työnhakusovellus ei-suomenkielisille Suomessa — syntyi omasta kokemuksesta vaihto-opiskelijana Oulussa. Lokalisointi edellä -ajattelu muovaa yhä tapaani rakentaa (tämä sivusto puhuu seitsemää kieltä).",
+ p3_d:"Systemaattinen empiirinen tutkimus luokittelutarkkuuden ja reiluuden suhteesta - 8 arkkitehtuuria. Paras malli saavutti 85,7 % tarkkuuden mutta paljasti 56 pisteen recall-kuilun: kokonaistarkkuus peittää syrjinnän.",
+ p4_d:"Päästä päähän -asiakaspoistumaputki vahvasti epätasapainoisella pankkidatalla (80/20, 6 000 asiakasta) - yhdeksän vaihetta EDA:sta ristiinvalidointiin. Alaryhmäarviointi sukupuolen ja maan mukaan osoitti, että naisasiakkaat ja espanjalaiset asiakkaat jäivät systemaattisesti heikommalle palvelulle.",
+ p5_d:"Tekoälypohjainen urapolkurakentaja hoiva-alan työntekijöille: osaamiskuiluanalyysi, henkilökohtaiset etenemispolut, edullisten akkreditoitujen koulutusten yhteensovitus ja siirrettävä digitaalinen osaamispassi - bias-lievennyksellä, human-in-the-loop-päätöksillä ja inklusiivisella suunnittelulla. Tiimiprojekti TU Dublinissa.",
+ p6_d:"Tietojenkäsittelytieteen kandidaatintyöni ja Irlannin ensimmäinen kansalaisten jäteilmoitussovellus. Laiton kaatopaikkaaminen ilmoitetaan puhelinlinjojen ja verkkolomakkeiden kautta, joissa sijainti pitää kuvailla sanoin - ilmoitukset saapuvat epämääräisinä, todentamattomina ja hitaina käsitellä. SnapBin korvaa tämän yhdellä toiminnolla: suuntaa kamera ja lähetä.",
+ p7_d:"Suomen ensimmäinen monikielinen paikallinen työnhakusovellus, rakennettu heille jotka eivät puhu suomea. Suunnittelin sen eläessäni ongelman itse vaihto-opiskelijana Oulussa: työtä on - siivous, varasto, keittiö, kuljetus, kausivuorot - mutta ilmoitukset, hakulomakkeet ja työnantajien viestit ovat suomeksi. Este ei ole osaaminen vaan kieli.",
  t_skills:"Työkalupakki",k_skills:"Näyttöä, ei muotisanoja",
  sk_a:"Ohjelmointikielet",sk_b:"ML & syväoppiminen",sk_c:"RAG- & LLM-järjestelmät",sk_d:"Ihmiskeskeinen AI & tutkimus",sk_e:"Pilvi & engineering",sk_f:"Legal AI & vastuullinen AI",
  t_edu:"Koulutus",k_edu:"Kolme oppilaitosta, kaksi maata",edu1_g:"Odotettu: First-Class Honours (1:1)",edu2_g:"Second-Class Honours, Grade 1 (2:1)",edu3_g:"Arvosana 5 / 5",
  t_beyond:"Terminaalin tuolla puolen",k_beyond:"Ihminen, keskiössä",b_langs:"Puhumani kielet",b_hobbies:"Kun olen offline",lv_fluent:"Sujuva",lv_native:"Äidinkieli",
  h_1:"Vaellus Irlannin poluilla",h_2:"Eksyminen uusiin kaupunkeihin",h_3:"Luistelu",h_4:"Live-laulu",h_5:"Kuntoilu",
- t_contact:"Yhteys",c_line1:"Rakennetaan jotain, mihin",c_line2:"voi luottaa.",ft_made:"Suunniteltu & rakennettu huolella Dublinissa",ft_top:"↑ Takaisin ylös"
+ t_contact:"Yhteys",c_line1:"Rakennetaan jotain, mihin",c_line2:"voi luottaa.",ft_made:"Suunniteltu & rakennettu huolella Dublinissa",ft_top:"↑ Takaisin ylös",
+ pA_badge:"Lippulaivaprojekti",
+ pA_d:"Autonominen agentti, joka analysoi minkä tahansa GitHub-repositorion, suunnittelee muutoksen, muokkaa koodia työkalusilmukan kautta, ajaa projektin omat testit ja avaa pull requestin. Ratkaiseva suunnitteluvalinta: se <b>pysähtyy ennen kuin koskee GitHubiin</b> - testien mentyä läpi tehtävä pysähtyy tilaan <em>ready for review</em>, ja ihminen hyväksyy suunnitelman, diffit ja testitulokset ennen julkaisua. Human-in-the-loop arkkitehtuurin, ei käytännön kautta.",
+ pA_m1:"testiä, suhde 1:1 lähdekoodiin",
+ pA_m2:"varmennettua migraatiota",
+ pA_m3:"live-edistyminen",
+ sc_kick:"Punainen lanka",
+ sc_h1:"Järjestelmiä, jotka",
+ sc_h2:"toimivat, eivät vain vastaa.",
+ sc_p:"Agentti, joka avaa omat pull requestinsa. Hakujärjestelmä, joka pitää kaksi oikeudellista regiimiä erillään. Kiinnostavat ongelmat eivät ole mallissa - vaan sen ympärillä olevissa suojakaiteissa.",
+ pA_d2:"Pitkäkestoisten LLM-töiden luotettavuus on vaikein osa. Redis-leaset estävät kaksoissuorituksen, heartbeat reaper havaitsee kaatuneet workerit, ja edistyminen striimaa reaaliaikaisesti Server-Sent Eventsillä. Jokainen palvelukutsu kirjataan tokeneineen, kustannuksineen ja latensseineen. Kaikki tekoälykäyttö kulkee yhden rajapinnan kautta - Anthropic ja Gemini toteutettuina - joten mallin tai palveluntarjoajan vaihto on ympäristömuuttuja, ei koodimuutos.",
+ pA_d3:"Repositorioäly tunnistaa kielet, frameworkit, sisääntulopisteet, API-reitit ja SQL-skeemat, ja tuottaa 0–100 terveyspisteet deterministisine osapisteineen ja perusteltuine parannusehdotuksineen - jokaisen ehdotuksen on viitattava todellisiin tiedostoihin, ja määrittämätön raportoidaan sellaisena eikä arvata. Turvallisuus pakotetaan: salaisuuksia ei koskaan lueta, tokenit poistetaan kaikista lokeista, arkistojen purku on zip-slip-suojattu.",
+ pA_m4:"LLM-tarjoajaa abstrahoitu",
+ pA_repo:"Katso repositorio",
+ p6_badge:"Lopputyöprojekti",
+ p6_d2:"Kuva luokitellaan lähetettäessä Google Vision API:lla jätetyypin tunnistamiseksi ja ei-jätekuvien hylkäämiseksi ennen kuin ne päätyvät kunnan jonoon, samalla kun GPS-koordinaatit ja aikaleima liitetään automaattisesti - jokainen ilmoitus saapuu paikannettuna, luokiteltuna ja aikaleimattuna. Samassa sijainnissa tehdyt kaksoisilmoitukset klusteroidaan kahdentamisen sijaan.",
+ p6_d3:"Android-asiakas rakennettiin Kotlinilla ja Javalla rajapintavetoiselle MVC-arkkitehtuurille, Firebase hoitaa tunnistautumisen ja reaaliaikaisen tilasynkronoinnin, joten kansalainen näkee ilmoituksensa etenevän lähetetystä kuitatuksi ja ratkaistuksi. Media ja ilmoitusdata tarjoillaan REST-backendistä AWS EC2:lla ja S3:lla, jotta kuvatallennus skaalautuu API:sta riippumatta. Tulos: käyttö +50 % kolmessa kuukaudessa.",
+ p6_m3:"ilmoitus yhdellä napautuksella",
+ p7_badge:"Ensimmäinen Suomessa",
+ p7_d2:"Taskit kohtelee kieltä infrastruktuurina, ei asetuksena. Ilmoitukset tallennetaan kieliriippumattomasti ja renderöidään käyttäjäkohtaisesti: suomalainen työnantaja julkaisee kerran suomeksi ja hakija lukee sen omalla kielellään. Tehtävät suodatetaan sen suomen tason mukaan, jota työ oikeasti vaatii, ja sijainti, palkka ja vuororakenne näkyvät heti, koska juuri ne ratkaisevat onko työ ylipäätään mahdollinen.",
+ p7_d3:"Rakentaminen opetti, että lokalisointi on ensimmäisen päivän arkkitehtuuripäätös, ei lopuksi liimattu käännöskierros - siksi lopputyöni RAG-järjestelmä palvelee neljää kieltä yhdestä perustellusta tietopohjasta, ja siksi tämä sivusto puhuu seitsemää.",
+ xp2_3:"Rauhoittaminen ensisijaisena keinona - tilanteen nopea lukeminen, malttinsa säilyttäminen paineessa ja selkeä viestintä kiihtyneiden, ahdistuneiden tai englantia puhumattomien ihmisten kanssa.",
+ xp2_4:"Jatkui <b>kolme vuotta kokopäiväisen opiskelun rinnalla</b>, mukaan lukien yö- ja viikonloppuvuorot - sama kurinalaisuus mahdollisti 900 testin agenttialustan ja lopputyön rinnakkain.",
+ xp2_t1:"Häiriötilanteiden hallinta",
+ xp2_t2:"Rauhoittaminen",
+ xp2_t3:"Asiakasviestintä",
+ xp2_t4:"Työskentely paineessa"
 },
 hi:{
  nav_about:"परिचय",nav_xp:"अनुभव",nav_proj:"प्रोजेक्ट",nav_skills:"कौशल",nav_edu:"शिक्षा",nav_beyond:"इसके परे",nav_contact:"संपर्क",
- hero_status:"AI/ML भूमिकाओं के लिए उपलब्ध — डबलिन, आयरलैंड",hero_word:"AI इंजीनियर",
- hero_tagline:"मैं ऐसे AI सिस्टम डिज़ाइन और मूल्यांकित करता हूँ जिन पर लोग <strong>सचमुच भरोसा</strong> कर सकें — शरणार्थियों के लिए बहुभाषी कानूनी-मार्गदर्शन चैटबॉट से लेकर हेल्थकेयर ML, फेयरनेस रिसर्च और सिविक टेक तक, तीन देशों में निर्मित।",
+ hero_status:"AI/ML भूमिकाओं के लिए उपलब्ध - डबलिन, आयरलैंड",hero_word:"AI इंजीनियर",
+ hero_tagline:"मैं ऐसा AI बनाता हूँ जो <strong>काम करता है, सिर्फ़ जवाब नहीं देता</strong> - एक स्वायत्त एजेंट जो अपने पुल रिक्वेस्ट खोलता है, और एक रिट्रीवल सिस्टम जो दो आयरिश कानूनी व्यवस्थाओं को अलग रखता है। तीन देशों में बना।",
  btn_work:"मेरा काम देखें",btn_cv:"CV डाउनलोड करें",btn_contact:"संपर्क करें",
  t_about:"परिचय",k_about:"मैं कौन हूँ",
  about_lede:"लोगों और तकनीक के बीच <em>सेतु</em> बनाता एक जिज्ञासु मन।",
- about_p1:"मैं राघव हूँ — डबलिन, आयरलैंड में AI शोधकर्ता और इंजीनियर। मेरा सफ़र TU Dublin में कंप्यूटर साइंस से फ़िनलैंड में Erasmus वर्ष तक, और अब MSc थीसिस तक पहुँचा है जिसमें मैं शरणार्थियों के लिए AI मार्गदर्शन चैटबॉट डिज़ाइन कर रहा हूँ — साथ ही HU Utrecht के साथ AI-सिस्टम्स इंटर्नशिप भी।",
- about_quote:"मुझे यह जानने में गहरी रुचि है कि तकनीक मानव व्यवहार को कैसे आकार देती है — और हम AI को आगे कहाँ ले जाएँगे। मैं ऐसे सिस्टम बनाता हूँ जिन पर लोग सच में भरोसा कर सकें: चाहे वह शरणार्थियों को आयरलैंड की कानूनी प्रक्रिया समझने में मदद करना हो या क्रोनिक किडनी रोग के मरीज़ों का सहारा बनना।",
- about_p2:"यही सूत्र नीचे हर चीज़ में है: RAG-आधारित कानूनी मार्गदर्शन, पुरस्कृत सर्वरलेस हेल्थकेयर प्लेटफ़ॉर्म, फेयरनेस रिसर्च जो दिखाती है कि सटीकता क्या छिपाती है, और शुरू से अंत तक बनाए गए सिविक ऐप्स।",
+ about_p1:"मैं राघव हूँ - डबलिन में AI इंजीनियर, TU Dublin में Human-Centred AI में MSc पूरा कर रहा हूँ, कंप्यूटर साइंस में BSc और ओउलू, फ़िनलैंड में इरास्मस वर्ष के बाद। मैं ऐसे सिस्टम बनाता हूँ जो दुनिया में कार्य करते हैं और उसका उत्तरदायित्व लेते हैं।",
+ about_quote:"मुझे यह जानने में गहरी रुचि है कि तकनीक मानव व्यवहार को कैसे आकार देती है - और हम AI को आगे कहाँ ले जाएँगे। मैं ऐसे सिस्टम बनाता हूँ जिन पर लोग सच में भरोसा कर सकें: चाहे वह शरणार्थियों को आयरलैंड की कानूनी प्रक्रिया समझने में मदद करना हो या क्रोनिक किडनी रोग के मरीज़ों का सहारा बनना।",
+ about_p2:"यही सूत्र नीचे हर चीज़ में चलता है: सख़्त प्राधिकरण सीमा के पीछे एक स्वायत्त कोडिंग एजेंट, शरणार्थियों के लिए रिट्रीवल-आधारित कानूनी मार्गदर्शन, एक पुरस्कृत सर्वरलेस हेल्थकेयर प्लेटफ़ॉर्म, और शुरू से अंत तक बनाए गए सिविक ऐप। पूर्णकालिक पढ़ाई के साथ तीन साल के फ्रंट-लाइन सुरक्षा कार्य ने बाकी सिखाया - दबाव में संयम, और ग़ैर-तकनीकी लोगों से स्पष्ट संवाद।",
  ss_1:"टीमवर्क",ss_2:"संचार",ss_3:"समस्या समाधान",ss_4:"नेतृत्व",ss_5:"अंतर-सांस्कृतिक",ss_6:"अनुकूलनशीलता",ss_7:"आलोचनात्मक चिंतन",ss_8:"समय प्रबंधन",
  f_base:"निवास",f_now:"वर्तमान में",f_now_v:"MSc थीसिस · शरणार्थियों के लिए AI",f_edu:"शिक्षा",f_focus:"फोकस",f_focus_v:"HCAI · RAG · ज़िम्मेदार ML",f_award:"पुरस्कार",f_open:"उपलब्ध",f_open_v:"AI/ML · डेटा · सॉफ़्टवेयर",
  s_1:"देश स्वतंत्र रूप से घूमे",s_2:"भाषाएँ बोलता हूँ",s_3:"AWS Healthcare AI Challenge 2025",s_4:"अंतर्राष्ट्रीय विश्वविद्यालय कार्यक्रम",
  t_xp:"अनुभव",k_xp:"जहाँ मैंने काम पहुँचाया",
- xp1_role:"AI इंजीनियर — MSc थीसिस इंटर्नशिप · शरणार्थियों के लिए AI मार्गदर्शन",
- xp1_1:"<b>RAG-आधारित बहुभाषी चैटबॉट</b> डिज़ाइन और मूल्यांकित किया जो आयरलैंड की शरण प्रक्रिया में अंतर्राष्ट्रीय संरक्षण आवेदकों का मार्गदर्शन करता है — <b>11 सत्यापित कानूनी दस्तावेज़ों</b> पर आधारित, जिनमें International Protection Act 2015 और 2026 शामिल हैं।",
- xp1_2:"<b>स्रोत उद्धरण, हैलुसिनेशन प्रतिरोध और कानूनी पेशेवरों तक स्वचालित एस्केलेशन</b> के साथ रिट्रीवल-ऑगमेंटेड पाइपलाइन लागू की — एडवर्सेरियल परीक्षण से गार्डरेल्स मज़बूत किए।",
- xp1_3:"<b>आठ-आयामी मानव-केंद्रित मूल्यांकन ढांचा</b> विकसित किया — सटीकता, स्पष्टता, सुरक्षा, रेफरल व्यवहार, हैलुसिनेशन प्रतिरोध, पारदर्शिता, विश्वास कैलिब्रेशन, सुगम्यता — IP वकीलों और NGO विशेषज्ञों के साथ मान्य।",
- xp1_4:"आर्किटेक्चर से <b>Docker के साथ AWS/Azure डिप्लॉयमेंट</b> तक पूरा जीवनचक्र संभाला — उच्च-दांव कानूनी संदर्भों में कमज़ोर समूहों की सेवा करने वाले AI के लिए सामान्यीकरण योग्य डिज़ाइन सिद्धांत निकाले।",
- xp2_role:"डेटा इंजीनियरिंग इंटर्न",
- xp2_1:"<b>50K+ दैनिक रिकॉर्ड</b> वाली पाइपलाइनों पर <b>99.5% अपटाइम</b> (AWS S3, PostgreSQL); स्वचालित Python/Spark वैलिडेशन ने त्रुटियाँ <b>30%</b> घटाईं।",
- xp2_2:"3 टाइम ज़ोन की टीमों के लिए फॉल्ट-टॉलरेंट वितरित <b>ETL आर्किटेक्चर</b>; Power BI से <b>10+ स्टेकहोल्डर्स</b> को लाइव मेट्रिक्स।",
+ xp1_role:"AI इंजीनियर - MSc थीसिस इंटर्नशिप · शरणार्थियों के लिए AI मार्गदर्शन",
+ xp1_1:"आयरलैंड की अंतर्राष्ट्रीय संरक्षण प्रक्रिया के लिए <b>RAG-आधारित बहुभाषी मार्गदर्शन प्रणाली</b> बनाई और तैनात की - Chroma वेक्टर स्टोर में 11 सत्यापित कानूनी स्रोतों से <b>1,439 संरचना-सजग चंक</b>, चार भाषाओं में।",
+ xp1_2:"एक <b>जीवंत विधायी संक्रमण</b> को संभाला - हर चंक को उसकी लागू व्यवस्था के साथ टैग करके और रैंकिंग से पहले रिट्रीवल फ़िल्टर करके, ताकि 2015 अधिनियम के संक्रमणकालीन प्रावधानों वाले आवेदकों को कभी 2026 अधिनियम का मार्गदर्शन न मिले।",
+ xp1_3:"<b>आठ-आयामी मानव-केंद्रित मूल्यांकन ढांचा</b> विकसित किया - सटीकता, स्पष्टता, सुरक्षा, रेफरल व्यवहार, हैलुसिनेशन प्रतिरोध, पारदर्शिता, विश्वास कैलिब्रेशन, सुगम्यता - IP वकीलों और NGO विशेषज्ञों के साथ मान्य।",
+ xp1_4:"<b>स्रोत उद्धरण, हैलुसिनेशन प्रतिरोध और कानूनी पेशेवरों तक स्वचालित एस्केलेशन</b> लागू किया; आर्किटेक्चर से <b>Docker के साथ AWS/Azure डिप्लॉयमेंट</b> तक ज़िम्मेदारी संभाली, कमज़ोर समूहों की सेवा करने वाले AI के लिए डिज़ाइन सिद्धांत निकाले।",
+ xp2_role:"स्टैटिक सिक्योरिटी ऑफ़िसर",
+ xp2_1:"<b>अत्यधिक भीड़भाड़ वाले Lidl स्टोरों</b> में एकमात्र ऑन-साइट सुरक्षा उपस्थिति, घटना प्रतिक्रिया की पूरी ज़िम्मेदारी - CCTV निगरानी, फ़्लोर पेट्रोल, कतार व भीड़ प्रबंधन, वैध हिरासत, लिखित बयान और <b>Garda से समन्वय</b>।",
+ xp2_2:"<b>300+ घटनाएँ</b> संभालीं और लगभग <b>€10,000</b> का माल पुनः प्राप्त करने में योगदान दिया - सख़्त कानूनी और प्रक्रियात्मक सीमाओं के भीतर, जहाँ हर निर्णय प्रलेखित और औचित्यपूर्ण होना चाहिए।",
  t_proj:"चुनिंदा प्रोजेक्ट",k_proj:"परखे जाने के लिए बने",
- proj_intro:"स्वास्थ्य, निष्पक्षता अनुसंधान और सिविक टेक के सात प्रोजेक्ट — हर एक डिज़ाइन, डिलीवर और मूल्यांकित, सिर्फ़ डेमो नहीं।",
+ proj_intro:"एजेंटिक AI, स्वास्थ्य, निष्पक्षता अनुसंधान और सिविक टेक के आठ प्रोजेक्ट - हर एक डिज़ाइन, डिलीवर और मूल्यांकित, सिर्फ़ डेमो नहीं।",
  p0_badge:"⭐ MSc थीसिस",
- p0_d:"आयरलैंड में अंतर्राष्ट्रीय संरक्षण आवेदकों को बहुभाषी प्रक्रियात्मक मार्गदर्शन देने वाला RAG-आधारित चैटबॉट डिज़ाइन और मूल्यांकित किया — International Protection Act 2015 व 2026 सहित 11 सत्यापित कानूनी दस्तावेज़ों पर आधारित। पाइपलाइन अपने स्रोत उद्धृत करती है, हैलुसिनेशन का प्रतिरोध करती है और स्वतः कानूनी पेशेवरों तक एस्केलेट करती है। आठ-आयामी मानव-केंद्रित मूल्यांकन फ्रेमवर्क (सटीकता, स्पष्टता, सुरक्षा, रेफरल व्यवहार, हैलुसिनेशन प्रतिरोध, पारदर्शिता, विश्वास अंशांकन, सुगम्यता) को IP वकीलों और NGO विशेषज्ञों के साथ मान्य किया गया — उच्च-दांव कानूनी संदर्भों में संवेदनशील आबादी की सेवा करने वाले AI के लिए सामान्यीकरण योग्य डिज़ाइन सिद्धांत प्राप्त हुए।",
- p0_m1:"सत्यापित कानूनी दस्तावेज़",p0_m2:"मूल्यांकन आयाम",p0_m3:"इंटरफ़ेस भाषाएँ",
- p1_d:"क्रोनिक किडनी रोग के मरीज़ों के लिए फॉस्फेट-फाइंडर प्लेटफ़ॉर्म। सर्वरलेस, इवेंट-ड्रिवन ML सिस्टम — AWS Healthcare AI Challenge 2025 में 30+ टीमों के बीच Best Overall Project।",
+ p0_d:"आयरलैंड में अंतर्राष्ट्रीय संरक्षण आवेदकों को बहुभाषी प्रक्रियात्मक मार्गदर्शन देने वाला RAG-आधारित चैटबॉट डिज़ाइन और मूल्यांकित किया - International Protection Act 2015 व 2026 सहित 11 सत्यापित कानूनी दस्तावेज़ों पर आधारित। पाइपलाइन अपने स्रोत उद्धृत करती है, हैलुसिनेशन का प्रतिरोध करती है और स्वतः कानूनी पेशेवरों तक एस्केलेट करती है। आठ-आयामी मानव-केंद्रित मूल्यांकन फ्रेमवर्क (सटीकता, स्पष्टता, सुरक्षा, रेफरल व्यवहार, हैलुसिनेशन प्रतिरोध, पारदर्शिता, विश्वास अंशांकन, सुगम्यता) को IP वकीलों और NGO विशेषज्ञों के साथ मान्य किया गया - उच्च-दांव कानूनी संदर्भों में संवेदनशील आबादी की सेवा करने वाले AI के लिए सामान्यीकरण योग्य डिज़ाइन सिद्धांत प्राप्त हुए।",
+ p0_m1:"संरचना-सजग चंक",p0_m2:"मूल्यांकन आयाम",p0_m3:"सेवित भाषाएँ",
+ p1_d:"क्रोनिक किडनी रोग के मरीज़ों के लिए फॉस्फेट-फाइंडर प्लेटफ़ॉर्म। सर्वरलेस, इवेंट-ड्रिवन ML सिस्टम - AWS Healthcare AI Challenge 2025 में 30+ टीमों के बीच Best Overall Project।",
  p2_d:"हेट स्पीच पहचान हेतु मल्टी-क्लास NLP पाइपलाइन। 20K+ पोस्ट पर छह मॉडलों (LogReg, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT) की तुलना; टोकन-स्तर व्याख्या हेतु SHAP/LIME और EU AI Act के संदर्भ में नस्ल, धर्म, लिंग व यौन रुझान पर बायस विश्लेषण।",
- p3_d:"वर्गीकरण प्रदर्शन और निष्पक्षता के संबंध का व्यवस्थित अध्ययन — 8 आर्किटेक्चर। सर्वश्रेष्ठ मॉडल ने 85.7% सटीकता पाई, पर 56-पॉइंट रिकॉल अंतर उजागर हुआ: कुल सटीकता भेदभाव छिपाती है।",
- p4_d:"अत्यधिक असंतुलित (80/20, 6,000 ग्राहक) बैंकिंग डेटा पर एंड-टू-एंड चर्न पाइपलाइन — EDA से क्रॉस-वैलिडेशन तक नौ चरण। लिंग व देश के अनुसार उप-समूह मूल्यांकन से पता चला कि महिला और स्पैनिश ग्राहक व्यवस्थित रूप से वंचित रहे।",
- p5_d:"देखभाल कर्मियों के लिए AI-संचालित करियर पाथवे बिल्डर: स्किल-गैप विश्लेषण, व्यक्तिगत रोडमैप, किफ़ायती मान्यता-प्राप्त प्रशिक्षण और पोर्टेबल डिजिटल स्किल्स पासपोर्ट — बायस मिटिगेशन, ह्यूमन-इन-द-लूप और समावेशी डिज़ाइन के साथ। TU Dublin में टीम प्रोजेक्ट।",
- p6_d:"आयरलैंड का पहला सिविक वेस्ट-रिपोर्टिंग एंड्रॉइड ऐप, शुरू से अंत तक: AI इमेज रिकग्निशन, Kotlin/Java में OOP डिज़ाइन और AWS पर स्केलेबल REST बैकएंड — तीन महीनों में अपनाने में +50%।",
- p7_d:"फ़िनलैंड में गैर-फ़िनिश भाषियों के लिए बहुभाषी जॉब-फाइंडर ऐप — ओउलू में एक्सचेंज छात्र के रूप में समस्या को खुद जीने से जन्मा। लोकलाइज़ेशन-फर्स्ट सोच आज भी मेरे काम को आकार देती है (यह साइट सात भाषाएँ बोलती है)।",
+ p3_d:"वर्गीकरण प्रदर्शन और निष्पक्षता के संबंध का व्यवस्थित अध्ययन - 8 आर्किटेक्चर। सर्वश्रेष्ठ मॉडल ने 85.7% सटीकता पाई, पर 56-पॉइंट रिकॉल अंतर उजागर हुआ: कुल सटीकता भेदभाव छिपाती है।",
+ p4_d:"अत्यधिक असंतुलित (80/20, 6,000 ग्राहक) बैंकिंग डेटा पर एंड-टू-एंड चर्न पाइपलाइन - EDA से क्रॉस-वैलिडेशन तक नौ चरण। लिंग व देश के अनुसार उप-समूह मूल्यांकन से पता चला कि महिला और स्पैनिश ग्राहक व्यवस्थित रूप से वंचित रहे।",
+ p5_d:"देखभाल कर्मियों के लिए AI-संचालित करियर पाथवे बिल्डर: स्किल-गैप विश्लेषण, व्यक्तिगत रोडमैप, किफ़ायती मान्यता-प्राप्त प्रशिक्षण और पोर्टेबल डिजिटल स्किल्स पासपोर्ट - बायस मिटिगेशन, ह्यूमन-इन-द-लूप और समावेशी डिज़ाइन के साथ। TU Dublin में टीम प्रोजेक्ट।",
+ p6_d:"मेरा BSc कंप्यूटर साइंस अंतिम वर्ष प्रोजेक्ट, और आयरलैंड का पहला सिविक वेस्ट-रिपोर्टिंग ऐप। अवैध कचरा फेंकने की शिकायत फ़ोन लाइनों और वेब फ़ॉर्म से होती है जो जगह को शब्दों में बताने को कहते हैं - रिपोर्टें अस्पष्ट, असत्यापनीय और धीमी आती हैं। SnapBin इसे एक ही क्रिया से बदलता है: कैमरा तानो और भेजो।",
+ p7_d:"फ़िनलैंड का पहला बहुभाषी स्थानीय जॉब-फाइंडर, उन लोगों के लिए बनाया गया जो फ़िनिश नहीं बोलते। मैंने इसे ओउलू में एक्सचेंज छात्र के रूप में समस्या को खुद जीते हुए डिज़ाइन किया: काम मौजूद है - सफ़ाई, गोदाम, रसोई, डिलीवरी, मौसमी शिफ़्ट - पर विज्ञापन, आवेदन फ़ॉर्म और नियोक्ता संदेश सब फ़िनिश में हैं। बाधा योग्यता नहीं, भाषा है।",
  t_skills:"टूलकिट",k_skills:"प्रमाण, सिर्फ़ शब्द नहीं",
  sk_a:"प्रोग्रामिंग भाषाएँ",sk_b:"ML व डीप लर्निंग",sk_c:"RAG व LLM सिस्टम",sk_d:"मानव-केंद्रित AI व अनुसंधान",sk_e:"क्लाउड व इंजीनियरिंग",sk_f:"लीगल AI व ज़िम्मेदार AI",
  t_edu:"शिक्षा",k_edu:"तीन संस्थान, दो देश",edu1_g:"अपेक्षित: फर्स्ट-क्लास ऑनर्स (1:1)",edu2_g:"सेकंड-क्लास ऑनर्स, ग्रेड 1 (2:1)",edu3_g:"ग्रेड 5 / 5",
  t_beyond:"टर्मिनल के परे",k_beyond:"मानव, केंद्र में",b_langs:"भाषाएँ जो मैं बोलता हूँ",b_hobbies:"जब मैं ऑफ़लाइन होता हूँ",lv_fluent:"धाराप्रवाह",lv_native:"मातृभाषा",
  h_1:"आयरिश ट्रेल्स पर हाइकिंग",h_2:"नए शहरों में खो जाना",h_3:"आइस स्केटिंग",h_4:"लाइव गायन",h_5:"फ़िटनेस",
- t_contact:"संपर्क",c_line1:"आइए कुछ ऐसा बनाएँ जिस पर",c_line2:"भरोसा किया जा सके।",ft_made:"डबलिन में सावधानी से डिज़ाइन व निर्मित",ft_top:"↑ ऊपर जाएँ"
+ t_contact:"संपर्क",c_line1:"आइए कुछ ऐसा बनाएँ जिस पर",c_line2:"भरोसा किया जा सके।",ft_made:"डबलिन में सावधानी से डिज़ाइन व निर्मित",ft_top:"↑ ऊपर जाएँ",
+ pA_badge:"प्रमुख प्रोजेक्ट",
+ pA_d:"एक स्वायत्त एजेंट जो किसी भी GitHub रिपॉज़िटरी का विश्लेषण करता है, बदलाव की योजना बनाता है, टूल-यूज़ लूप के ज़रिए कोड संपादित करता है, प्रोजेक्ट के अपने टेस्ट चलाता है और पुल रिक्वेस्ट खोलता है। मुख्य डिज़ाइन निर्णय यह है कि यह <b>GitHub को छूने से पहले रुक जाता है</b> - टेस्ट पास होने पर कार्य <em>ready for review</em> पर रुकता है, और कोई व्यक्ति योजना, diffs और टेस्ट आउटपुट को मंज़ूरी देता है। ह्यूमन-इन-द-लूप नीति से नहीं, आर्किटेक्चर से।",
+ pA_m1:"टेस्ट, कोड से 1:1 अनुपात",
+ pA_m2:"सत्यापित माइग्रेशन",
+ pA_m3:"लाइव प्रगति स्ट्रीमिंग",
+ sc_kick:"मूल सूत्र",
+ sc_h1:"ऐसे सिस्टम जो",
+ sc_h2:"काम करते हैं, सिर्फ़ जवाब नहीं देते।",
+ sc_p:"एक एजेंट जो अपने ही पुल रिक्वेस्ट खोलता है। एक रिट्रीवल सिस्टम जो दो कानूनी व्यवस्थाओं को आपस में मिलने से रोकता है। दिलचस्प समस्याएँ मॉडल में नहीं हैं - वे उसके चारों ओर के गार्डरेल्स में हैं।",
+ pA_d2:"लंबे चलने वाले LLM कार्यों की विश्वसनीयता सबसे कठिन हिस्सा है। Redis लीज़ दोहरे निष्पादन को रोकते हैं, हार्टबीट रीपर क्रैश हुए वर्कर्स का पता लगाता है, और प्रगति Server-Sent Events पर लाइव स्ट्रीम होती है। हर प्रोवाइडर कॉल टोकन, लागत और लेटेंसी सहित दर्ज होती है। सारा AI एक्सेस एक ही प्रोवाइडर इंटरफ़ेस से जाता है - Anthropic और Gemini लागू - इसलिए मॉडल या प्रोवाइडर बदलना एक एनवायरनमेंट वेरिएबल है, कोड बदलाव नहीं।",
+ pA_d3:"रिपॉज़िटरी इंटेलिजेंस भाषाएँ, फ्रेमवर्क, एंट्री पॉइंट, API रूट और SQL स्कीमा पहचानती है, फिर 0–100 हेल्थ स्कोर बनाती है - निर्धारक उप-स्कोर और आधारित सुझावों के साथ। हर सुझाव को असली फ़ाइलों का हवाला देना होता है, और जो निर्धारित न हो सके उसे अनुमान लगाने के बजाय वैसा ही बताया जाता है। सुरक्षा लागू की जाती है: सीक्रेट्स कभी नहीं पढ़े जाते, टोकन सभी लॉग से हटाए जाते हैं, आर्काइव एक्सट्रैक्शन zip-slip सुरक्षित है।",
+ pA_m4:"LLM प्रोवाइडर अमूर्तित",
+ pA_repo:"रिपॉज़िटरी देखें",
+ p6_badge:"अंतिम वर्ष प्रोजेक्ट",
+ p6_d2:"भेजते समय फ़ोटो Google Vision API से वर्गीकृत होती है ताकि कचरे का प्रकार पहचाना जाए और गैर-कचरा छवियाँ नगर कतार में पहुँचने से पहले ही हट जाएँ, जबकि GPS निर्देशांक और टाइमस्टैम्प अपने आप जुड़ते हैं - हर रिपोर्ट स्थान-चिह्नित, वर्गीकृत और समय-अंकित पहुँचती है। एक ही जगह की दोहरी शिकायतें अलग-अलग दर्ज होने के बजाय एक साथ समूहित होती हैं।",
+ p6_d3:"एंड्रॉइड क्लाइंट Kotlin और Java में इंटरफ़ेस-चालित MVC आर्किटेक्चर पर बना, Firebase प्रमाणीकरण और रीयल-टाइम स्टेटस सिंक संभालता है ताकि नागरिक अपनी रिपोर्ट को सबमिट से स्वीकृत और हल तक देख सके। मीडिया और डेटा AWS EC2 व S3 पर REST बैकएंड से मिलते हैं, ताकि इमेज स्टोरेज API से स्वतंत्र स्केल करे। परिणाम: तीन महीनों में उपयोग +50%।",
+ p6_m3:"एक टैप में रिपोर्ट",
+ p7_badge:"फ़िनलैंड में पहला",
+ p7_d2:"Taskit भाषा को सेटिंग नहीं, बुनियादी ढाँचा मानता है। लिस्टिंग भाषा-निरपेक्ष रूप से संग्रहित होती हैं और हर उपयोगकर्ता के लिए रेंडर होती हैं: फ़िनिश नियोक्ता एक बार फ़िनिश में पोस्ट करता है और आवेदक उसे अपनी भाषा में पढ़ता है। पद उस फ़िनिश स्तर से छाने जाते हैं जो काम वास्तव में माँगता है, और स्थान, वेतन व शिफ़्ट संरचना सबसे आगे रहते हैं, क्योंकि यही तय करते हैं कि नौकरी व्यवहार्य है या नहीं।",
+ p7_d3:"इसे बनाने से सीखा कि स्थानीयकरण पहले दिन का आर्किटेक्चरल निर्णय है, अंत में जोड़ा गया अनुवाद नहीं - इसीलिए मेरी थीसिस का RAG सिस्टम एक ही आधारित ज्ञान-कोष से चार भाषाएँ परोसता है, और इसीलिए यह साइट सात बोलती है।",
+ xp2_3:"तनाव कम करना पहली प्रतिक्रिया - स्थिति को तेज़ी से पढ़ना, दबाव में संयत रहना, और परेशान, उत्तेजित या अंग्रेज़ी न बोलने वाले लोगों से स्पष्ट संवाद करना।",
+ xp2_4:"<b>तीन वर्षों तक पूर्णकालिक अध्ययन के साथ-साथ</b> निभाया, रात और सप्ताहांत की शिफ़्टों सहित - वही अनुशासन जिसने 900 टेस्ट वाला एजेंट प्लेटफ़ॉर्म और थीसिस एक साथ संभव बनाए।",
+ xp2_t1:"घटना प्रतिक्रिया",
+ xp2_t2:"तनाव प्रबंधन",
+ xp2_t3:"सार्वजनिक संवाद",
+ xp2_t4:"दबाव में कार्य"
 }
 };
 
@@ -1121,6 +1479,101 @@ const io = new IntersectionObserver(entries=>{
   entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
 },{threshold:.1, rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+
+/* ================= MOTION ENGINE ================= */
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var progress = document.getElementById('progress');
+  var orb = document.getElementById('orb');
+  var scMedia = document.getElementById('scMedia');
+  var scCopy = document.getElementById('scCopy');
+  var showcase = document.querySelector('.showcase');
+  var ticking = false, mx = 0, my = 0, tx = 0, ty = 0;
+
+  function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+
+  function frame(){
+    ticking = false;
+    var y = window.pageYOffset || document.documentElement.scrollTop;
+    var docH = document.documentElement.scrollHeight - window.innerHeight;
+
+    if(progress) progress.style.transform = 'scaleX(' + clamp(docH>0 ? y/docH : 0,0,1) + ')';
+
+    if(!reduce){
+      /* hero orb: drifts, scales and rotates with scroll + eases toward cursor */
+      if(orb){
+        var p = clamp(y / (window.innerHeight || 1), 0, 1.4);
+        tx += (mx - tx) * 0.06;
+        ty += (my - ty) * 0.06;
+        orb.style.transform =
+          'translate3d(' + (tx*22 - p*40).toFixed(2) + 'px,' + (ty*18 + p*120).toFixed(2) + 'px,0)' +
+          ' rotate(' + (p*26 + tx*6).toFixed(2) + 'deg)' +
+          ' scale(' + (1 - p*0.12).toFixed(3) + ')';
+        orb.style.opacity = clamp(0.92 - p*0.75, 0, 0.92);
+      }
+      /* showcase: media zooms out as the band scrolls through, copy floats up */
+      if(showcase && scMedia){
+        var r = showcase.getBoundingClientRect();
+        var total = r.height - window.innerHeight;
+        var sp = clamp(-r.top / (total || 1), 0, 1);
+        scMedia.style.transform = 'scale(' + (1.28 - sp*0.24).toFixed(3) + ') translate3d(0,' + ((sp-0.5)*-60).toFixed(1) + 'px,0)';
+        scMedia.style.opacity = (0.18 + Math.sin(sp*Math.PI)*0.30).toFixed(3);
+        if(scCopy){
+          scCopy.style.transform = 'translate3d(0,' + ((0.5-sp)*70).toFixed(1) + 'px,0)';
+          scCopy.style.opacity = clamp(Math.sin(sp*Math.PI)*1.9, 0, 1).toFixed(3);
+        }
+      }
+    }
+  }
+  function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+
+  if(!reduce){
+    window.addEventListener('mousemove', function(e){
+      mx = (e.clientX / window.innerWidth) * 2 - 1;
+      my = (e.clientY / window.innerHeight) * 2 - 1;
+      onScroll();
+    }, {passive:true});
+  }
+  frame();
+
+  /* ---------- line reveals ---------- */
+  var lineIO = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); lineIO.unobserve(e.target); } });
+  }, {threshold:.4});
+  document.querySelectorAll('.lines').forEach(function(el){
+    if(!el.classList.contains('in')) lineIO.observe(el);
+  });
+
+  /* ---------- 3D tilt on cards ---------- */
+  if(!reduce && matchMedia('(hover: hover) and (pointer: fine)').matches){
+    document.querySelectorAll('.tilt').forEach(function(card){
+      card.addEventListener('mouseenter', function(){ card.classList.add('live'); });
+      card.addEventListener('mousemove', function(e){
+        var b = card.getBoundingClientRect();
+        var px = (e.clientX - b.left) / b.width - .5;
+        var py = (e.clientY - b.top) / b.height - .5;
+        card.style.transform =
+          'perspective(900px) rotateY(' + (px*5).toFixed(2) + 'deg) rotateX(' + (-py*5).toFixed(2) + 'deg) translateY(-5px) scale(1.012)';
+      });
+      card.addEventListener('mouseleave', function(){
+        card.classList.remove('live');
+        card.style.transform = '';
+      });
+    });
+
+    /* ---------- magnetic buttons ---------- */
+    document.querySelectorAll('.btn').forEach(function(b){
+      b.addEventListener('mousemove', function(e){
+        var r = b.getBoundingClientRect();
+        b.style.transform = 'translate(' + ((e.clientX-r.left-r.width/2)*.18).toFixed(1) + 'px,' + ((e.clientY-r.top-r.height/2)*.28).toFixed(1) + 'px)';
+      });
+      b.addEventListener('mouseleave', function(){ b.style.transform = ''; });
+    });
+  }
+})();
 
 /* ================= FOOTER YEAR ================= */
 document.getElementById('yr').textContent = new Date().getFullYear();

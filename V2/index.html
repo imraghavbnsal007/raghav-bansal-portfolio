@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raghav Bansal — Human-Centred AI Engineer</title>
+<meta name="description" content="Raghav Bansal — Human-Centred AI engineer in Dublin. RAG systems, legal AI for asylum seekers, fairness research, healthcare ML, civic tech.">
+<meta name="theme-color" id="metaTheme" content="#f7f4ec">
+<script>(function(){var t="light";try{t=localStorage.getItem("rb-theme")||((matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");}catch(e){}document.documentElement.setAttribute("data-theme",t);})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RAGHAV BANSAL — INTERNATIONAL EDITORIAL · v2
+   Palette: diplomatic ultramarine · ivory · gold
+============================================================ */
+:root,[data-theme="light"]{
+  color-scheme:light;
+  --paper:#f7f4ec;
+  --paper-2:#efebe0;
+  --ink:#191b22;
+  --ink-soft:#4a4e5a;
+  --ink-faint:#84888f;
+  --line:rgba(25,27,34,.12);
+  --line-strong:rgba(25,27,34,.40);
+  --accent:#2440a8;
+  --accent-ink:#f3f5ff;
+  --accent-soft:rgba(36,64,168,.07);
+  --gold:#a8842f;
+  --gold-soft:rgba(168,132,47,.10);
+  --green:#2c6e54;
+  --card:#fcfaf4;
+  --shadow:0 26px 64px -30px rgba(25,27,34,.32);
+  --grain-opacity:.045;
+  --radius:4px;
+  --max:1200px;
+  --gutter:clamp(28px,7vw,130px);
+}
+[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#101219;
+  --paper-2:#161924;
+  --ink:#ebe8de;
+  --ink-soft:#b4b2a8;
+  --ink-faint:#777b86;
+  --line:rgba(235,232,222,.12);
+  --line-strong:rgba(235,232,222,.38);
+  --accent:#8da0f7;
+  --accent-ink:#10131f;
+  --accent-soft:rgba(141,160,247,.10);
+  --gold:#d6b35e;
+  --gold-soft:rgba(214,179,94,.12);
+  --green:#6fc4a3;
+  --card:#151823;
+  --shadow:0 28px 66px -24px rgba(0,0,0,.72);
+  --grain-opacity:.06;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+body{
+  font-family:'Archivo',system-ui,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.72;
+  font-size:clamp(15.5px,1.05vw,17.5px);
+  transition:background .35s ease,color .35s ease;
+  overflow-x:hidden;
+}
+::selection{background:var(--accent);color:var(--accent-ink)}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+/* grain + page frame */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:4;
+  opacity:var(--grain-opacity);mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+[data-theme="dark"] body::before{mix-blend-mode:overlay}
+.frame{position:fixed;inset:12px;border:1px solid var(--line);pointer-events:none;z-index:60}
+@media(max-width:720px){.frame{inset:7px}}
+
+.mono{font-family:'IBM Plex Mono',monospace}
+
+/* ============ NAV ============ */
+nav{
+  position:fixed;top:12px;left:12px;right:12px;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:16px clamp(20px,4.5vw,56px);
+  background:var(--paper);background:color-mix(in srgb,var(--paper) 86%,transparent);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+  transition:background .35s ease;
+}
+@media(max-width:720px){nav{top:7px;left:7px;right:7px;padding:13px 16px}}
+.brand{font-family:'Fraunces',serif;font-weight:700;font-size:1.3rem;text-decoration:none;letter-spacing:-.01em;display:flex;align-items:baseline;gap:9px}
+.brand .dot{color:var(--accent)}
+.brand small{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);font-weight:500}
+.nav-links{display:flex;gap:clamp(12px,2vw,28px);list-style:none}
+.nav-links a{
+  text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:.7rem;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink-soft);
+  padding:6px 2px;position:relative;transition:color .2s;
+}
+.nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1.5px;background:var(--accent);transition:right .25s ease}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{right:0}
+.nav-tools{display:flex;align-items:center;gap:10px}
+.lang-wrap{position:relative}
+.lang-btn,.theme-btn{
+  display:flex;align-items:center;gap:6px;
+  background:transparent;border:1px solid var(--line-strong);color:var(--ink);
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;
+  padding:8px 12px;border-radius:var(--radius);transition:all .2s;
+}
+.lang-btn:hover,.theme-btn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.lang-menu{
+  position:absolute;right:0;top:calc(100% + 10px);
+  background:var(--card);border:1px solid var(--line-strong);border-radius:var(--radius);
+  box-shadow:var(--shadow);min-width:178px;display:none;z-index:70;overflow:hidden;
+}
+.lang-menu.open{display:block}
+.lang-menu button{
+  display:flex;width:100%;align-items:center;gap:10px;
+  background:none;border:none;color:var(--ink);text-align:left;
+  font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.05em;
+  padding:10px 15px;transition:background .15s;
+}
+.lang-menu button:hover{background:var(--accent-soft)}
+.lang-menu button.active{color:var(--accent);font-weight:600}
+.lang-menu .code{width:24px;color:var(--ink-faint)}
+.lang-menu button.active .code{color:var(--accent)}
+.menu-btn{display:none;background:none;border:1px solid var(--line-strong);padding:8px 11px;border-radius:var(--radius);color:var(--ink);font-size:1rem;line-height:1}
+@media(max-width:960px){
+  .nav-links{
+    position:fixed;top:66px;left:7px;right:7px;flex-direction:column;gap:0;
+    background:var(--card);border:1px solid var(--line-strong);box-shadow:var(--shadow);
+    padding:10px 0;display:none;border-radius:var(--radius);
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{padding:13px 22px;font-size:.8rem}
+  .menu-btn{display:block}
+  .brand small{display:none}
+}
+
+/* ============ HERO ============ */
+header{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:140px var(--gutter) 0;position:relative;
+  max-width:var(--max);margin:0 auto;width:100%;
+}
+.hero-grid-lines{position:absolute;inset:0;pointer-events:none;display:flex;justify-content:space-between;padding:0 var(--gutter)}
+.hero-grid-lines span{width:1px;background:var(--line);height:100%}
+.hero-grid-lines span:nth-child(2),.hero-grid-lines span:nth-child(3){display:none}
+@media(min-width:900px){.hero-grid-lines span:nth-child(2),.hero-grid-lines span:nth-child(3){display:block}}
+.status-pill{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;
+  border:1px solid var(--line-strong);padding:9px 16px;border-radius:99px;
+  color:var(--ink-soft);margin-bottom:clamp(26px,4.5vh,46px);width:fit-content;
+  animation:rise .8s .1s cubic-bezier(.2,.7,.2,1) both;background:var(--card);
+}
+.status-pill .blink{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
+h1{
+  font-family:'Fraunces',serif;font-weight:540;
+  font-size:clamp(2.9rem,10.6vw,9rem);
+  line-height:.96;letter-spacing:-.025em;
+  animation:rise .9s .2s cubic-bezier(.2,.7,.2,1) both;
+}
+h1 .ital{font-style:italic;font-weight:400;color:var(--accent)}
+.hero-sub{
+  display:flex;flex-wrap:wrap;gap:clamp(22px,4.5vw,64px);align-items:flex-end;
+  margin-top:clamp(30px,5vh,54px);justify-content:space-between;
+  animation:rise .9s .35s cubic-bezier(.2,.7,.2,1) both;
+}
+.hero-tagline{max-width:560px;color:var(--ink-soft);font-size:clamp(1.02rem,1.45vw,1.22rem);line-height:1.7}
+.hero-tagline strong{color:var(--ink)}
+.stamps{display:flex;gap:12px;flex-wrap:wrap}
+.stamp{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;
+  border:1.5px solid var(--ink-soft);border-radius:7px;padding:10px 13px;
+  text-align:center;line-height:1.5;color:var(--ink-soft);
+  transform:rotate(var(--r,0deg));transition:transform .25s,border-color .25s,color .25s;
+  user-select:none;background:var(--card);
+}
+.stamp:hover{transform:rotate(0deg) scale(1.06);border-color:var(--accent);color:var(--accent)}
+.stamp b{display:block;font-size:.95rem;letter-spacing:.04em}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:clamp(32px,5vh,52px);animation:rise .9s .5s cubic-bezier(.2,.7,.2,1) both}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+  font-family:'IBM Plex Mono',monospace;font-size:.76rem;letter-spacing:.11em;text-transform:uppercase;
+  padding:16px 30px;border-radius:var(--radius);border:1px solid var(--ink);
+  transition:transform .2s,box-shadow .2s,background .2s,color .2s;
+}
+.btn-solid{background:var(--ink);color:var(--paper)}
+.btn-solid:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+.btn .arr{transition:transform .2s}
+.btn:hover .arr{transform:translate(3px,-1px)}
+@media(max-width:560px){.btn{padding:14px 20px;font-size:.7rem;flex:1;justify-content:center}}
+
+/* ticker */
+.ticker-wrap{border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);margin-top:clamp(52px,8vh,90px);overflow:hidden;background:var(--paper-2)}
+.ticker{display:flex;gap:0;width:max-content;animation:scroll 40s linear infinite}
+.ticker:hover{animation-play-state:paused}
+.ticker span{
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  padding:15px 30px;color:var(--ink-soft);white-space:nowrap;display:flex;align-items:center;gap:30px;
+}
+.ticker span::after{content:"✦";color:var(--gold);font-size:.8rem}
+@keyframes scroll{to{transform:translateX(-50%)}}
+@keyframes rise{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+
+/* ============ SECTIONS ============ */
+main{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+section{padding:clamp(90px,14vh,170px) 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+.sec-head{display:flex;align-items:baseline;gap:20px;margin-bottom:clamp(44px,7vh,76px);flex-wrap:wrap}
+.sec-num{font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--accent);letter-spacing:.1em}
+h2{font-family:'Fraunces',serif;font-weight:540;font-size:clamp(2rem,4.8vw,3.6rem);letter-spacing:-.02em;line-height:1.05}
+.sec-kicker{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin-left:auto}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .75s cubic-bezier(.2,.7,.2,1),transform .75s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:clamp(36px,6vw,88px)}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+.about-lede{font-family:'Fraunces',serif;font-size:clamp(1.5rem,2.8vw,2.25rem);line-height:1.35;font-weight:460;letter-spacing:-.01em}
+.about-lede em{font-style:italic;color:var(--accent)}
+.about-body{margin-top:28px;color:var(--ink-soft);max-width:64ch}
+.about-body p+p{margin-top:18px}
+.pull-quote{
+  border-left:3px solid var(--gold);padding:6px 0 6px 24px;margin:26px 0;
+  font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.05rem,1.6vw,1.25rem);
+  line-height:1.6;color:var(--ink);
+}
+.soft-skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.soft{
+  font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--line-strong);padding:8px 14px;border-radius:99px;color:var(--ink-soft);
+  transition:all .2s;background:var(--card);
+}
+.soft:hover{border-color:var(--accent);color:var(--accent)}
+.fact-list{display:flex;flex-direction:column;border-top:1px solid var(--line-strong)}
+.fact{display:flex;justify-content:space-between;gap:18px;padding:17px 2px;border-bottom:1px solid var(--line);align-items:baseline}
+.fact dt{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap}
+.fact dd{font-weight:600;text-align:right;font-size:.94rem}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.8vw,22px);margin-top:clamp(50px,8vh,80px)}
+@media(max-width:880px){.stats-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:420px){.stats-row{grid-template-columns:1fr}}
+.stat{
+  background:var(--card);border:1px solid var(--line-strong);border-radius:var(--radius);
+  padding:clamp(24px,2.6vw,34px) clamp(20px,2.2vw,28px);
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.stat:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--accent)}
+.stat .ic{font-size:1.3rem;margin-bottom:14px;display:block}
+.stat .n{font-family:'Fraunces',serif;font-size:clamp(2.1rem,3.8vw,3.1rem);font-weight:560;line-height:1;color:var(--accent)}
+.stat .n sup{font-size:.42em;color:var(--gold)}
+.stat .l{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);margin-top:12px;line-height:1.7}
+
+/* experience */
+.xp{border-top:1px solid var(--line-strong)}
+.xp-item{display:grid;grid-template-columns:186px 1fr;gap:clamp(20px,4.5vw,64px);padding:clamp(34px,5vh,52px) 0;border-bottom:1px solid var(--line)}
+@media(max-width:780px){.xp-item{grid-template-columns:1fr;gap:10px}}
+.xp-when{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.1em;color:var(--ink-faint);padding-top:9px;line-height:1.8}
+.xp-when .loc{display:block;margin-top:6px;color:var(--accent)}
+.xp-role{font-family:'Fraunces',serif;font-size:clamp(1.4rem,2.5vw,1.95rem);font-weight:540;letter-spacing:-.01em;line-height:1.2}
+.xp-org{font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);margin-top:7px}
+.xp-points{margin:20px 0 0;list-style:none;color:var(--ink-soft);max-width:72ch}
+.xp-points li{padding:9px 0 9px 26px;position:relative;font-size:.97rem}
+.xp-points li::before{content:"→";position:absolute;left:0;color:var(--accent);font-family:'IBM Plex Mono',monospace}
+.xp-points b{color:var(--ink)}
+
+/* projects */
+.proj-intro{color:var(--ink-soft);max-width:62ch;margin-bottom:clamp(36px,5vh,54px);font-size:1.04rem}
+.proj-list{display:flex;flex-direction:column;gap:clamp(24px,3.5vh,38px)}
+.proj{
+  border:1px solid var(--line-strong);background:var(--card);border-radius:var(--radius);
+  display:grid;grid-template-columns:70px 1fr;overflow:hidden;
+  transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s,border-color .25s;
+}
+.proj:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--accent)}
+.proj.flagship{border-color:var(--gold);border-width:1.5px}
+.proj-num{
+  border-right:1px dashed var(--line-strong);display:flex;align-items:flex-start;justify-content:center;
+  padding-top:30px;font-family:'IBM Plex Mono',monospace;font-size:.76rem;color:var(--ink-faint);
+  background:var(--paper-2);writing-mode:vertical-rl;letter-spacing:.1em;
+}
+@media(max-width:640px){.proj{grid-template-columns:1fr}.proj-num{display:none}}
+.proj-body{padding:clamp(26px,3.4vw,44px)}
+.proj-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.proj h3{font-family:'Fraunces',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);font-weight:540;letter-spacing:-.01em;line-height:1.2}
+.proj-award{
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;
+  border:1.5px solid var(--gold);color:var(--gold);background:var(--gold-soft);
+  padding:7px 13px;border-radius:99px;white-space:nowrap;transform:rotate(2deg);
+}
+.proj-meta{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);margin-top:9px;line-height:1.9}
+.proj p{color:var(--ink-soft);margin-top:18px;max-width:78ch;font-size:.98rem}
+.metrics{display:flex;gap:clamp(10px,1.4vw,16px);margin-top:22px;flex-wrap:wrap}
+.metric{
+  background:var(--paper);border:1px solid var(--line-strong);border-radius:var(--radius);
+  padding:12px 20px;min-width:112px;
+}
+.metric .v{font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem;color:var(--accent)}
+.metric .k{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);margin-top:3px}
+.tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.tag{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;
+  border:1px solid var(--line-strong);padding:6px 12px;border-radius:99px;color:var(--ink-soft);
+  transition:all .2s;
+}
+.tag:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* skills */
+.skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,1.8vw,22px)}
+@media(max-width:820px){.skill-grid{grid-template-columns:1fr}}
+.skill-cell{
+  background:var(--card);border:1px solid var(--line-strong);border-radius:var(--radius);
+  padding:clamp(26px,3.2vw,42px);transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.skill-cell:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--accent)}
+.skill-cell h3{font-family:'Fraunces',serif;font-size:1.32rem;font-weight:540;display:flex;align-items:baseline;gap:13px;line-height:1.3}
+.skill-cell h3 .idx{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--accent)}
+.skill-cell .tags{margin-top:20px}
+.cert-strip{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(34px,5vh,50px)}
+.cert{
+  font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;
+  border:1px dashed var(--line-strong);padding:11px 18px;border-radius:var(--radius);color:var(--ink-soft);
+  display:flex;align-items:center;gap:10px;background:var(--card);
+}
+.cert::before{content:"✓";color:var(--green);font-weight:700}
+
+/* education */
+.edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.2vw,26px)}
+@media(max-width:880px){.edu-grid{grid-template-columns:1fr}}
+.edu{border:1px solid var(--line-strong);background:var(--card);border-radius:var(--radius);padding:clamp(26px,3vw,36px);transition:transform .25s,box-shadow .25s,border-color .25s}
+.edu:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--accent)}
+.edu .yr{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.15em;color:var(--accent);text-transform:uppercase}
+.edu h3{font-family:'Fraunces',serif;font-size:1.28rem;font-weight:540;margin-top:13px;line-height:1.3}
+.edu .inst{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:var(--ink-faint);margin-top:10px;text-transform:uppercase;line-height:1.8}
+.edu .grade{margin-top:16px;font-weight:600;font-size:.92rem;color:var(--gold)}
+
+/* beyond */
+.beyond-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,88px)}
+@media(max-width:880px){.beyond-grid{grid-template-columns:1fr}}
+.lang-row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:17px 2px;border-bottom:1px solid var(--line)}
+.lang-row:first-of-type{border-top:1px solid var(--line-strong)}
+.lang-row .name{font-weight:600}
+.lang-row .lvl{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint)}
+.lvl-dots{display:flex;gap:6px}
+.lvl-dots i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink-soft)}
+.lvl-dots i.f{background:var(--accent);border-color:var(--accent)}
+.hobby-cloud{display:flex;flex-wrap:wrap;gap:14px}
+.hobby{
+  font-family:'Fraunces',serif;font-size:clamp(1.05rem,1.6vw,1.3rem);font-style:italic;
+  border:1px solid var(--line-strong);padding:14px 26px;border-radius:99px;background:var(--card);
+  transition:all .25s;transform:rotate(var(--r,0deg));
+}
+.hobby:hover{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);transform:rotate(0) scale(1.05)}
+.sub-h{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:24px}
+
+/* contact */
+.contact-big{
+  font-family:'Fraunces',serif;font-weight:540;letter-spacing:-.02em;
+  font-size:clamp(2.2rem,7.2vw,5.8rem);line-height:1.06;
+  overflow-wrap:break-word;
+}
+.contact-big a{text-decoration:none;position:relative;display:inline-block;font-size:clamp(1.5rem,5vw,4.4rem)}
+.contact-big a::after{content:"";position:absolute;left:0;right:0;bottom:6%;height:.06em;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.contact-big a:hover::after{transform:scaleX(1)}
+.contact-big .ital{font-style:italic;color:var(--accent)}
+.contact-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:clamp(36px,5vh,54px)}
+
+/* footer */
+footer{
+  border-top:1px solid var(--line-strong);
+  padding:34px var(--gutter) 44px;max-width:var(--max);margin:0 auto;
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);
+}
+footer a{color:var(--ink-soft);text-decoration:none}
+footer a:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="frame" aria-hidden="true"></div>
+
+<nav aria-label="Main navigation">
+  <a class="brand" href="#top">Raghav<span class="dot">.</span>Bansal <small>DUB / EU</small></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" data-i18n="nav_about">About</a></li>
+    <li><a href="#experience" data-i18n="nav_xp">Experience</a></li>
+    <li><a href="#projects" data-i18n="nav_proj">Projects</a></li>
+    <li><a href="#skills" data-i18n="nav_skills">Skills</a></li>
+    <li><a href="#education" data-i18n="nav_edu">Education</a></li>
+    <li><a href="#beyond" data-i18n="nav_beyond">Beyond</a></li>
+    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+  </ul>
+  <div class="nav-tools">
+    <div class="lang-wrap">
+      <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Change language">🌐 <span id="langCur">EN</span></button>
+      <div class="lang-menu" id="langMenu" role="menu">
+        <button data-lang="en"><span class="code">EN</span> English</button>
+        <button data-lang="de"><span class="code">DE</span> Deutsch</button>
+        <button data-lang="es"><span class="code">ES</span> Español</button>
+        <button data-lang="nl"><span class="code">NL</span> Nederlands</button>
+        <button data-lang="fr"><span class="code">FR</span> Français</button>
+        <button data-lang="fi"><span class="code">FI</span> Suomi</button>
+        <button data-lang="hi"><span class="code">HI</span> हिन्दी</button>
+      </div>
+    </div>
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode"><span id="themeIcon">☾</span></button>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">≡</button>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="hero-grid-lines" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <div class="status-pill"><span class="blink"></span><span data-i18n="hero_status">Open to graduate AI/ML roles — Dublin, Ireland</span></div>
+  <h1>Human-Centred<br><span class="ital" data-i18n="hero_word">AI Engineer</span></h1>
+  <div class="hero-sub">
+    <p class="hero-tagline" data-i18n="hero_tagline">I design and evaluate AI systems people can <strong>actually trust</strong> — from a multilingual legal-guidance chatbot for asylum seekers to healthcare ML, fairness research and civic tech, built across three countries.</p>
+    <div class="stamps" aria-label="Countries lived and worked in">
+      <div class="stamp" style="--r:-3deg"><b>IRL</b>Dublin<br>2020 →</div>
+      <div class="stamp" style="--r:2deg"><b>FIN</b>Oulu<br>2022–23</div>
+      <div class="stamp" style="--r:-2deg"><b>NLD</b>Utrecht<br>2026</div>
+      <div class="stamp" style="--r:3deg"><b>IND</b>Origin<br>est.</div>
+    </div>
+  </div>
+  <div class="hero-cta">
+    <a class="btn btn-solid" href="#projects"><span data-i18n="btn_work">See my work</span> <span class="arr">→</span></a>
+    <a class="btn btn-ghost" href="Raghav_Bansal_CV.pdf" download><span data-i18n="btn_cv">Download CV</span> <span class="arr">↓</span></a>
+    <a class="btn btn-ghost" href="#contact"><span data-i18n="btn_contact">Get in touch</span></a>
+  </div>
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker" id="ticker">
+      <span>RAG Systems</span><span>Human-Centred AI</span><span>Legal AI · Access to Justice</span><span>Deep Learning</span><span>PyTorch</span><span>LangChain · LlamaIndex</span><span>Fairness Research</span><span>Multilingual NLP</span><span>AWS · Azure</span><span>EU AI Act</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-head reveal">
+    <span class="sec-num">01</span>
+    <h2 data-i18n="t_about">About</h2>
+    <span class="sec-kicker" data-i18n="k_about">Who I am</span>
+  </div>
+  <div class="about-grid">
+    <div class="reveal">
+      <p class="about-lede" data-i18n="about_lede">A curious mind building <em>bridges</em> between people and technology.</p>
+      <div class="about-body">
+        <p data-i18n="about_p1">I'm Raghav — an AI researcher and engineer based in Dublin, Ireland. My journey runs from Computer Science at TU Dublin to an Erasmus year in Finland, and now an MSc thesis designing an AI guidance chatbot for asylum seekers, alongside an AI-systems internship with HU Utrecht.</p>
+        <div class="pull-quote" data-i18n="about_quote">I'm fascinated by how technology shapes human behaviour — and where we take AI next. I build systems people can actually trust and use, whether that's helping asylum seekers navigate Ireland's legal process or supporting patients with chronic kidney disease.</div>
+        <p data-i18n="about_p2">That thread runs through everything below: retrieval-augmented legal guidance, an award-winning serverless healthcare platform, fairness research that exposes what accuracy hides, and civic apps shipped end-to-end.</p>
+      </div>
+      <div class="soft-skills">
+        <span class="soft" data-i18n="ss_1">Teamwork</span>
+        <span class="soft" data-i18n="ss_2">Communication</span>
+        <span class="soft" data-i18n="ss_3">Problem Solving</span>
+        <span class="soft" data-i18n="ss_4">Leadership</span>
+        <span class="soft" data-i18n="ss_5">Cross-Cultural</span>
+        <span class="soft" data-i18n="ss_6">Adaptability</span>
+        <span class="soft" data-i18n="ss_7">Critical Thinking</span>
+        <span class="soft" data-i18n="ss_8">Time Management</span>
+      </div>
+    </div>
+    <dl class="fact-list reveal">
+      <div class="fact"><dt data-i18n="f_base">Based in</dt><dd>Dublin, Ireland 🇮🇪</dd></div>
+      <div class="fact"><dt data-i18n="f_now">Currently</dt><dd data-i18n="f_now_v">MSc thesis · AI for asylum seekers</dd></div>
+      <div class="fact"><dt data-i18n="f_edu">Education</dt><dd>MSc Human-Centred AI · 2026</dd></div>
+      <div class="fact"><dt data-i18n="f_focus">Focus</dt><dd data-i18n="f_focus_v">HCAI · RAG · Responsible ML</dd></div>
+      <div class="fact"><dt data-i18n="f_award">Award</dt><dd>🏆 AWS Healthcare AI 2025</dd></div>
+      <div class="fact"><dt data-i18n="f_open">Open to</dt><dd data-i18n="f_open_v">AI/ML · Data · Software roles</dd></div>
+    </dl>
+  </div>
+  <div class="stats-row reveal">
+    <div class="stat"><span class="ic">🌍</span><div class="n">15<sup>+</sup></div><div class="l" data-i18n="s_1">countries explored independently</div></div>
+    <div class="stat"><span class="ic">🗣️</span><div class="n">4</div><div class="l" data-i18n="s_2">languages spoken</div></div>
+    <div class="stat"><span class="ic">🏆</span><div class="n">1st</div><div class="l" data-i18n="s_3">AWS Healthcare AI Challenge 2025</div></div>
+    <div class="stat"><span class="ic">🎓</span><div class="n">2<sup>×</sup></div><div class="l" data-i18n="s_4">international university programmes</div></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-head reveal">
+    <span class="sec-num">02</span>
+    <h2 data-i18n="t_xp">Experience</h2>
+    <span class="sec-kicker" data-i18n="k_xp">Where I've shipped</span>
+  </div>
+  <div class="xp">
+    <article class="xp-item reveal">
+      <div class="xp-when">JAN 2026 — AUG 2026<span class="loc">UTRECHT, NL · REMOTE</span></div>
+      <div>
+        <h3 class="xp-role" data-i18n="xp1_role">AI Engineer — MSc Thesis Internship · AI Guidance for Asylum Seekers</h3>
+        <div class="xp-org">HU University of Applied Sciences Utrecht · TU Dublin</div>
+        <ul class="xp-points">
+          <li data-i18n="xp1_1">Designed and evaluated a <b>RAG-based multilingual chatbot</b> guiding International Protection applicants through Ireland's asylum process — grounded in <b>11 verified legal documents</b> including the International Protection Act 2015 and 2026.</li>
+          <li data-i18n="xp1_2">Implemented the retrieval-augmented pipeline with <b>source citation, hallucination resistance and automatic escalation</b> to legal professionals — guardrails hardened through adversarial testing.</li>
+          <li data-i18n="xp1_3">Developed an <b>eight-dimension human-centred evaluation framework</b> — accuracy, clarity, safety, referral behaviour, hallucination resistance, transparency, trust calibration, accessibility — validated with IP solicitors and NGO practitioners.</li>
+          <li data-i18n="xp1_4">Owned the full lifecycle from architecture to <b>AWS/Azure deployment with Docker</b> — deriving generalisable design principles for AI serving vulnerable populations in high-stakes legal contexts.</li>
+        </ul>
+        <div class="metrics">
+          <div class="metric"><div class="v">11</div><div class="k" data-i18n="p0_m1">verified legal docs</div></div>
+          <div class="metric"><div class="v">8</div><div class="k" data-i18n="p0_m2">evaluation dimensions</div></div>
+          <div class="metric"><div class="v">4+</div><div class="k" data-i18n="p0_m3">interface languages</div></div>
+        </div>
+        <div class="tags"><span class="tag">RAG</span><span class="tag">LangChain · LlamaIndex</span><span class="tag">Access to Justice</span><span class="tag">Arabic · Dari · French · Tigrinya</span><span class="tag">Design Science Research</span></div>
+      </div>
+    </article>
+    <article class="xp-item reveal">
+      <div class="xp-when">JUN 2023 — DEC 2023<span class="loc">FINLAND · REMOTE</span></div>
+      <div>
+        <h3 class="xp-role" data-i18n="xp2_role">Data Engineering Intern</h3>
+        <div class="xp-org">Arctic Labs Oy</div>
+        <ul class="xp-points">
+          <li data-i18n="xp2_1">Sustained <b>99.5% uptime</b> on pipelines processing <b>50K+ daily records</b> across AWS S3 and PostgreSQL; automated Python/Spark data-quality validation cut downstream errors by <b>30%</b>.</li>
+          <li data-i18n="xp2_2">Designed fault-tolerant distributed <b>ETL architecture</b> with modular OOP components for teams across 3 time zones; surfaced live metrics to <b>10+ stakeholders</b> via Power BI.</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-head reveal">
+    <span class="sec-num">03</span>
+    <h2 data-i18n="t_proj">Selected Projects</h2>
+    <span class="sec-kicker" data-i18n="k_proj">Built to be examined</span>
+  </div>
+  <p class="proj-intro reveal" data-i18n="proj_intro">Seven projects spanning healthcare, fairness research and civic tech — each one designed, shipped and evaluated, never just demoed.</p>
+  <div class="proj-list">
+
+    <article class="proj reveal">
+      <div class="proj-num">P-01 / 2025</div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <div>
+            <h3>NutriPhos — Serverless ML for Kidney Health</h3>
+            <div class="proj-meta">Python · AWS Lambda / S3 / ECS · REST API · Event-driven OOP</div>
+          </div>
+          <span class="proj-award">🏆 Best Overall · AWS 2025</span>
+        </div>
+        <p data-i18n="p1_d">Phosphate-finder platform for chronic kidney disease patients. Architected a serverless, event-driven ML system with decoupled OOP components built for reliability and independent scaling — winning Best Overall Project at the AWS Healthcare AI Challenge 2025 against 30+ teams.</p>
+        <div class="metrics">
+          <div class="metric"><div class="v">1st</div><div class="k">of 30+ teams</div></div>
+          <div class="metric"><div class="v">100%</div><div class="k">serverless</div></div>
+        </div>
+        <div class="tags"><span class="tag">AWS Lambda</span><span class="tag">ECS</span><span class="tag">Healthcare AI</span><span class="tag">REST API</span></div>
+      </div>
+    </article>
+
+    <article class="proj reveal">
+      <div class="proj-num">P-02 / 2026</div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <div>
+            <h3>Explainable Hate Speech Detection</h3>
+            <div class="proj-meta">PyTorch · BERT · DistilBERT · BiLSTM · SHAP · LIME · HateXplain</div>
+          </div>
+        </div>
+        <p data-i18n="p2_d">Multi-class NLP pipeline detecting abusive, offensive and neutral content at scale. Trained and compared six models — Logistic Regression, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT — on 20K+ posts, then applied SHAP/LIME to audit token-level decision rationales and investigated demographic bias across race, religion, gender and sexual orientation under the EU AI Act framing.</p>
+        <div class="metrics">
+          <div class="metric"><div class="v">89%</div><div class="k">F1 score</div></div>
+          <div class="metric"><div class="v">6</div><div class="k">models compared</div></div>
+          <div class="metric"><div class="v">−35%</div><div class="k">reviewer time</div></div>
+        </div>
+        <div class="tags"><span class="tag">NLP</span><span class="tag">Explainable AI</span><span class="tag">Transfer Learning</span><span class="tag">Algorithmic Fairness</span></div>
+      </div>
+    </article>
+
+    <article class="proj reveal">
+      <div class="proj-num">P-03 / 2026</div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <div>
+            <h3>Neural Network Fairness Analysis</h3>
+            <div class="proj-meta">TensorFlow · Keras · scikit-learn · Responsible AI · Model Evaluation</div>
+          </div>
+        </div>
+        <p data-i18n="p3_d">Systematic empirical study of how classification performance relates to fairness across demographic groups — 8 architectures varied over optimisers, batch sizes, regularisation and depth. The optimal model hit 85.7% accuracy yet exposed a 56-point recall gap between majority and minority classes: proof that aggregate accuracy actively masks discriminatory behaviour, and that fairness evaluation must be a first-class development metric under the EU AI Act.</p>
+        <div class="metrics">
+          <div class="metric"><div class="v">8</div><div class="k">architectures</div></div>
+          <div class="metric"><div class="v">85.7%</div><div class="k">test accuracy</div></div>
+          <div class="metric"><div class="v">56pt</div><div class="k">recall gap exposed</div></div>
+        </div>
+        <div class="tags"><span class="tag">Fairness in AI</span><span class="tag">EU AI Act</span><span class="tag">AI Ethics</span><span class="tag">NumPy / Pandas</span></div>
+      </div>
+    </article>
+
+    <article class="proj reveal">
+      <div class="proj-num">P-04 / 2026</div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <div>
+            <h3>Bank Churn Prediction — with Bias Audit</h3>
+            <div class="proj-meta">Neural Networks · Stratified CV · Ablation Studies · 6,000 customers</div>
+          </div>
+        </div>
+        <p data-i18n="p4_d">End-to-end churn pipeline on a heavily imbalanced (80/20) real-world banking dataset — nine stages from EDA and architecture search to ablation and cross-validation. Chose a compact 16-neuron network for its 0.94% generalisation gap over larger overfitting variants, then evaluated per-group performance by gender and country, surfacing that female and Spanish customers were systematically underserved despite strong headline accuracy.</p>
+        <div class="metrics">
+          <div class="metric"><div class="v">85.7%</div><div class="k">test accuracy</div></div>
+          <div class="metric"><div class="v">0.858</div><div class="k">CV score</div></div>
+          <div class="metric"><div class="v">0</div><div class="k">data leakage</div></div>
+        </div>
+        <div class="tags"><span class="tag">Imbalanced Data</span><span class="tag">Model Selection</span><span class="tag">Subgroup Evaluation</span></div>
+      </div>
+    </article>
+
+    <article class="proj reveal">
+      <div class="proj-num">P-05 / 2026</div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <div>
+            <h3>CareRise — AI Career Pathways for Care Workers</h3>
+            <div class="proj-meta">Human-Centred Design · Skill-Gap Analysis · Multilingual · GDPR</div>
+          </div>
+        </div>
+        <p data-i18n="p5_d">AI-powered career pathway builder for one of society's most undervalued workforces. CareRise analyses worker skills, generates personalised step-by-step roadmaps, matches free or low-cost accredited training by cost, location and language, and issues a portable, worker-owned digital skills passport — built with bias mitigation, human-in-the-loop decisions and inclusive design (voice support, multilingual access). Team project at TU Dublin.</p>
+        <div class="tags"><span class="tag">Social Impact</span><span class="tag">Responsible AI</span><span class="tag">Human-in-the-loop</span><span class="tag">Inclusive Design</span></div>
+      </div>
+    </article>
+
+    <article class="proj reveal">
+      <div class="proj-num">P-06 / 2024</div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <div>
+            <h3>SnapBin — Civic Waste Reporting, Ireland-first</h3>
+            <div class="proj-meta">Kotlin · Java · Android · AWS EC2 / S3 · MVC · REST</div>
+          </div>
+        </div>
+        <p data-i18n="p6_d">Ireland's first civic waste-reporting Android app, shipped end-to-end: AI image recognition for reports, interface-driven OOP design in Kotlin/Java, and a scalable REST backend on AWS — raising adoption 50% in three months.</p>
+        <div class="metrics">
+          <div class="metric"><div class="v">+50%</div><div class="k">adoption / 3 mo</div></div>
+          <div class="metric"><div class="v">#1</div><div class="k">in Ireland (civic)</div></div>
+        </div>
+        <div class="tags"><span class="tag">Android</span><span class="tag">Computer Vision</span><span class="tag">Civic Tech</span></div>
+      </div>
+    </article>
+
+    <article class="proj reveal">
+      <div class="proj-num">P-07 / 2023</div>
+      <div class="proj-body">
+        <div class="proj-top">
+          <div>
+            <h3>Taskit — Jobs Without the Language Barrier</h3>
+            <div class="proj-meta">Mobile · Multilingual UX · Built in Finland</div>
+          </div>
+        </div>
+        <p data-i18n="p7_d">Multilingual local job-finder app helping non-Finnish speakers access work in Finland — born from living the problem first-hand as an exchange student in Oulu. Localisation-first product thinking that still shapes how I build (this site speaks seven languages).</p>
+        <div class="tags"><span class="tag">i18n</span><span class="tag">Accessibility</span><span class="tag">Migrant Support</span></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-head reveal">
+    <span class="sec-num">04</span>
+    <h2 data-i18n="t_skills">Toolkit</h2>
+    <span class="sec-kicker" data-i18n="k_skills">Evidence, not buzzwords</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-cell reveal">
+      <h3><span class="idx">A.</span> <span data-i18n="sk_a">Languages</span></h3>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Java</span><span class="tag">C#</span><span class="tag">Kotlin</span><span class="tag">C</span><span class="tag">SQL</span><span class="tag">JavaScript</span><span class="tag">R</span></div>
+    </div>
+    <div class="skill-cell reveal">
+      <h3><span class="idx">B.</span> <span data-i18n="sk_b">ML &amp; Deep Learning</span></h3>
+      <div class="tags"><span class="tag">PyTorch</span><span class="tag">TensorFlow / Keras</span><span class="tag">BERT</span><span class="tag">Hugging Face</span><span class="tag">spaCy</span><span class="tag">scikit-learn</span><span class="tag">SHAP / LIME</span><span class="tag">Abuse &amp; Anomaly Detection</span></div>
+    </div>
+    <div class="skill-cell reveal">
+      <h3><span class="idx">C.</span> <span data-i18n="sk_c">RAG &amp; LLM Systems</span></h3>
+      <div class="tags"><span class="tag">LlamaIndex</span><span class="tag">LangChain</span><span class="tag">Vector Similarity Retrieval</span><span class="tag">Document Chunking Strategy</span><span class="tag">Source Citation</span><span class="tag">Hallucination Resistance</span><span class="tag">LLM Evaluation</span></div>
+    </div>
+    <div class="skill-cell reveal">
+      <h3><span class="idx">D.</span> <span data-i18n="sk_d">Human-Centred AI &amp; Research</span></h3>
+      <div class="tags"><span class="tag">Shneiderman's HCAI Framework</span><span class="tag">Cognitive Forcing Functions</span><span class="tag">Overreliance Prevention</span><span class="tag">Design Science Research</span><span class="tag">Expert Evaluation</span><span class="tag">Failure-Mode Analysis</span><span class="tag">Quality Rubrics</span><span class="tag">Stakeholder Consultation</span></div>
+    </div>
+    <div class="skill-cell reveal">
+      <h3><span class="idx">E.</span> <span data-i18n="sk_e">Cloud &amp; Engineering</span></h3>
+      <div class="tags"><span class="tag">AWS (Lambda, S3, ECS, EC2)</span><span class="tag">Azure</span><span class="tag">Docker</span><span class="tag">Linux</span><span class="tag">Apache Spark</span><span class="tag">PostgreSQL</span><span class="tag">REST APIs</span><span class="tag">Git · CI/CD</span><span class="tag">OOP · SOLID · MVC</span><span class="tag">Power BI</span></div>
+    </div>
+    <div class="skill-cell reveal">
+      <h3><span class="idx">F.</span> <span data-i18n="sk_f">Legal AI &amp; Responsible AI</span></h3>
+      <div class="tags"><span class="tag">Ireland's IP Process · IPA 2015 / 2026</span><span class="tag">Access to Justice</span><span class="tag">Multilingual NLP — AR · Prs · FR · TI</span><span class="tag">EU AI Act · ALTAI</span><span class="tag">GDPR</span><span class="tag">Adversarial Testing</span><span class="tag">Bias Auditing</span></div>
+    </div>
+  </div>
+  <div class="cert-strip reveal">
+    <span class="cert">AWS Cloud Practitioner</span>
+    <span class="cert">ML NLP — AWS</span>
+    <span class="cert">Deep Learning — NVIDIA</span>
+    <span class="cert">Python — Kaggle</span>
+    <span class="cert">LIFT Teamwork Facilitator</span>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="sec-head reveal">
+    <span class="sec-num">05</span>
+    <h2 data-i18n="t_edu">Education</h2>
+    <span class="sec-kicker" data-i18n="k_edu">Three institutions, two countries</span>
+  </div>
+  <div class="edu-grid">
+    <article class="edu reveal">
+      <div class="yr">2025 — 2026</div>
+      <h3>MSc Human-Centred Artificial Intelligence</h3>
+      <div class="inst">Technological University Dublin · IE</div>
+      <div class="grade" data-i18n="edu1_g">Expected First-Class Honours (1:1)</div>
+    </article>
+    <article class="edu reveal">
+      <div class="yr">2020 — 2024</div>
+      <h3>BSc Computer Science, International</h3>
+      <div class="inst">Technological University Dublin · IE</div>
+      <div class="grade" data-i18n="edu2_g">Second-Class Honours, Grade 1 (2:1)</div>
+    </article>
+    <article class="edu reveal">
+      <div class="yr">2022 — 2023</div>
+      <h3>BSc Engineering — Erasmus Exchange</h3>
+      <div class="inst">Oulu University of Applied Sciences · FI</div>
+      <div class="grade" data-i18n="edu3_g">Grade 5 / 5</div>
+    </article>
+  </div>
+</section>
+
+<!-- BEYOND -->
+<section id="beyond">
+  <div class="sec-head reveal">
+    <span class="sec-num">06</span>
+    <h2 data-i18n="t_beyond">Beyond the Terminal</h2>
+    <span class="sec-kicker" data-i18n="k_beyond">Human, centred</span>
+  </div>
+  <div class="beyond-grid">
+    <div class="reveal">
+      <div class="sub-h" data-i18n="b_langs">Languages I speak</div>
+      <div class="lang-row"><span class="name">English</span><span class="lvl" data-i18n="lv_fluent">Fluent</span><span class="lvl-dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></span></div>
+      <div class="lang-row"><span class="name">हिन्दी · Hindi</span><span class="lvl" data-i18n="lv_native">Native</span><span class="lvl-dots"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></span></div>
+      <div class="lang-row"><span class="name">Deutsch · German</span><span class="lvl">B1</span><span class="lvl-dots"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></span></div>
+      <div class="lang-row"><span class="name">Suomi · Finnish</span><span class="lvl">A1</span><span class="lvl-dots"><i class="f"></i><i></i><i></i><i></i><i></i></span></div>
+    </div>
+    <div class="reveal">
+      <div class="sub-h" data-i18n="b_hobbies">When I'm offline</div>
+      <div class="hobby-cloud">
+        <span class="hobby" style="--r:-2deg" data-i18n="h_1">Hiking Irish trails</span>
+        <span class="hobby" style="--r:2deg" data-i18n="h_2">Getting lost in new cities</span>
+        <span class="hobby" style="--r:-1.5deg" data-i18n="h_3">Ice skating</span>
+        <span class="hobby" style="--r:2.5deg" data-i18n="h_4">Live vocal performance</span>
+        <span class="hobby" style="--r:-2.5deg" data-i18n="h_5">Fitness</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-head reveal">
+    <span class="sec-num">07</span>
+    <h2 data-i18n="t_contact">Contact</h2>
+    <span class="sec-kicker">GMT+0 · Dublin</span>
+  </div>
+  <div class="reveal">
+    <p class="contact-big"><span data-i18n="c_line1">Let's build something</span> <span class="ital" data-i18n="c_line2">people can trust.</span><br><a href="mailto:raghavb025@gmail.com">raghavb025@gmail.com</a></p>
+    <div class="contact-links">
+      <a class="btn btn-solid" href="mailto:raghavb025@gmail.com">Email <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/raghav-bansal" target="_blank" rel="noopener">LinkedIn <span class="arr">↗</span></a>
+      <a class="btn btn-ghost" href="https://github.com/imraghavbnsal007" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
+      <a class="btn btn-ghost" href="tel:+353899891360">+353 899 891 360</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <span>© <span id="yr"></span> Raghav Bansal — <span data-i18n="ft_made">Designed &amp; built with care in Dublin</span></span>
+  <a href="#top" data-i18n="ft_top">↑ Back to top</a>
+</footer>
+
+<script>
+/* ================= I18N ================= */
+const I18N = {
+en:{},
+de:{
+ nav_about:"Über mich",nav_xp:"Erfahrung",nav_proj:"Projekte",nav_skills:"Skills",nav_edu:"Bildung",nav_beyond:"Privat",nav_contact:"Kontakt",
+ hero_status:"Offen für AI/ML-Einstiegsrollen — Dublin, Irland",hero_word:"KI-Ingenieur",
+ hero_tagline:"Ich entwerfe und evaluiere KI-Systeme, denen Menschen <strong>wirklich vertrauen</strong> können — von einem mehrsprachigen Rechtsberatungs-Chatbot für Asylsuchende bis zu Healthcare-ML, Fairness-Forschung und Civic Tech, gebaut in drei Ländern.",
+ btn_work:"Meine Arbeit",btn_cv:"Lebenslauf laden",btn_contact:"Kontakt",
+ t_about:"Über mich",k_about:"Wer ich bin",
+ about_lede:"Ein neugieriger Kopf, der <em>Brücken</em> zwischen Menschen und Technologie baut.",
+ about_p1:"Ich bin Raghav — KI-Forscher und Ingenieur in Dublin, Irland. Mein Weg führt von der Informatik an der TU Dublin über ein Erasmus-Jahr in Finnland zu einer Masterarbeit über einen KI-Chatbot für Asylsuchende, parallel zu einem AI-Systems-Praktikum an der HU Utrecht.",
+ about_quote:"Mich fasziniert, wie Technologie menschliches Verhalten prägt — und wohin wir KI als Nächstes führen. Ich baue Systeme, denen Menschen wirklich vertrauen und die sie nutzen können: ob sie Asylsuchenden durch Irlands Rechtsprozess helfen oder Patienten mit chronischer Nierenerkrankung unterstützen.",
+ about_p2:"Dieser rote Faden zieht sich durch alles hier: retrieval-gestützte Rechtsberatung, eine preisgekrönte serverlose Healthcare-Plattform, Fairness-Forschung, die zeigt, was Genauigkeit verbirgt, und Civic Apps, end-to-end geliefert.",
+ ss_1:"Teamarbeit",ss_2:"Kommunikation",ss_3:"Problemlösung",ss_4:"Führung",ss_5:"Interkulturell",ss_6:"Anpassungsfähig",ss_7:"Kritisches Denken",ss_8:"Zeitmanagement",
+ f_base:"Standort",f_now:"Aktuell",f_now_v:"Masterarbeit · KI für Asylsuchende",f_edu:"Bildung",f_focus:"Fokus",f_focus_v:"HCAI · RAG · Responsible ML",f_award:"Auszeichnung",f_open:"Offen für",f_open_v:"AI/ML · Daten · Software",
+ s_1:"Länder eigenständig bereist",s_2:"gesprochene Sprachen",s_3:"AWS Healthcare AI Challenge 2025",s_4:"internationale Studienprogramme",
+ t_xp:"Erfahrung",k_xp:"Wo ich geliefert habe",
+ xp1_role:"AI Engineer — Masterarbeits-Praktikum · KI-Beratung für Asylsuchende",
+ xp1_1:"Entwurf und Evaluation eines <b>RAG-basierten mehrsprachigen Chatbots</b>, der Antragsteller auf internationalen Schutz durch Irlands Asylverfahren führt — fundiert auf <b>11 verifizierten Rechtsdokumenten</b>, darunter der International Protection Act 2015 und 2026.",
+ xp1_2:"Umsetzung der Retrieval-Augmented-Pipeline mit <b>Quellenzitaten, Halluzinationsresistenz und automatischer Eskalation</b> an Rechtsexperten — Guardrails durch adversariale Tests gehärtet.",
+ xp1_3:"Entwicklung eines <b>achtdimensionalen menschzentrierten Evaluationsframeworks</b> — Genauigkeit, Klarheit, Sicherheit, Verweisverhalten, Halluzinationsresistenz, Transparenz, Vertrauenskalibrierung, Barrierefreiheit — validiert mit IP-Anwälten und NGO-Praktikern.",
+ xp1_4:"Verantwortung für den gesamten Lebenszyklus bis zum <b>AWS/Azure-Deployment mit Docker</b> — mit verallgemeinerbaren Designprinzipien für KI für vulnerable Gruppen in hochriskanten Rechtskontexten.",
+ xp2_role:"Praktikant Data Engineering",
+ xp2_1:"<b>99,5 % Uptime</b> auf Pipelines mit <b>50K+ Datensätzen täglich</b> (AWS S3, PostgreSQL); automatisierte Python/Spark-Validierung senkte Folgefehler um <b>30 %</b>.",
+ xp2_2:"Fehlertolerante verteilte <b>ETL-Architektur</b> mit modularen OOP-Komponenten für Teams in 3 Zeitzonen; Live-Metriken für <b>10+ Stakeholder</b> via Power BI.",
+ t_proj:"Ausgewählte Projekte",k_proj:"Gebaut, um geprüft zu werden",
+ proj_intro:"Sieben Projekte aus Gesundheit, Fairness-Forschung und Civic Tech — jedes entworfen, geliefert und evaluiert, nie nur demonstriert.",
+ p0_badge:"⭐ Masterarbeit",
+ p0_d:"Entwurf und Evaluation eines RAG-basierten Chatbots, der Antragstellern auf internationalen Schutz in Irland mehrsprachige Verfahrensberatung gibt — fundiert auf 11 verifizierten Rechtsdokumenten, darunter der International Protection Act 2015 und 2026. Die Pipeline zitiert ihre Quellen, widersteht Halluzinationen und eskaliert automatisch an Rechtsexperten. Ein achtdimensionales menschzentriertes Evaluationsframework (Genauigkeit, Klarheit, Sicherheit, Verweisverhalten, Halluzinationsresistenz, Transparenz, Vertrauenskalibrierung, Barrierefreiheit) wurde mit IP-Anwälten und NGO-Praktikern validiert — mit verallgemeinerbaren Designprinzipien für KI, die vulnerable Gruppen in hochriskanten Rechtskontexten unterstützt.",
+ p0_m1:"verifizierte Rechtsdokumente",p0_m2:"Evaluationsdimensionen",p0_m3:"Interface-Sprachen",
+ p1_d:"Phosphat-Finder für Patienten mit chronischer Nierenerkrankung. Serverlose, ereignisgesteuerte ML-Plattform mit entkoppelten OOP-Komponenten — Best Overall Project bei der AWS Healthcare AI Challenge 2025 gegen 30+ Teams.",
+ p2_d:"Mehrklassige NLP-Pipeline zur Erkennung von Hassrede. Sechs Modelle (LogReg, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT) auf 20K+ Posts verglichen; SHAP/LIME zur Erklärung auf Token-Ebene und Bias-Analyse über Ethnie, Religion, Geschlecht und sexuelle Orientierung im Kontext des EU AI Act.",
+ p3_d:"Systematische Studie zum Verhältnis von Klassifikationsleistung und Fairness — 8 Architekturen über Optimierer, Batchgrößen, Regularisierung und Tiefe variiert. Das beste Modell erreichte 85,7 % Genauigkeit, offenbarte aber eine 56-Punkte-Recall-Lücke: Aggregierte Genauigkeit verschleiert Diskriminierung.",
+ p4_d:"End-to-End-Churn-Pipeline auf stark unausgewogenen Bankdaten (80/20, 6.000 Kunden) — neun Stufen von EDA bis Kreuzvalidierung. Subgruppen-Auswertung nach Geschlecht und Land zeigte: weibliche und spanische Kunden wurden trotz starker Gesamtgenauigkeit systematisch schlechter bedient.",
+ p5_d:"KI-gestützter Karrierepfad-Builder für Pflegekräfte: Skill-Gap-Analyse, personalisierte Roadmaps, Matching günstiger akkreditierter Weiterbildungen und ein portabler digitaler Skills-Pass — mit Bias-Mitigation, Human-in-the-Loop und inklusivem Design. Teamprojekt an der TU Dublin.",
+ p6_d:"Irlands erste zivile Müllmelde-App, komplett selbst geliefert: KI-Bilderkennung, OOP-Design in Kotlin/Java und skalierbares REST-Backend auf AWS — Adoption in drei Monaten um 50 % gesteigert.",
+ p7_d:"Mehrsprachige Job-App für Nicht-Finnischsprachige in Finnland — entstanden aus eigener Erfahrung als Austauschstudent in Oulu. Localisation-First-Denken, das bis heute prägt, wie ich baue (diese Seite spricht sieben Sprachen).",
+ t_skills:"Werkzeugkasten",k_skills:"Belege statt Buzzwords",
+ sk_a:"Sprachen",sk_b:"ML & Deep Learning",sk_c:"RAG- & LLM-Systeme",sk_d:"Human-Centred AI & Forschung",sk_e:"Cloud & Engineering",sk_f:"Legal AI & Responsible AI",
+ t_edu:"Bildung",k_edu:"Drei Institutionen, zwei Länder",edu1_g:"Erwartet: First-Class Honours (1:1)",edu2_g:"Second-Class Honours, Grade 1 (2:1)",edu3_g:"Note 5 / 5",
+ t_beyond:"Jenseits des Terminals",k_beyond:"Mensch, zentriert",b_langs:"Sprachen, die ich spreche",b_hobbies:"Wenn ich offline bin",lv_fluent:"Fließend",lv_native:"Muttersprache",
+ h_1:"Wandern auf irischen Trails",h_2:"Sich in neuen Städten verlieren",h_3:"Eislaufen",h_4:"Live-Gesang",h_5:"Fitness",
+ t_contact:"Kontakt",c_line1:"Bauen wir etwas, dem",c_line2:"Menschen vertrauen.",ft_made:"Mit Sorgfalt in Dublin entworfen & gebaut",ft_top:"↑ Nach oben"
+},
+es:{
+ nav_about:"Sobre mí",nav_xp:"Experiencia",nav_proj:"Proyectos",nav_skills:"Habilidades",nav_edu:"Formación",nav_beyond:"Más allá",nav_contact:"Contacto",
+ hero_status:"Abierto a roles de IA/ML — Dublín, Irlanda",hero_word:"Ingeniero de IA",
+ hero_tagline:"Diseño y evalúo sistemas de IA en los que la gente puede <strong>confiar de verdad</strong> — desde un chatbot multilingüe de orientación legal para solicitantes de asilo hasta ML sanitario, investigación en equidad y tecnología cívica, construidos en tres países.",
+ btn_work:"Ver mi trabajo",btn_cv:"Descargar CV",btn_contact:"Contactar",
+ t_about:"Sobre mí",k_about:"Quién soy",
+ about_lede:"Una mente curiosa construyendo <em>puentes</em> entre las personas y la tecnología.",
+ about_p1:"Soy Raghav — investigador e ingeniero de IA en Dublín, Irlanda. Mi camino va de Informática en TU Dublin a un año Erasmus en Finlandia, y ahora una tesis de máster diseñando un chatbot de orientación con IA para solicitantes de asilo, junto a unas prácticas en sistemas de IA con HU Utrecht.",
+ about_quote:"Me fascina cómo la tecnología moldea el comportamiento humano — y hacia dónde llevamos la IA. Construyo sistemas en los que la gente puede confiar y que puede usar: ya sea ayudando a solicitantes de asilo a navegar el proceso legal irlandés o apoyando a pacientes con enfermedad renal crónica.",
+ about_p2:"Ese hilo recorre todo lo que sigue: orientación legal con RAG, una plataforma sanitaria serverless premiada, investigación en equidad que expone lo que la precisión oculta, y apps cívicas entregadas de principio a fin.",
+ ss_1:"Trabajo en equipo",ss_2:"Comunicación",ss_3:"Resolución de problemas",ss_4:"Liderazgo",ss_5:"Intercultural",ss_6:"Adaptabilidad",ss_7:"Pensamiento crítico",ss_8:"Gestión del tiempo",
+ f_base:"Ubicación",f_now:"Actualmente",f_now_v:"Tesis MSc · IA para solicitantes de asilo",f_edu:"Formación",f_focus:"Enfoque",f_focus_v:"HCAI · RAG · ML responsable",f_award:"Premio",f_open:"Abierto a",f_open_v:"IA/ML · Datos · Software",
+ s_1:"países explorados por mi cuenta",s_2:"idiomas hablados",s_3:"AWS Healthcare AI Challenge 2025",s_4:"programas universitarios internacionales",
+ t_xp:"Experiencia",k_xp:"Donde he entregado",
+ xp1_role:"Ingeniero de IA — Prácticas de tesis de máster · Orientación con IA para solicitantes de asilo",
+ xp1_1:"Diseñé y evalué un <b>chatbot multilingüe basado en RAG</b> que guía a solicitantes de Protección Internacional por el proceso de asilo irlandés — fundamentado en <b>11 documentos legales verificados</b>, incluida la International Protection Act 2015 y 2026.",
+ xp1_2:"Implementé el pipeline de generación aumentada por recuperación con <b>citación de fuentes, resistencia a alucinaciones y escalado automático</b> a profesionales legales — salvaguardas endurecidas mediante pruebas adversariales.",
+ xp1_3:"Desarrollé un <b>marco de evaluación humano-céntrico de ocho dimensiones</b> — precisión, claridad, seguridad, derivación, resistencia a alucinaciones, transparencia, calibración de confianza, accesibilidad — validado con abogados de PI y profesionales de ONG.",
+ xp1_4:"Responsable del ciclo completo hasta el <b>despliegue AWS/Azure con Docker</b> — derivando principios de diseño generalizables para IA al servicio de poblaciones vulnerables en contextos legales de alto riesgo.",
+ xp2_role:"Becario de Ingeniería de Datos",
+ xp2_1:"Mantuve <b>99,5 % de uptime</b> en pipelines con <b>50K+ registros diarios</b> (AWS S3, PostgreSQL); la validación automática Python/Spark redujo errores en <b>30 %</b>.",
+ xp2_2:"Diseñé una <b>arquitectura ETL distribuida</b> tolerante a fallos para equipos en 3 zonas horarias; métricas en vivo para <b>10+ stakeholders</b> vía Power BI.",
+ t_proj:"Proyectos seleccionados",k_proj:"Construidos para ser examinados",
+ proj_intro:"Siete proyectos que abarcan salud, investigación en equidad y tecnología cívica — cada uno diseñado, entregado y evaluado, nunca solo una demo.",
+ p0_badge:"⭐ Tesis de máster",
+ p0_d:"Diseño y evaluación de un chatbot basado en RAG que ofrece orientación procedimental multilingüe a solicitantes de Protección Internacional en Irlanda — fundamentado en 11 documentos legales verificados, incluida la International Protection Act 2015 y 2026. El pipeline cita sus fuentes, resiste alucinaciones y escala automáticamente a profesionales legales. Un marco de evaluación humano-céntrico de ocho dimensiones (precisión, claridad, seguridad, derivación, resistencia a alucinaciones, transparencia, calibración de confianza, accesibilidad) fue validado con abogados de PI y profesionales de ONG — generando principios de diseño generalizables para IA al servicio de poblaciones vulnerables en contextos legales de alto riesgo.",
+ p0_m1:"documentos legales verificados",p0_m2:"dimensiones de evaluación",p0_m3:"idiomas de interfaz",
+ p1_d:"Plataforma para encontrar fosfatos dirigida a pacientes con enfermedad renal crónica. Sistema ML serverless y orientado a eventos con componentes OOP desacoplados — Best Overall Project en el AWS Healthcare AI Challenge 2025 frente a 30+ equipos.",
+ p2_d:"Pipeline NLP multiclase para detectar discurso de odio. Seis modelos comparados (LogReg, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT) sobre 20K+ publicaciones; SHAP/LIME para auditar decisiones a nivel de token y análisis de sesgo por raza, religión, género y orientación sexual bajo el marco del EU AI Act.",
+ p3_d:"Estudio empírico sistemático de la relación entre rendimiento y equidad — 8 arquitecturas variadas. El mejor modelo alcanzó 85,7 % de precisión pero expuso una brecha de recall de 56 puntos: la precisión agregada enmascara la discriminación.",
+ p4_d:"Pipeline completo de churn sobre datos bancarios muy desbalanceados (80/20, 6.000 clientes) — nueve etapas desde EDA hasta validación cruzada. La evaluación por subgrupos según género y país reveló que las clientas y los clientes españoles estaban sistemáticamente desatendidos pese a la buena precisión global.",
+ p5_d:"Constructor de trayectorias profesionales con IA para el personal de cuidados: análisis de brechas de habilidades, rutas personalizadas, formación acreditada de bajo coste y un pasaporte digital de habilidades portátil — con mitigación de sesgos, human-in-the-loop y diseño inclusivo. Proyecto de equipo en TU Dublin.",
+ p6_d:"La primera app cívica de Irlanda para reportar residuos, entregada de principio a fin: reconocimiento de imágenes con IA, diseño OOP en Kotlin/Java y backend REST escalable en AWS — adopción +50 % en tres meses.",
+ p7_d:"App multilingüe de búsqueda de empleo para no hablantes de finés en Finlandia — nacida de vivir el problema como estudiante de intercambio en Oulu. Pensamiento localisation-first que aún define cómo construyo (este sitio habla siete idiomas).",
+ t_skills:"Herramientas",k_skills:"Evidencia, no palabras de moda",
+ sk_a:"Lenguajes",sk_b:"ML y Deep Learning",sk_c:"Sistemas RAG y LLM",sk_d:"IA centrada en el humano e investigación",sk_e:"Cloud e ingeniería",sk_f:"IA legal e IA responsable",
+ t_edu:"Formación",k_edu:"Tres instituciones, dos países",edu1_g:"Esperado: Matrícula de Honor (1:1)",edu2_g:"Honores de segunda clase, Grado 1 (2:1)",edu3_g:"Nota 5 / 5",
+ t_beyond:"Más allá de la terminal",k_beyond:"Humano, centrado",b_langs:"Idiomas que hablo",b_hobbies:"Cuando estoy offline",lv_fluent:"Fluido",lv_native:"Nativo",
+ h_1:"Senderismo por Irlanda",h_2:"Perderme en ciudades nuevas",h_3:"Patinaje sobre hielo",h_4:"Canto en vivo",h_5:"Fitness",
+ t_contact:"Contacto",c_line1:"Construyamos algo en lo que",c_line2:"la gente confíe.",ft_made:"Diseñado y construido con cariño en Dublín",ft_top:"↑ Volver arriba"
+},
+nl:{
+ nav_about:"Over mij",nav_xp:"Ervaring",nav_proj:"Projecten",nav_skills:"Skills",nav_edu:"Opleiding",nav_beyond:"Daarbuiten",nav_contact:"Contact",
+ hero_status:"Open voor AI/ML-startersrollen — Dublin, Ierland",hero_word:"AI-engineer",
+ hero_tagline:"Ik ontwerp en evalueer AI-systemen die mensen <strong>echt kunnen vertrouwen</strong> — van een meertalige juridische-begeleidingschatbot voor asielzoekers tot zorg-ML, fairness-onderzoek en civic tech, gebouwd in drie landen.",
+ btn_work:"Bekijk mijn werk",btn_cv:"Download CV",btn_contact:"Neem contact op",
+ t_about:"Over mij",k_about:"Wie ik ben",
+ about_lede:"Een nieuwsgierige geest die <em>bruggen</em> bouwt tussen mensen en technologie.",
+ about_p1:"Ik ben Raghav — AI-onderzoeker en engineer in Dublin, Ierland. Mijn route loopt van Informatica aan TU Dublin via een Erasmusjaar in Finland naar een masterscriptie waarin ik een AI-begeleidingschatbot voor asielzoekers ontwerp, naast een AI-systems-stage bij Hogeschool Utrecht.",
+ about_quote:"Ik ben gefascineerd door hoe technologie menselijk gedrag vormt — en waar we AI naartoe brengen. Ik bouw systemen die mensen echt kunnen vertrouwen en gebruiken: of dat nu asielzoekers helpt door het Ierse juridische proces of patiënten met chronische nierziekte ondersteunt.",
+ about_p2:"Die rode draad loopt door alles hieronder: retrieval-augmented juridische begeleiding, een bekroond serverless zorgplatform, fairness-onderzoek dat blootlegt wat nauwkeurigheid verbergt, en civic apps end-to-end opgeleverd.",
+ ss_1:"Teamwerk",ss_2:"Communicatie",ss_3:"Probleemoplossing",ss_4:"Leiderschap",ss_5:"Intercultureel",ss_6:"Aanpassingsvermogen",ss_7:"Kritisch denken",ss_8:"Timemanagement",
+ f_base:"Gevestigd in",f_now:"Momenteel",f_now_v:"MSc-scriptie · AI voor asielzoekers",f_edu:"Opleiding",f_focus:"Focus",f_focus_v:"HCAI · RAG · Verantwoorde ML",f_award:"Prijs",f_open:"Open voor",f_open_v:"AI/ML · Data · Software",
+ s_1:"landen zelfstandig verkend",s_2:"gesproken talen",s_3:"AWS Healthcare AI Challenge 2025",s_4:"internationale universiteitsprogramma's",
+ t_xp:"Ervaring",k_xp:"Waar ik geleverd heb",
+ xp1_role:"AI Engineer — Afstudeerstage · AI-begeleiding voor asielzoekers",
+ xp1_1:"Ontwierp en evalueerde een <b>RAG-gebaseerde meertalige chatbot</b> die aanvragers van Internationale Bescherming door de Ierse asielprocedure leidt — gefundeerd op <b>11 geverifieerde juridische documenten</b>, waaronder de International Protection Act 2015 en 2026.",
+ xp1_2:"Implementeerde de retrieval-augmented pipeline met <b>bronvermelding, hallucinatieweerstand en automatische escalatie</b> naar juristen — guardrails gehard via adversariële tests.",
+ xp1_3:"Ontwikkelde een <b>achtdimensionaal mensgericht evaluatiekader</b> — nauwkeurigheid, duidelijkheid, veiligheid, verwijsgedrag, hallucinatieweerstand, transparantie, vertrouwenskalibratie, toegankelijkheid — gevalideerd met IP-advocaten en NGO-praktijkmensen.",
+ xp1_4:"Verantwoordelijk voor de volledige levenscyclus tot en met <b>AWS/Azure-deployment met Docker</b> — met generaliseerbare ontwerpprincipes voor AI voor kwetsbare groepen in juridische hoogrisico-contexten.",
+ xp2_role:"Stagiair Data Engineering",
+ xp2_1:"<b>99,5% uptime</b> op pipelines met <b>50K+ records per dag</b> (AWS S3, PostgreSQL); geautomatiseerde Python/Spark-validatie verlaagde fouten met <b>30%</b>.",
+ xp2_2:"Fouttolerante gedistribueerde <b>ETL-architectuur</b> met modulaire OOP-componenten voor teams in 3 tijdzones; live metrics voor <b>10+ stakeholders</b> via Power BI.",
+ t_proj:"Geselecteerde projecten",k_proj:"Gebouwd om onderzocht te worden",
+ proj_intro:"Zeven projecten in zorg, fairness-onderzoek en civic tech — elk ontworpen, opgeleverd en geëvalueerd, nooit alleen gedemonstreerd.",
+ p0_badge:"⭐ MSc-scriptie",
+ p0_d:"Ontwerp en evaluatie van een RAG-gebaseerde chatbot die meertalige procedurele begeleiding biedt aan aanvragers van Internationale Bescherming in Ierland — gefundeerd op 11 geverifieerde juridische documenten, waaronder de International Protection Act 2015 en 2026. De pipeline citeert zijn bronnen, is bestand tegen hallucinaties en escaleert automatisch naar juridische professionals. Een achtdimensionaal mensgericht evaluatiekader (nauwkeurigheid, helderheid, veiligheid, doorverwijsgedrag, hallucinatieresistentie, transparantie, vertrouwenskalibratie, toegankelijkheid) is gevalideerd met IP-advocaten en NGO-praktijkmensen — met generaliseerbare ontwerpprincipes voor AI die kwetsbare groepen bedient in juridische hoogrisicocontexten.",
+ p0_m1:"geverifieerde juridische documenten",p0_m2:"evaluatiedimensies",p0_m3:"interfacetalen",
+ p1_d:"Fosfaat-zoekplatform voor patiënten met chronische nierziekte. Serverless, event-driven ML-systeem met ontkoppelde OOP-componenten — Best Overall Project bij de AWS Healthcare AI Challenge 2025 tegen 30+ teams.",
+ p2_d:"Multiclass NLP-pipeline voor haatspraakdetectie. Zes modellen vergeleken (LogReg, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT) op 20K+ posts; SHAP/LIME voor uitlegbaarheid op tokenniveau en biasanalyse over ras, religie, gender en seksuele oriëntatie binnen het EU AI Act-kader.",
+ p3_d:"Systematisch empirisch onderzoek naar de relatie tussen classificatieprestaties en fairness — 8 architecturen gevarieerd. Het beste model haalde 85,7% accuratesse maar legde een recall-kloof van 56 punten bloot: geaggregeerde accuratesse maskeert discriminatie.",
+ p4_d:"End-to-end churn-pipeline op sterk ongebalanceerde bankdata (80/20, 6.000 klanten) — negen fasen van EDA tot kruisvalidatie. Subgroepevaluatie naar gender en land toonde dat vrouwelijke en Spaanse klanten systematisch slechter bediend werden ondanks sterke totaalaccuratesse.",
+ p5_d:"AI-loopbaanbouwer voor zorgmedewerkers: skill-gap-analyse, gepersonaliseerde routes, matching van betaalbare geaccrediteerde training en een draagbaar digitaal skills-paspoort — met biasmitigatie, human-in-the-loop en inclusief ontwerp. Teamproject aan TU Dublin.",
+ p6_d:"Ierlands eerste burger-app voor afvalmeldingen, end-to-end opgeleverd: AI-beeldherkenning, OOP-ontwerp in Kotlin/Java en schaalbare REST-backend op AWS — adoptie +50% in drie maanden.",
+ p7_d:"Meertalige vacature-app voor niet-Finstaligen in Finland — geboren uit eigen ervaring als uitwisselingsstudent in Oulu. Localisation-first denken dat nog steeds bepaalt hoe ik bouw (deze site spreekt zeven talen).",
+ t_skills:"Gereedschapskist",k_skills:"Bewijs, geen buzzwords",
+ sk_a:"Programmeertalen",sk_b:"ML & Deep Learning",sk_c:"RAG- & LLM-systemen",sk_d:"Mensgerichte AI & onderzoek",sk_e:"Cloud & engineering",sk_f:"Legal AI & verantwoorde AI",
+ t_edu:"Opleiding",k_edu:"Drie instellingen, twee landen",edu1_g:"Verwacht: First-Class Honours (1:1)",edu2_g:"Second-Class Honours, Grade 1 (2:1)",edu3_g:"Cijfer 5 / 5",
+ t_beyond:"Voorbij de terminal",k_beyond:"Mens, centraal",b_langs:"Talen die ik spreek",b_hobbies:"Als ik offline ben",lv_fluent:"Vloeiend",lv_native:"Moedertaal",
+ h_1:"Wandelen op Ierse trails",h_2:"Verdwalen in nieuwe steden",h_3:"Schaatsen",h_4:"Live zang",h_5:"Fitness",
+ t_contact:"Contact",c_line1:"Laten we iets bouwen dat",c_line2:"mensen vertrouwen.",ft_made:"Met zorg ontworpen & gebouwd in Dublin",ft_top:"↑ Naar boven"
+},
+fr:{
+ nav_about:"À propos",nav_xp:"Expérience",nav_proj:"Projets",nav_skills:"Compétences",nav_edu:"Formation",nav_beyond:"Au-delà",nav_contact:"Contact",
+ hero_status:"Ouvert aux postes IA/ML — Dublin, Irlande",hero_word:"Ingénieur IA",
+ hero_tagline:"Je conçois et évalue des systèmes d'IA auxquels les gens peuvent <strong>vraiment faire confiance</strong> — d'un chatbot multilingue d'orientation juridique pour demandeurs d'asile au ML de santé, à la recherche sur l'équité et à la tech civique, construits dans trois pays.",
+ btn_work:"Voir mon travail",btn_cv:"Télécharger le CV",btn_contact:"Me contacter",
+ t_about:"À propos",k_about:"Qui je suis",
+ about_lede:"Un esprit curieux qui bâtit des <em>ponts</em> entre les personnes et la technologie.",
+ about_p1:"Je suis Raghav — chercheur et ingénieur en IA basé à Dublin, en Irlande. Mon parcours va de l'informatique à TU Dublin à une année Erasmus en Finlande, et aujourd'hui une thèse de master où je conçois un chatbot d'orientation IA pour demandeurs d'asile, en parallèle d'un stage en systèmes d'IA avec la HU Utrecht.",
+ about_quote:"Je suis fasciné par la façon dont la technologie façonne le comportement humain — et par la direction que nous donnons à l'IA. Je construis des systèmes auxquels les gens peuvent réellement faire confiance : qu'il s'agisse d'aider des demandeurs d'asile à naviguer le processus juridique irlandais ou de soutenir des patients atteints d'insuffisance rénale chronique.",
+ about_p2:"Ce fil conducteur traverse tout ce qui suit : orientation juridique par RAG, plateforme de santé serverless primée, recherche sur l'équité qui révèle ce que la précision cache, et apps civiques livrées de bout en bout.",
+ ss_1:"Travail d'équipe",ss_2:"Communication",ss_3:"Résolution de problèmes",ss_4:"Leadership",ss_5:"Interculturel",ss_6:"Adaptabilité",ss_7:"Esprit critique",ss_8:"Gestion du temps",
+ f_base:"Basé à",f_now:"Actuellement",f_now_v:"Thèse MSc · IA pour demandeurs d'asile",f_edu:"Formation",f_focus:"Spécialité",f_focus_v:"HCAI · RAG · ML responsable",f_award:"Prix",f_open:"Ouvert aux",f_open_v:"Postes IA/ML · Data · Software",
+ s_1:"pays explorés en autonomie",s_2:"langues parlées",s_3:"AWS Healthcare AI Challenge 2025",s_4:"programmes universitaires internationaux",
+ t_xp:"Expérience",k_xp:"Là où j'ai livré",
+ xp1_role:"Ingénieur IA — Stage de thèse de master · Guidage IA pour demandeurs d'asile",
+ xp1_1:"Conception et évaluation d'un <b>chatbot multilingue basé sur le RAG</b> guidant les demandeurs de Protection Internationale dans la procédure d'asile irlandaise — fondé sur <b>11 documents juridiques vérifiés</b>, dont l'International Protection Act 2015 et 2026.",
+ xp1_2:"Implémentation du pipeline de génération augmentée par récupération avec <b>citation des sources, résistance aux hallucinations et escalade automatique</b> vers des juristes — garde-fous durcis par tests adversariaux.",
+ xp1_3:"Développement d'un <b>cadre d'évaluation centré humain à huit dimensions</b> — précision, clarté, sécurité, orientation, résistance aux hallucinations, transparence, calibration de la confiance, accessibilité — validé avec des avocats en PI et des praticiens d'ONG.",
+ xp1_4:"Responsabilité du cycle de vie complet jusqu'au <b>déploiement AWS/Azure avec Docker</b> — avec des principes de conception généralisables pour l'IA au service de populations vulnérables dans des contextes juridiques à enjeux élevés.",
+ xp2_role:"Stagiaire en ingénierie des données",
+ xp2_1:"<b>99,5 % d'uptime</b> sur des pipelines traitant <b>50K+ enregistrements/jour</b> (AWS S3, PostgreSQL) ; la validation automatisée Python/Spark a réduit les erreurs de <b>30 %</b>.",
+ xp2_2:"<b>Architecture ETL distribuée</b> tolérante aux pannes pour des équipes sur 3 fuseaux ; métriques en direct pour <b>10+ parties prenantes</b> via Power BI.",
+ t_proj:"Projets sélectionnés",k_proj:"Construits pour être examinés",
+ proj_intro:"Sept projets couvrant la santé, la recherche sur l'équité et la tech civique — chacun conçu, livré et évalué, jamais une simple démo.",
+ p0_badge:"⭐ Thèse de master",
+ p0_d:"Conception et évaluation d'un chatbot fondé sur le RAG offrant une orientation procédurale multilingue aux demandeurs de Protection Internationale en Irlande — ancré dans 11 documents juridiques vérifiés, dont l'International Protection Act 2015 et 2026. Le pipeline cite ses sources, résiste aux hallucinations et escalade automatiquement vers des professionnels du droit. Un cadre d'évaluation centré humain à huit dimensions (précision, clarté, sécurité, orientation, résistance aux hallucinations, transparence, calibration de la confiance, accessibilité) a été validé avec des avocats spécialisés et des praticiens d'ONG — dégageant des principes de conception généralisables pour l'IA au service de populations vulnérables dans des contextes juridiques à enjeux élevés.",
+ p0_m1:"documents juridiques vérifiés",p0_m2:"dimensions d'évaluation",p0_m3:"langues d'interface",
+ p1_d:"Plateforme de recherche de phosphates pour les patients atteints d'insuffisance rénale chronique. Système ML serverless et événementiel avec composants OOP découplés — Best Overall Project au AWS Healthcare AI Challenge 2025 face à 30+ équipes.",
+ p2_d:"Pipeline NLP multiclasse de détection de discours haineux. Six modèles comparés (LogReg, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT) sur 20K+ publications ; SHAP/LIME pour auditer les décisions au niveau des tokens et analyse des biais selon la race, la religion, le genre et l'orientation sexuelle dans le cadre de l'EU AI Act.",
+ p3_d:"Étude empirique systématique du lien entre performance et équité — 8 architectures variées. Le meilleur modèle atteint 85,7 % de précision mais révèle un écart de rappel de 56 points : la précision agrégée masque la discrimination.",
+ p4_d:"Pipeline de churn complet sur des données bancaires très déséquilibrées (80/20, 6 000 clients) — neuf étapes de l'EDA à la validation croisée. L'évaluation par sous-groupes (genre, pays) a montré que les clientes et les clients espagnols étaient systématiquement moins bien servis malgré une forte précision globale.",
+ p5_d:"Constructeur de parcours de carrière IA pour le personnel soignant : analyse des écarts de compétences, feuilles de route personnalisées, formations accréditées abordables et passeport numérique de compétences portable — avec atténuation des biais, human-in-the-loop et design inclusif. Projet d'équipe à TU Dublin.",
+ p6_d:"Première app civique d'Irlande pour signaler les déchets, livrée de bout en bout : reconnaissance d'images IA, design OOP en Kotlin/Java et backend REST évolutif sur AWS — adoption +50 % en trois mois.",
+ p7_d:"App multilingue de recherche d'emploi pour les non-finnophones en Finlande — née de mon vécu d'étudiant d'échange à Oulu. Une pensée localisation-first qui façonne encore ma manière de construire (ce site parle sept langues).",
+ t_skills:"Boîte à outils",k_skills:"Des preuves, pas des slogans",
+ sk_a:"Langages",sk_b:"ML & Deep Learning",sk_c:"Systèmes RAG & LLM",sk_d:"IA centrée humain & recherche",sk_e:"Cloud & ingénierie",sk_f:"IA juridique & IA responsable",
+ t_edu:"Formation",k_edu:"Trois institutions, deux pays",edu1_g:"Attendu : mention très bien (1:1)",edu2_g:"Mention bien (2:1)",edu3_g:"Note 5 / 5",
+ t_beyond:"Au-delà du terminal",k_beyond:"Humain, centré",b_langs:"Langues parlées",b_hobbies:"Quand je suis hors ligne",lv_fluent:"Courant",lv_native:"Langue maternelle",
+ h_1:"Randonnée sur les sentiers irlandais",h_2:"Me perdre dans de nouvelles villes",h_3:"Patinage sur glace",h_4:"Chant en live",h_5:"Fitness",
+ t_contact:"Contact",c_line1:"Construisons quelque chose digne de",c_line2:"confiance.",ft_made:"Conçu & construit avec soin à Dublin",ft_top:"↑ Haut de page"
+},
+fi:{
+ nav_about:"Tietoa",nav_xp:"Kokemus",nav_proj:"Projektit",nav_skills:"Taidot",nav_edu:"Koulutus",nav_beyond:"Vapaalla",nav_contact:"Yhteys",
+ hero_status:"Avoin AI/ML-rooleille — Dublin, Irlanti",hero_word:"AI-insinööri",
+ hero_tagline:"Suunnittelen ja arvioin tekoälyjärjestelmiä, joihin ihmiset voivat <strong>aidosti luottaa</strong> — monikielisestä oikeudellisen ohjauksen chatbotista turvapaikanhakijoille terveydenhuollon ML:ään, reiluustutkimukseen ja kansalaisteknologiaan, rakennettu kolmessa maassa.",
+ btn_work:"Katso työni",btn_cv:"Lataa CV",btn_contact:"Ota yhteyttä",
+ t_about:"Tietoa",k_about:"Kuka olen",
+ about_lede:"Utelias mieli rakentamassa <em>siltoja</em> ihmisten ja teknologian välille.",
+ about_p1:"Olen Raghav — tekoälytutkija ja -insinööri Dublinissa, Irlannissa. Matkani kulkee TU Dublinin tietojenkäsittelytieteestä Erasmus-vuoteen Suomessa, ja nyt maisterintutkielmaan, jossa suunnittelen AI-ohjauschatbotia turvapaikanhakijoille, AI-järjestelmäharjoittelun ohella HU Utrechtissa.",
+ about_quote:"Minua kiehtoo, miten teknologia muovaa ihmisen käyttäytymistä — ja minne viemme tekoälyn seuraavaksi. Rakennan järjestelmiä, joihin ihmiset voivat aidosti luottaa: olipa kyse turvapaikanhakijoiden auttamisesta Irlannin oikeusprosessissa tai kroonista munuaistautia sairastavien tukemisesta.",
+ about_p2:"Sama punainen lanka kulkee kaiken alla olevan läpi: RAG-pohjainen oikeudellinen ohjaus, palkittu serverless-terveysalusta, reiluustutkimus, joka paljastaa mitä tarkkuus kätkee, ja kansalaissovellukset alusta loppuun.",
+ ss_1:"Tiimityö",ss_2:"Viestintä",ss_3:"Ongelmanratkaisu",ss_4:"Johtajuus",ss_5:"Kulttuurienvälisyys",ss_6:"Sopeutumiskyky",ss_7:"Kriittinen ajattelu",ss_8:"Ajanhallinta",
+ f_base:"Kotipaikka",f_now:"Nykyisin",f_now_v:"Maisterintutkielma · AI turvapaikanhakijoille",f_edu:"Koulutus",f_focus:"Fokus",f_focus_v:"HCAI · RAG · Vastuullinen ML",f_award:"Palkinto",f_open:"Avoin",f_open_v:"AI/ML · Data · Ohjelmistorooleille",
+ s_1:"maata tutkittu omatoimisesti",s_2:"puhuttua kieltä",s_3:"AWS Healthcare AI Challenge 2025",s_4:"kansainvälistä yliopisto-ohjelmaa",
+ t_xp:"Kokemus",k_xp:"Missä olen toimittanut",
+ xp1_role:"AI-insinööri — Lopputyöharjoittelu · AI-opastus turvapaikanhakijoille",
+ xp1_1:"Suunnittelin ja arvioin <b>RAG-pohjaisen monikielisen chatbotin</b>, joka opastaa kansainvälisen suojelun hakijoita Irlannin turvapaikkaprosessissa — perustuen <b>11 varmennettuun oikeudelliseen asiakirjaan</b>, mukaan lukien International Protection Act 2015 ja 2026.",
+ xp1_2:"Toteutin retrieval-augmented-putken, jossa <b>lähdeviittaukset, hallusinaationkesto ja automaattinen eskalointi</b> lakiammattilaisille — suojamekanismit kovetettu adversariaalisin testein.",
+ xp1_3:"Kehitin <b>kahdeksanulotteisen ihmiskeskeisen arviointikehyksen</b> — tarkkuus, selkeys, turvallisuus, ohjauskäyttäytyminen, hallusinaationkesto, läpinäkyvyys, luottamuksen kalibrointi, saavutettavuus — validoitu IP-juristien ja järjestötoimijoiden kanssa.",
+ xp1_4:"Vastasin koko elinkaaresta <b>AWS/Azure-käyttöönottoon Dockerilla</b> asti — johtaen yleistettäviä suunnitteluperiaatteita haavoittuvia ryhmiä palvelevalle tekoälylle korkean riskin oikeudellisissa konteksteissa.",
+ xp2_role:"Data Engineering -harjoittelija",
+ xp2_1:"Ylläpidin <b>99,5 % käyttöastetta</b> putkissa, jotka käsittelivät <b>50K+ tietuetta päivässä</b> (AWS S3, PostgreSQL); automaattinen Python/Spark-validointi vähensi virheitä <b>30 %</b>.",
+ xp2_2:"Suunnittelin vikasietoisen hajautetun <b>ETL-arkkitehtuurin</b> kolmen aikavyöhykkeen tiimeille; live-mittarit <b>10+ sidosryhmälle</b> Power BI:llä.",
+ t_proj:"Valitut projektit",k_proj:"Rakennettu tarkasteltavaksi",
+ proj_intro:"Seitsemän projektia terveydenhuollosta, reiluustutkimuksesta ja kansalaisteknologiasta — jokainen suunniteltu, toimitettu ja arvioitu, ei koskaan pelkkä demo.",
+ p0_badge:"⭐ Maisterintutkielma",
+ p0_d:"Suunnittelin ja arvioin RAG-pohjaisen chatbotin, joka antaa monikielistä menettelyohjausta kansainvälisen suojelun hakijoille Irlannissa — perustuen 11 varmennettuun oikeudelliseen asiakirjaan, mukaan lukien International Protection Act 2015 ja 2026. Putki viittaa lähteisiinsä, vastustaa hallusinaatioita ja eskaloi automaattisesti oikeusalan ammattilaisille. Kahdeksanulotteinen ihmiskeskeinen arviointikehys (tarkkuus, selkeys, turvallisuus, ohjauskäyttäytyminen, hallusinaationkestävyys, läpinäkyvyys, luottamuksen kalibrointi, saavutettavuus) validoitiin IP-juristien ja järjestöjen asiantuntijoiden kanssa — tuottaen yleistettäviä suunnitteluperiaatteita tekoälylle, joka palvelee haavoittuvia ryhmiä korkean riskin oikeudellisissa konteksteissa.",
+ p0_m1:"varmennettua oikeudellista asiakirjaa",p0_m2:"arviointiulottuvuutta",p0_m3:"käyttöliittymäkieltä",
+ p1_d:"Fosfaattihakualusta kroonista munuaistautia sairastaville. Serverless, tapahtumapohjainen ML-järjestelmä erillisillä OOP-komponenteilla — Best Overall Project AWS Healthcare AI Challenge 2025:ssä, 30+ tiimiä vastaan.",
+ p2_d:"Moniluokkainen NLP-putki vihapuheen tunnistukseen. Kuusi mallia vertailtu (LogReg, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT) 20K+ julkaisulla; SHAP/LIME token-tason selitettävyyteen ja bias-analyysi rodun, uskonnon, sukupuolen ja seksuaalisen suuntautumisen mukaan EU:n AI Act -kehyksessä.",
+ p3_d:"Systemaattinen empiirinen tutkimus luokittelutarkkuuden ja reiluuden suhteesta — 8 arkkitehtuuria. Paras malli saavutti 85,7 % tarkkuuden mutta paljasti 56 pisteen recall-kuilun: kokonaistarkkuus peittää syrjinnän.",
+ p4_d:"Päästä päähän -asiakaspoistumaputki vahvasti epätasapainoisella pankkidatalla (80/20, 6 000 asiakasta) — yhdeksän vaihetta EDA:sta ristiinvalidointiin. Alaryhmäarviointi sukupuolen ja maan mukaan osoitti, että naisasiakkaat ja espanjalaiset asiakkaat jäivät systemaattisesti heikommalle palvelulle.",
+ p5_d:"Tekoälypohjainen urapolkurakentaja hoiva-alan työntekijöille: osaamiskuiluanalyysi, henkilökohtaiset etenemispolut, edullisten akkreditoitujen koulutusten yhteensovitus ja siirrettävä digitaalinen osaamispassi — bias-lievennyksellä, human-in-the-loop-päätöksillä ja inklusiivisella suunnittelulla. Tiimiprojekti TU Dublinissa.",
+ p6_d:"Irlannin ensimmäinen kansalaisten jäteilmoitussovellus, toimitettu alusta loppuun: AI-kuvantunnistus, OOP-suunnittelu Kotlin/Javalla ja skaalautuva REST-backend AWS:ssä — käyttöönotto +50 % kolmessa kuukaudessa.",
+ p7_d:"Monikielinen työnhakusovellus ei-suomenkielisille Suomessa — syntyi omasta kokemuksesta vaihto-opiskelijana Oulussa. Lokalisointi edellä -ajattelu muovaa yhä tapaani rakentaa (tämä sivusto puhuu seitsemää kieltä).",
+ t_skills:"Työkalupakki",k_skills:"Näyttöä, ei muotisanoja",
+ sk_a:"Ohjelmointikielet",sk_b:"ML & syväoppiminen",sk_c:"RAG- & LLM-järjestelmät",sk_d:"Ihmiskeskeinen AI & tutkimus",sk_e:"Pilvi & engineering",sk_f:"Legal AI & vastuullinen AI",
+ t_edu:"Koulutus",k_edu:"Kolme oppilaitosta, kaksi maata",edu1_g:"Odotettu: First-Class Honours (1:1)",edu2_g:"Second-Class Honours, Grade 1 (2:1)",edu3_g:"Arvosana 5 / 5",
+ t_beyond:"Terminaalin tuolla puolen",k_beyond:"Ihminen, keskiössä",b_langs:"Puhumani kielet",b_hobbies:"Kun olen offline",lv_fluent:"Sujuva",lv_native:"Äidinkieli",
+ h_1:"Vaellus Irlannin poluilla",h_2:"Eksyminen uusiin kaupunkeihin",h_3:"Luistelu",h_4:"Live-laulu",h_5:"Kuntoilu",
+ t_contact:"Yhteys",c_line1:"Rakennetaan jotain, mihin",c_line2:"voi luottaa.",ft_made:"Suunniteltu & rakennettu huolella Dublinissa",ft_top:"↑ Takaisin ylös"
+},
+hi:{
+ nav_about:"परिचय",nav_xp:"अनुभव",nav_proj:"प्रोजेक्ट",nav_skills:"कौशल",nav_edu:"शिक्षा",nav_beyond:"इसके परे",nav_contact:"संपर्क",
+ hero_status:"AI/ML भूमिकाओं के लिए उपलब्ध — डबलिन, आयरलैंड",hero_word:"AI इंजीनियर",
+ hero_tagline:"मैं ऐसे AI सिस्टम डिज़ाइन और मूल्यांकित करता हूँ जिन पर लोग <strong>सचमुच भरोसा</strong> कर सकें — शरणार्थियों के लिए बहुभाषी कानूनी-मार्गदर्शन चैटबॉट से लेकर हेल्थकेयर ML, फेयरनेस रिसर्च और सिविक टेक तक, तीन देशों में निर्मित।",
+ btn_work:"मेरा काम देखें",btn_cv:"CV डाउनलोड करें",btn_contact:"संपर्क करें",
+ t_about:"परिचय",k_about:"मैं कौन हूँ",
+ about_lede:"लोगों और तकनीक के बीच <em>सेतु</em> बनाता एक जिज्ञासु मन।",
+ about_p1:"मैं राघव हूँ — डबलिन, आयरलैंड में AI शोधकर्ता और इंजीनियर। मेरा सफ़र TU Dublin में कंप्यूटर साइंस से फ़िनलैंड में Erasmus वर्ष तक, और अब MSc थीसिस तक पहुँचा है जिसमें मैं शरणार्थियों के लिए AI मार्गदर्शन चैटबॉट डिज़ाइन कर रहा हूँ — साथ ही HU Utrecht के साथ AI-सिस्टम्स इंटर्नशिप भी।",
+ about_quote:"मुझे यह जानने में गहरी रुचि है कि तकनीक मानव व्यवहार को कैसे आकार देती है — और हम AI को आगे कहाँ ले जाएँगे। मैं ऐसे सिस्टम बनाता हूँ जिन पर लोग सच में भरोसा कर सकें: चाहे वह शरणार्थियों को आयरलैंड की कानूनी प्रक्रिया समझने में मदद करना हो या क्रोनिक किडनी रोग के मरीज़ों का सहारा बनना।",
+ about_p2:"यही सूत्र नीचे हर चीज़ में है: RAG-आधारित कानूनी मार्गदर्शन, पुरस्कृत सर्वरलेस हेल्थकेयर प्लेटफ़ॉर्म, फेयरनेस रिसर्च जो दिखाती है कि सटीकता क्या छिपाती है, और शुरू से अंत तक बनाए गए सिविक ऐप्स।",
+ ss_1:"टीमवर्क",ss_2:"संचार",ss_3:"समस्या समाधान",ss_4:"नेतृत्व",ss_5:"अंतर-सांस्कृतिक",ss_6:"अनुकूलनशीलता",ss_7:"आलोचनात्मक चिंतन",ss_8:"समय प्रबंधन",
+ f_base:"निवास",f_now:"वर्तमान में",f_now_v:"MSc थीसिस · शरणार्थियों के लिए AI",f_edu:"शिक्षा",f_focus:"फोकस",f_focus_v:"HCAI · RAG · ज़िम्मेदार ML",f_award:"पुरस्कार",f_open:"उपलब्ध",f_open_v:"AI/ML · डेटा · सॉफ़्टवेयर",
+ s_1:"देश स्वतंत्र रूप से घूमे",s_2:"भाषाएँ बोलता हूँ",s_3:"AWS Healthcare AI Challenge 2025",s_4:"अंतर्राष्ट्रीय विश्वविद्यालय कार्यक्रम",
+ t_xp:"अनुभव",k_xp:"जहाँ मैंने काम पहुँचाया",
+ xp1_role:"AI इंजीनियर — MSc थीसिस इंटर्नशिप · शरणार्थियों के लिए AI मार्गदर्शन",
+ xp1_1:"<b>RAG-आधारित बहुभाषी चैटबॉट</b> डिज़ाइन और मूल्यांकित किया जो आयरलैंड की शरण प्रक्रिया में अंतर्राष्ट्रीय संरक्षण आवेदकों का मार्गदर्शन करता है — <b>11 सत्यापित कानूनी दस्तावेज़ों</b> पर आधारित, जिनमें International Protection Act 2015 और 2026 शामिल हैं।",
+ xp1_2:"<b>स्रोत उद्धरण, हैलुसिनेशन प्रतिरोध और कानूनी पेशेवरों तक स्वचालित एस्केलेशन</b> के साथ रिट्रीवल-ऑगमेंटेड पाइपलाइन लागू की — एडवर्सेरियल परीक्षण से गार्डरेल्स मज़बूत किए।",
+ xp1_3:"<b>आठ-आयामी मानव-केंद्रित मूल्यांकन ढांचा</b> विकसित किया — सटीकता, स्पष्टता, सुरक्षा, रेफरल व्यवहार, हैलुसिनेशन प्रतिरोध, पारदर्शिता, विश्वास कैलिब्रेशन, सुगम्यता — IP वकीलों और NGO विशेषज्ञों के साथ मान्य।",
+ xp1_4:"आर्किटेक्चर से <b>Docker के साथ AWS/Azure डिप्लॉयमेंट</b> तक पूरा जीवनचक्र संभाला — उच्च-दांव कानूनी संदर्भों में कमज़ोर समूहों की सेवा करने वाले AI के लिए सामान्यीकरण योग्य डिज़ाइन सिद्धांत निकाले।",
+ xp2_role:"डेटा इंजीनियरिंग इंटर्न",
+ xp2_1:"<b>50K+ दैनिक रिकॉर्ड</b> वाली पाइपलाइनों पर <b>99.5% अपटाइम</b> (AWS S3, PostgreSQL); स्वचालित Python/Spark वैलिडेशन ने त्रुटियाँ <b>30%</b> घटाईं।",
+ xp2_2:"3 टाइम ज़ोन की टीमों के लिए फॉल्ट-टॉलरेंट वितरित <b>ETL आर्किटेक्चर</b>; Power BI से <b>10+ स्टेकहोल्डर्स</b> को लाइव मेट्रिक्स।",
+ t_proj:"चुनिंदा प्रोजेक्ट",k_proj:"परखे जाने के लिए बने",
+ proj_intro:"स्वास्थ्य, निष्पक्षता अनुसंधान और सिविक टेक के सात प्रोजेक्ट — हर एक डिज़ाइन, डिलीवर और मूल्यांकित, सिर्फ़ डेमो नहीं।",
+ p0_badge:"⭐ MSc थीसिस",
+ p0_d:"आयरलैंड में अंतर्राष्ट्रीय संरक्षण आवेदकों को बहुभाषी प्रक्रियात्मक मार्गदर्शन देने वाला RAG-आधारित चैटबॉट डिज़ाइन और मूल्यांकित किया — International Protection Act 2015 व 2026 सहित 11 सत्यापित कानूनी दस्तावेज़ों पर आधारित। पाइपलाइन अपने स्रोत उद्धृत करती है, हैलुसिनेशन का प्रतिरोध करती है और स्वतः कानूनी पेशेवरों तक एस्केलेट करती है। आठ-आयामी मानव-केंद्रित मूल्यांकन फ्रेमवर्क (सटीकता, स्पष्टता, सुरक्षा, रेफरल व्यवहार, हैलुसिनेशन प्रतिरोध, पारदर्शिता, विश्वास अंशांकन, सुगम्यता) को IP वकीलों और NGO विशेषज्ञों के साथ मान्य किया गया — उच्च-दांव कानूनी संदर्भों में संवेदनशील आबादी की सेवा करने वाले AI के लिए सामान्यीकरण योग्य डिज़ाइन सिद्धांत प्राप्त हुए।",
+ p0_m1:"सत्यापित कानूनी दस्तावेज़",p0_m2:"मूल्यांकन आयाम",p0_m3:"इंटरफ़ेस भाषाएँ",
+ p1_d:"क्रोनिक किडनी रोग के मरीज़ों के लिए फॉस्फेट-फाइंडर प्लेटफ़ॉर्म। सर्वरलेस, इवेंट-ड्रिवन ML सिस्टम — AWS Healthcare AI Challenge 2025 में 30+ टीमों के बीच Best Overall Project।",
+ p2_d:"हेट स्पीच पहचान हेतु मल्टी-क्लास NLP पाइपलाइन। 20K+ पोस्ट पर छह मॉडलों (LogReg, BiLSTM, SVM, Naïve Bayes, BERT, DistilBERT) की तुलना; टोकन-स्तर व्याख्या हेतु SHAP/LIME और EU AI Act के संदर्भ में नस्ल, धर्म, लिंग व यौन रुझान पर बायस विश्लेषण।",
+ p3_d:"वर्गीकरण प्रदर्शन और निष्पक्षता के संबंध का व्यवस्थित अध्ययन — 8 आर्किटेक्चर। सर्वश्रेष्ठ मॉडल ने 85.7% सटीकता पाई, पर 56-पॉइंट रिकॉल अंतर उजागर हुआ: कुल सटीकता भेदभाव छिपाती है।",
+ p4_d:"अत्यधिक असंतुलित (80/20, 6,000 ग्राहक) बैंकिंग डेटा पर एंड-टू-एंड चर्न पाइपलाइन — EDA से क्रॉस-वैलिडेशन तक नौ चरण। लिंग व देश के अनुसार उप-समूह मूल्यांकन से पता चला कि महिला और स्पैनिश ग्राहक व्यवस्थित रूप से वंचित रहे।",
+ p5_d:"देखभाल कर्मियों के लिए AI-संचालित करियर पाथवे बिल्डर: स्किल-गैप विश्लेषण, व्यक्तिगत रोडमैप, किफ़ायती मान्यता-प्राप्त प्रशिक्षण और पोर्टेबल डिजिटल स्किल्स पासपोर्ट — बायस मिटिगेशन, ह्यूमन-इन-द-लूप और समावेशी डिज़ाइन के साथ। TU Dublin में टीम प्रोजेक्ट।",
+ p6_d:"आयरलैंड का पहला सिविक वेस्ट-रिपोर्टिंग एंड्रॉइड ऐप, शुरू से अंत तक: AI इमेज रिकग्निशन, Kotlin/Java में OOP डिज़ाइन और AWS पर स्केलेबल REST बैकएंड — तीन महीनों में अपनाने में +50%।",
+ p7_d:"फ़िनलैंड में गैर-फ़िनिश भाषियों के लिए बहुभाषी जॉब-फाइंडर ऐप — ओउलू में एक्सचेंज छात्र के रूप में समस्या को खुद जीने से जन्मा। लोकलाइज़ेशन-फर्स्ट सोच आज भी मेरे काम को आकार देती है (यह साइट सात भाषाएँ बोलती है)।",
+ t_skills:"टूलकिट",k_skills:"प्रमाण, सिर्फ़ शब्द नहीं",
+ sk_a:"प्रोग्रामिंग भाषाएँ",sk_b:"ML व डीप लर्निंग",sk_c:"RAG व LLM सिस्टम",sk_d:"मानव-केंद्रित AI व अनुसंधान",sk_e:"क्लाउड व इंजीनियरिंग",sk_f:"लीगल AI व ज़िम्मेदार AI",
+ t_edu:"शिक्षा",k_edu:"तीन संस्थान, दो देश",edu1_g:"अपेक्षित: फर्स्ट-क्लास ऑनर्स (1:1)",edu2_g:"सेकंड-क्लास ऑनर्स, ग्रेड 1 (2:1)",edu3_g:"ग्रेड 5 / 5",
+ t_beyond:"टर्मिनल के परे",k_beyond:"मानव, केंद्र में",b_langs:"भाषाएँ जो मैं बोलता हूँ",b_hobbies:"जब मैं ऑफ़लाइन होता हूँ",lv_fluent:"धाराप्रवाह",lv_native:"मातृभाषा",
+ h_1:"आयरिश ट्रेल्स पर हाइकिंग",h_2:"नए शहरों में खो जाना",h_3:"आइस स्केटिंग",h_4:"लाइव गायन",h_5:"फ़िटनेस",
+ t_contact:"संपर्क",c_line1:"आइए कुछ ऐसा बनाएँ जिस पर",c_line2:"भरोसा किया जा सके।",ft_made:"डबलिन में सावधानी से डिज़ाइन व निर्मित",ft_top:"↑ ऊपर जाएँ"
+}
+};
+
+/* store English defaults from the DOM, then swap */
+const EN_CACHE = {};
+document.querySelectorAll('[data-i18n]').forEach(el=>{ EN_CACHE[el.dataset.i18n] = el.innerHTML; });
+
+let currentLang = 'en';
+function setLang(lang){
+  currentLang = lang;
+  const dict = I18N[lang] || {};
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.dataset.i18n;
+    el.innerHTML = (lang==='en') ? EN_CACHE[k] : (dict[k] ?? EN_CACHE[k]);
+  });
+  document.documentElement.lang = lang;
+  document.getElementById('langCur').textContent = lang.toUpperCase();
+  document.querySelectorAll('#langMenu button').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
+  try{ localStorage.setItem('rb-lang', lang); }catch(e){}
+}
+
+/* ================= THEME ================= */
+const root = document.documentElement;
+function setTheme(t){
+  root.setAttribute('data-theme', t);
+  var mt=document.getElementById('metaTheme'); if(mt) mt.setAttribute('content', t==='dark' ? '#101219' : '#f7f4ec');
+  document.getElementById('themeIcon').textContent = t==='dark' ? '☀' : '☾';
+  try{ localStorage.setItem('rb-theme', t); }catch(e){}
+}
+(function init(){
+  let theme='light', lang='en';
+  try{
+    theme = localStorage.getItem('rb-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light');
+    lang = localStorage.getItem('rb-lang') || 'en';
+  }catch(e){
+    theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light';
+  }
+  setTheme(theme);
+  if(lang!=='en') setLang(lang);
+})();
+document.getElementById('themeBtn').addEventListener('click', ()=>{
+  setTheme(root.getAttribute('data-theme')==='dark' ? 'light':'dark');
+});
+
+/* ================= LANGUAGE MENU ================= */
+const langBtn = document.getElementById('langBtn');
+const langMenu = document.getElementById('langMenu');
+langBtn.addEventListener('click', e=>{
+  e.stopPropagation();
+  const open = langMenu.classList.toggle('open');
+  langBtn.setAttribute('aria-expanded', open);
+});
+langMenu.querySelectorAll('button').forEach(b=>{
+  b.addEventListener('click', ()=>{ setLang(b.dataset.lang); langMenu.classList.remove('open'); langBtn.setAttribute('aria-expanded','false'); });
+});
+document.addEventListener('click', ()=>{ langMenu.classList.remove('open'); langBtn.setAttribute('aria-expanded','false'); });
+
+/* ================= MOBILE MENU ================= */
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+menuBtn.addEventListener('click', ()=>{
+  const open = navLinks.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', open);
+  menuBtn.textContent = open ? '✕' : '≡';
+});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{
+  navLinks.classList.remove('open'); menuBtn.textContent='≡'; menuBtn.setAttribute('aria-expanded','false');
+}));
+
+/* ================= TICKER ================= */
+const ticker = document.getElementById('ticker');
+ticker.innerHTML += ticker.innerHTML;
+
+/* ================= SCROLL REVEAL ================= */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+},{threshold:.1, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ================= FOOTER YEAR ================= */
+document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
